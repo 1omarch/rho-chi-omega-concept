@@ -12,9 +12,13 @@ A one-page concept redesign for the **Rho Chi Omega Chapter of Alpha Kappa Alpha
 - A deep emerald green + rose pink palette with champagne gold accents, built around the chapter's own colors and the "Cultured Pearls" / ivy leaf imagery from its founding story
 - All chapter content (history, officers, program targets) pulled directly from the chapter's own public pages
 
+## Photos
+
+The hero, "Our Story," President's Corner portrait, and three gallery tiles (Silver Soror of the Year, Humanitarian of the Year, Awardees) use real photos pulled from the chapter's own public site (aka-rco.org), with the same captions the chapter already publishes there — so members can see themselves in the redesign. Everything else (officer avatars, the remaining gallery tiles) is an elegant placeholder, ready to swap for more real photos.
+
 ## What's placeholder
 
-- Gallery tiles and officer photos are elegant placeholders, ready to swap for real chapter photos
+- Officer photos are initials avatars, and five of the eight gallery tiles are placeholders — both ready to swap for real chapter photos
 - Officer bio text is a placeholder — ready for each officer's own words
 
 ## Running locally

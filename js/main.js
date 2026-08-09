@@ -52,9 +52,24 @@ document.addEventListener('DOMContentLoaded', () => {
       Array.from(trigger.attributes).forEach(attr => {
         if (!attr.name.startsWith('data-fill-')) return;
         const slot = attr.name.replace('data-fill-', '');
+        if (slot === 'photo') return; // handled separately below (needs an <img>, not text)
         const slotEl = backdrop.querySelector(`[data-slot="${slot}"]`);
         if (slotEl) slotEl.textContent = attr.value;
       });
+
+      // gallery lightbox: swap the placeholder emoji for a real photo when one is provided
+      const figure = backdrop.querySelector('[data-slot="figure"]');
+      const note = backdrop.querySelector('[data-slot="note"]');
+      if (figure) {
+        const photoSrc = trigger.dataset.fillPhoto;
+        if (photoSrc) {
+          figure.innerHTML = `<img src="${photoSrc}" alt="" style="width:100%;height:100%;object-fit:cover;">`;
+          if (note) note.style.display = 'none';
+        } else {
+          figure.textContent = '🌿';
+          if (note) note.style.display = '';
+        }
+      }
     }
     backdrop.classList.add('is-open');
     body.classList.add('modal-open');

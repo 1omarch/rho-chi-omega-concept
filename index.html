@@ -59,9 +59,11 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
+  <img class="hero-photo" src="images/chapter-group.jpg" alt="Sorors of the Rho Chi Omega Chapter gathered together in salmon pink and apple green">
+  <div class="hero-overlay"></div>
   <svg class="hero-ivy" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-    <path d="M-50 800C150 650 120 500 250 420 350 700 500 650 520 500 300 460 320 300 480 220 560 460 700 430 700 300 500 260 520 100 700 40 700 260 850 300 950 180" fill="none" stroke="#eaa8b3" stroke-opacity="0.16" stroke-width="2"/>
-    <path d="M1250 750C1050 620 1080 470 950 400 900 620 780 600 760 470 950 440 930 300 800 230 760 460 620 430 620 300" fill="none" stroke="#c9a24d" stroke-opacity="0.12" stroke-width="2"/>
+    <path d="M-50 800C150 650 120 500 250 420 350 700 500 650 520 500 300 460 320 300 480 220 560 460 700 430 700 300 500 260 520 100 700 40 700 260 850 300 950 180" fill="none" stroke="#f2917e" stroke-opacity="0.2" stroke-width="2"/>
+    <path d="M1250 750C1050 620 1080 470 950 400 900 620 780 600 760 470 950 440 930 300 800 230 760 460 620 430 620 300" fill="none" stroke="#8bc34a" stroke-opacity="0.16" stroke-width="2"/>
   </svg>
   <div class="container hero-inner">
     <div>
@@ -85,16 +87,63 @@
 
 <div class="spine-wrap">
 <div class="ivy-spine" aria-hidden="true">
-  <svg viewBox="0 0 90 960" preserveAspectRatio="none">
-    <path class="vine" d="M45 0 C20 55 70 95 45 140 C20 185 70 225 45 270 C20 315 70 355 45 400 C20 445 70 485 45 530 C20 575 70 615 45 660 C20 705 70 745 45 790 C20 835 70 875 45 920 L45 960"/>
-    <g class="node" data-target="stats"><circle cx="45" cy="60" r="4"/></g>
-    <g class="node" data-target="president"><circle cx="45" cy="175" r="4"/></g>
-    <g class="node" data-target="story"><circle cx="45" cy="290" r="4"/></g>
-    <g class="node" data-target="targets"><circle cx="45" cy="405" r="4"/></g>
-    <g class="node" data-target="leadership"><circle cx="45" cy="520" r="4"/></g>
-    <g class="node" data-target="foundation"><circle cx="45" cy="635" r="4"/></g>
-    <g class="node" data-target="gallery"><circle cx="45" cy="750" r="4"/></g>
-    <g class="node" data-target="connect"><circle cx="45" cy="865" r="4"/></g>
+  <svg viewBox="0 0 128 960" preserveAspectRatio="none">
+    <defs>
+      <path id="leafShape" d="M0,-11 C-9,-7 -11,5 0,13 C11,5 9,-7 0,-11 Z"/>
+      <linearGradient id="leafGradApple" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#c3e6a0"/><stop offset="100%" stop-color="#5e8c2a"/>
+      </linearGradient>
+      <linearGradient id="leafGradSalmon" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#ffc4b4"/><stop offset="100%" stop-color="#c14f3d"/>
+      </linearGradient>
+      <linearGradient id="leafGradGold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#f3e6c4"/><stop offset="100%" stop-color="#c9a24d"/>
+      </linearGradient>
+    </defs>
+    <path class="vine" d="M64 0 C34 55 94 95 64 140 C34 185 94 225 64 270 C34 315 94 355 64 400 C34 445 94 485 64 530 C34 575 94 615 64 660 C34 705 94 745 64 790 C34 835 94 875 64 920 L64 960"/>
+
+    <!-- decorative ivy leaves, threaded the full length of the spine -->
+    <use href="#leafShape" class="leaf apple"  transform="translate(30,30)  rotate(-25) scale(1.1)"/>
+    <use href="#leafShape" class="leaf salmon" transform="translate(96,20)  rotate(20)  scale(0.9)"/>
+    <use href="#leafShape" class="leaf gold"   transform="translate(20,95)  rotate(-40) scale(0.8)"/>
+    <use href="#leafShape" class="leaf apple"  transform="translate(100,115) rotate(35) scale(1)"/>
+
+    <use href="#leafShape" class="leaf salmon" transform="translate(28,150) rotate(-15) scale(0.95)"/>
+    <use href="#leafShape" class="leaf apple"  transform="translate(98,205) rotate(28)  scale(1.1)"/>
+    <use href="#leafShape" class="leaf gold"   transform="translate(22,240) rotate(-30) scale(0.85)"/>
+
+    <use href="#leafShape" class="leaf apple"  transform="translate(96,265) rotate(18)  scale(1)"/>
+    <use href="#leafShape" class="leaf salmon" transform="translate(26,320) rotate(-22) scale(1.05)"/>
+    <use href="#leafShape" class="leaf gold"   transform="translate(100,360) rotate(30) scale(0.8)"/>
+
+    <use href="#leafShape" class="leaf salmon" transform="translate(24,395) rotate(-18) scale(0.9)"/>
+    <use href="#leafShape" class="leaf apple"  transform="translate(98,430) rotate(24)  scale(1.1)"/>
+    <use href="#leafShape" class="leaf gold"   transform="translate(28,470) rotate(-35) scale(0.85)"/>
+
+    <use href="#leafShape" class="leaf apple"  transform="translate(98,510) rotate(20)  scale(1)"/>
+    <use href="#leafShape" class="leaf salmon" transform="translate(24,545) rotate(-20) scale(0.95)"/>
+    <use href="#leafShape" class="leaf gold"   transform="translate(100,580) rotate(30) scale(0.8)"/>
+
+    <use href="#leafShape" class="leaf salmon" transform="translate(26,620) rotate(-25) scale(1.05)"/>
+    <use href="#leafShape" class="leaf apple"  transform="translate(98,655) rotate(22)  scale(1)"/>
+    <use href="#leafShape" class="leaf gold"   transform="translate(24,695) rotate(-30) scale(0.85)"/>
+
+    <use href="#leafShape" class="leaf apple"  transform="translate(98,735) rotate(18)  scale(1.1)"/>
+    <use href="#leafShape" class="leaf salmon" transform="translate(26,770) rotate(-20) scale(0.9)"/>
+    <use href="#leafShape" class="leaf gold"   transform="translate(100,805) rotate(28)  scale(0.85)"/>
+
+    <use href="#leafShape" class="leaf salmon" transform="translate(24,845) rotate(-22) scale(1)"/>
+    <use href="#leafShape" class="leaf apple"  transform="translate(98,880) rotate(24)  scale(0.95)"/>
+    <use href="#leafShape" class="leaf gold"   transform="translate(28,920) rotate(-18) scale(0.85)"/>
+
+    <g class="node" data-target="stats"><circle cx="64" cy="60" r="4"/></g>
+    <g class="node" data-target="president"><circle cx="64" cy="175" r="4"/></g>
+    <g class="node" data-target="story"><circle cx="64" cy="290" r="4"/></g>
+    <g class="node" data-target="targets"><circle cx="64" cy="405" r="4"/></g>
+    <g class="node" data-target="leadership"><circle cx="64" cy="520" r="4"/></g>
+    <g class="node" data-target="foundation"><circle cx="64" cy="635" r="4"/></g>
+    <g class="node" data-target="gallery"><circle cx="64" cy="750" r="4"/></g>
+    <g class="node" data-target="connect"><circle cx="64" cy="865" r="4"/></g>
   </svg>
 </div>
 
@@ -114,7 +163,10 @@
   <div class="container">
     <p class="eyebrow">President's Corner</p>
     <div class="quote-block">
-      <div class="quote-portrait">Tiffany<br>Richardson</div>
+      <div class="quote-portrait has-photo">
+        <img src="images/president-portrait.jpg" alt="Tiffany Richardson accepting the 2024 Silver Soror of the Year award">
+        <span class="cap">2024 Silver Soror of the Year</span>
+      </div>
       <div>
         <blockquote>&ldquo;It is an honor to serve as the 11th president of an exceptional, award-winning chapter dedicated to service, scholarship, and sisterhood.&rdquo;</blockquote>
         <p class="quote-cite">Tiffany Richardson <span>President, Rho Chi Omega Chapter</span></p>
@@ -134,7 +186,8 @@
       <p style="color:var(--ink-soft);">Today the chapter's signature initiatives, including the Angel Pageant and the Prince to King Mentoring Program, continue to empower youth across Madison and Morgan Counties, alongside more than $100,000 awarded in scholarships.</p>
       <button class="btn btn-ivy" data-modal-open="modal-history">View the Charter Roster</button>
     </div>
-    <div class="history-figure">
+    <div class="history-figure has-photo">
+      <img src="images/chapter-group.jpg" alt="Sorors of the Rho Chi Omega Chapter gathered together">
       <div class="yr">1989<small>Chartered as Rho Chi Omega</small></div>
     </div>
   </div>
@@ -226,16 +279,16 @@
       </div>
     </div>
     <div class="gallery-grid mt-lg">
-      <button class="tile" data-modal-open="modal-gallery" data-fill-caption="Silver Soror of the Year 2024" data-fill-sub="Mrs. Tiffany Richardson">Silver Soror of the Year 2024</button>
-      <button class="tile" data-modal-open="modal-gallery" data-fill-caption="Humanitarian of the Year" data-fill-sub="Dr. Rosalind Baty">Humanitarian of the Year</button>
-      <button class="tile" data-modal-open="modal-gallery" data-fill-caption="Awardees" data-fill-sub="Chapter honorees">Awardees</button>
+      <button class="tile has-photo" data-modal-open="modal-gallery" data-fill-caption="Silver Soror of the Year 2024" data-fill-sub="Mrs. Tiffany Richardson" data-fill-photo="images/silver-soror-2024.jpg"><img src="images/silver-soror-2024.jpg" alt="Tiffany Richardson receiving the 2024 Silver Soror of the Year award"><span>Silver Soror of the Year 2024</span></button>
+      <button class="tile has-photo" data-modal-open="modal-gallery" data-fill-caption="Humanitarian of the Year" data-fill-sub="Dr. Rosalind Baty" data-fill-photo="images/humanitarian-of-year.jpg"><img src="images/humanitarian-of-year.jpg" alt="Dr. Rosalind Baty receiving the Humanitarian of the Year award"><span>Humanitarian of the Year</span></button>
+      <button class="tile has-photo" data-modal-open="modal-gallery" data-fill-caption="Awardees" data-fill-sub="Chapter honorees" data-fill-photo="images/awardees.jpg"><img src="images/awardees.jpg" alt="Rho Chi Omega chapter award honorees"><span>Awardees</span></button>
       <button class="tile" data-modal-open="modal-gallery" data-fill-caption="Angel Pageant" data-fill-sub="Signature youth program">Angel Pageant</button>
       <button class="tile" data-modal-open="modal-gallery" data-fill-caption="Prince to King Mentoring" data-fill-sub="Signature youth program">Prince to King Mentoring</button>
       <button class="tile" data-modal-open="modal-gallery" data-fill-caption="Founders' Day" data-fill-sub="Chapter tradition">Founders' Day</button>
       <button class="tile" data-modal-open="modal-gallery" data-fill-caption="Scholarship Presentation" data-fill-sub="$100,000+ awarded to date">Scholarship Presentation</button>
       <button class="tile" data-modal-open="modal-gallery" data-fill-caption="Community Service Day" data-fill-sub="Madison &amp; Morgan Counties">Community Service Day</button>
     </div>
-    <p style="margin-top:1.5rem;color:var(--ink-soft);font-size:0.88rem;">Placeholder tiles, ready for your chapter's real photos.</p>
+    <p style="margin-top:1.5rem;color:var(--ink-soft);font-size:0.88rem;">Three real moments from the chapter's own gallery — the rest are placeholder tiles, ready for more photos.</p>
   </div>
 </section>
 
@@ -373,11 +426,11 @@
 <div class="modal-backdrop" id="modal-gallery">
   <div class="modal" role="dialog" aria-modal="true" aria-label="Gallery image detail">
     <button class="modal-close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <div class="modal-figure" style="width:100%;height:220px;border-radius:4px;">🌿</div>
-    <p class="eyebrow" style="color:var(--rose-deep);">Gallery</p>
+    <div class="modal-figure" data-slot="figure" style="width:100%;height:260px;border-radius:4px;overflow:hidden;position:relative;">🌿</div>
+    <p class="eyebrow" style="color:var(--rose-deep);margin-top:1.2rem;">Gallery</p>
     <h3 data-slot="caption">Caption</h3>
     <p data-slot="sub">Subcaption</p>
-    <p style="font-size:0.85rem;">Placeholder — ready for the chapter's real photo here.</p>
+    <p data-slot="note" style="font-size:0.85rem;">Placeholder — ready for the chapter's real photo here.</p>
   </div>
 </div>
 
