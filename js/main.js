@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
           figure.innerHTML = `<img src="${photoSrc}" alt="" style="width:100%;height:100%;object-fit:cover;">`;
           if (note) note.style.display = 'none';
         } else {
-          figure.textContent = '🌿';
+          figure.innerHTML = '<img src="images/single-ivy-leaf-tight.png" alt="" style="width:55%;height:55%;object-fit:contain;">';
           if (note) note.style.display = '';
         }
       }
