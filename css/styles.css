@@ -169,6 +169,10 @@ p { margin: 0 0 1.1em; }
   box-shadow: 0 1px 0 rgba(18,53,36,.08);
 }
 .header-row { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+.header-row > * { min-width: 0; flex-shrink: 1; }
+.header-actions { flex-shrink: 0; }
+.brand { min-width: 0; overflow: hidden; }
+.brand > * { flex-shrink: 0; }
 .brand { display: flex; align-items: center; gap: 0.7rem; font-family: var(--font-display); font-weight: 500; font-size: 1.05rem; color: var(--pearl); }
 .site-header.is-solid .brand { color: var(--ivy-black); }
 .brand-mark { width: 38px; height: 38px; flex-shrink: 0; }
@@ -371,7 +375,11 @@ p { margin: 0 0 1.1em; }
 .stat-sep { width: 6px; height: 6px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, #fff 0%, var(--apple-light) 24%, var(--apple-deep) 70%); opacity: 0.9; box-shadow: 0 1px 2px rgba(0,0,0,.15); }
 
 /* Pull-quote */
-.quote-block { display: grid; grid-template-columns: 240px 1fr; gap: 3.4rem; align-items: center; }
+.quote-block { display: grid; grid-template-columns: 240px minmax(0,1fr); gap: 3.4rem; align-items: center; }
+@media (max-width: 720px) {
+  .quote-block { grid-template-columns: 1fr; gap: 1.8rem; }
+  .quote-portrait { max-width: 220px; margin: 0 auto; }
+}
 .quote-portrait { width: 100%; aspect-ratio: 4/5; border-radius: 3px; background: linear-gradient(150deg, var(--sage), var(--pearl-dim)); border: 1px solid rgba(18,53,36,.14); display: flex; align-items: center; justify-content: center; color: var(--ivy); font-family: var(--font-script); font-style: italic; font-size: 1.5rem; text-align: center; padding: 1rem; position: relative; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(8,25,18,.35); }
 .quote-portrait::after { content: ""; position: absolute; inset: 10px; border: 1px solid var(--gold); opacity: 0.45; pointer-events: none; z-index: 2; }
 .quote-portrait img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
@@ -424,7 +432,11 @@ p { margin: 0 0 1.1em; }
 .section-ivy .pop-card .role { color: var(--rose); }
 
 /* History */
-.history-columns { display: grid; grid-template-columns: 1.3fr 1fr; gap: 4rem; align-items: center; }
+.history-columns { display: grid; grid-template-columns: minmax(0,1.3fr) minmax(0,1fr); gap: 4rem; align-items: center; }
+@media (max-width: 860px) {
+  .history-columns { grid-template-columns: 1fr; gap: 2.2rem; }
+  .history-figure { max-width: 360px; margin: 0 auto; }
+}
 .history-figure { background: linear-gradient(150deg, var(--ivy), var(--ivy-black)); border-radius: 4px; aspect-ratio: 4/5; display: flex; align-items: center; justify-content: center; padding: 2rem; position: relative; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(8,25,18,.4); }
 .history-figure img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; opacity: .8; }
 .history-figure.has-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(8,25,18,.85), rgba(8,25,18,.15) 55%); z-index: 1; }
@@ -451,7 +463,10 @@ p { margin: 0 0 1.1em; }
 @media (max-width: 900px) { .gallery-grid { grid-template-columns: repeat(2, 1fr); } }
 
 /* Contact / get involved */
-.contact-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 3.5rem; }
+.contact-grid { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,1fr); gap: 3.5rem; }
+@media (max-width: 760px) {
+  .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
 .contact-list { list-style: none; margin: 1.6rem 0 0; padding: 0; display: flex; flex-direction: column; gap: 1.1rem; }
 .contact-list a { display: flex; align-items: center; gap: 0.9rem; font-size: 0.98rem; padding-bottom: 1.05rem; border-bottom: 1px solid rgba(250,246,238,0.14); transition: color .2s ease, gap .2s ease; }
 .contact-list a:hover { color: var(--rose); gap: 1.2rem; }
@@ -752,4 +767,20 @@ p { margin: 0 0 1.1em; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   * { transition: none !important; animation: none !important; }
+}
+
+/* Defensive fix: grid/flex children default to min-width:auto, which lets
+   their content (long text, an image before it's out of flow, etc.) refuse
+   to shrink and force the whole row — and sometimes the whole page on
+   mobile — wider than the viewport. Zero that out everywhere it matters. */
+.hero-inner > *,
+.quote-block > *,
+.history-columns > *,
+.contact-grid > *,
+.board-grid > *,
+.leaders-preview > *,
+.grid-2 > *, .grid-3 > *, .grid-4 > *,
+.target-rows > *,
+.footer-grid > * {
+  min-width: 0;
 }
