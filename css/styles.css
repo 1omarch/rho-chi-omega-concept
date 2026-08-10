@@ -606,6 +606,7 @@ p { margin: 0 0 1.1em; }
 .footer-grid h4 { color: var(--ivy-black); font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 700; margin-bottom: 1.1em; }
 .footer-grid ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.65rem; font-size: 0.9rem; }
 .footer-grid a:hover { color: var(--salmon-deep); }
+.footer-emblem { height: 52px; width: auto; margin-bottom: 1rem; }
 .footer-brand { font-family: var(--font-display); font-size: 1.35rem; color: var(--ivy-black); margin-bottom: 0.5rem; }
 .footer-tag { font-family: var(--font-script); font-style: italic; color: var(--salmon-deep); font-size: 1.2rem; }
 .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding-top: 1.8rem; font-size: 0.8rem; }
@@ -824,12 +825,13 @@ p { margin: 0 0 1.1em; }
 .carousel-nav button:hover { background: var(--ivy); color: var(--pearl); border-color: var(--ivy); }
 
 /* Foundation logo — large, transparent, sitting above the banner in normal flow */
-.foundation-logo-row { margin-bottom: -.5rem; position: relative; z-index: 2; }
+.foundation-logo-row { margin-bottom: .6rem; }
 .foundation-logo-float {
-  width: clamp(220px, 24vw, 340px);
+  display: block;
+  width: clamp(200px, 20vw, 300px);
   height: auto;
   opacity: .97;
-  filter: drop-shadow(0 14px 26px rgba(8,25,18,.18));
+  filter: drop-shadow(0 10px 18px rgba(8,25,18,.16));
 }
 @media (max-width: 760px) {
   .foundation-logo-float { width: 200px; }
