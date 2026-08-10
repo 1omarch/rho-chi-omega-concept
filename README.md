@@ -14,12 +14,12 @@ A one-page concept redesign for the **Rho Chi Omega Chapter of Alpha Kappa Alpha
 
 ## Photos
 
-The hero, "Our Story," President's Corner portrait, and three gallery tiles (Silver Soror of the Year, Humanitarian of the Year, Awardees) use real photos pulled from the chapter's own public site (aka-rco.org), with the same captions the chapter already publishes there — so members can see themselves in the redesign. Everything else (officer avatars, the remaining gallery tiles) is an elegant placeholder, ready to swap for more real photos.
+Real chapter photos throughout, supplied by the chapter: the full-chapter hero photo, a professional headshot of President Tiffany Richardson, the 1989 charter members photo, the AKA crest and Emerald Foundation logo, all 18 executive board members' headshots (pop-out "Meet the Full Board"), a 6-photo gallery carousel, and both Upcoming Events flyers (Emerald Fundraiser, 35th Angel Pageant).
 
 ## What's placeholder
 
-- Officer photos are initials avatars, and five of the eight gallery tiles are placeholders — both ready to swap for real chapter photos
-- Officer bio text is a placeholder — ready for each officer's own words
+- Officer bio text inside the board pop-out is a placeholder — ready for each officer's own words
+- "Member Login" links to `#` — wire it up to the chapter's real member portal when ready
 
 ## Running locally
 

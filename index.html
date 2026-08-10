@@ -15,16 +15,20 @@
 <header class="site-header scrolls">
   <div class="container header-row">
     <a class="brand" href="#top">
-      <svg class="brand-mark" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M24 4C15 4 8 11 8 22c0 12 8 20 18 22 2-6 2-13-2-17-4 4-10 4-12-2 6 2 10 0 12-6-6 0-10-4-10-10 6 2 10 6 10 12 4-2 6-6 6-12 0-6-4-6-6-6z" stroke="#eaa8b3" stroke-width="1.6" stroke-linejoin="round"/>
-      </svg>
+      <img class="brand-mark aka-emblem" src="images/aka-emblem.png" alt="Alpha Kappa Alpha Sorority, Incorporated crest">
       Rho Chi Omega
       <small>Alpha Kappa Alpha Sorority, Inc.®</small>
     </a>
-    <button class="menu-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="menu-overlay">
-      <span class="label">Menu</span>
-      <span class="burger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></span>
-    </button>
+    <div class="header-actions">
+      <a class="member-login" href="#" title="Concept placeholder — links to the chapter's real member portal">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        <span class="txt">Member Login</span>
+      </a>
+      <button class="menu-toggle" aria-haspopup="true" aria-expanded="false" aria-controls="menu-overlay">
+        <span class="label">Menu</span>
+        <span class="burger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -59,20 +63,39 @@
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="top">
-  <img class="hero-photo" src="images/chapter-group.jpg" alt="Sorors of the Rho Chi Omega Chapter gathered together in salmon pink and apple green">
+  <img class="hero-photo" src="images/hero-chapter.jpg" alt="All the sorors of the Rho Chi Omega Chapter gathered together">
   <div class="hero-overlay"></div>
   <svg class="hero-ivy" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-    <path d="M-50 800C150 650 120 500 250 420 350 700 500 650 520 500 300 460 320 300 480 220 560 460 700 430 700 300 500 260 520 100 700 40 700 260 850 300 950 180" fill="none" stroke="#f2917e" stroke-opacity="0.2" stroke-width="2"/>
-    <path d="M1250 750C1050 620 1080 470 950 400 900 620 780 600 760 470 950 440 930 300 800 230 760 460 620 430 620 300" fill="none" stroke="#8bc34a" stroke-opacity="0.16" stroke-width="2"/>
+    <path d="M-50 800C150 650 120 500 250 420 350 700 500 650 520 500 300 460 320 300 480 220 560 460 700 430 700 300 500 260 520 100 700 40 700 260 850 300 950 180" fill="none" stroke="#8bc34a" stroke-opacity="0.18" stroke-width="2"/>
+    <path d="M1250 750C1050 620 1080 470 950 400 900 620 780 600 760 470 950 440 930 300 800 230 760 460 620 430 620 300" fill="none" stroke="#c9a24d" stroke-opacity="0.14" stroke-width="2"/>
   </svg>
   <div class="container hero-inner">
     <div>
       <p class="eyebrow">Rho&nbsp;Chi&nbsp;Omega Chapter &middot; Madison &amp; Morgan Counties, AL</p>
-      <h1>Pearls, perpetually<br>pivoting with <span class="script">power.</span></h1>
+      <h1>
+        <span class="sparkle-wrap">
+          <span class="sparkle-text">Rho Chi Omega Chapter</span>
+          <svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0l2.1 8.9L23 12l-8.9 2.1L12 24l-2.1-8.9L1 12l8.9-2.1L12 0z"/></svg>
+          <svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0l2.1 8.9L23 12l-8.9 2.1L12 24l-2.1-8.9L1 12l8.9-2.1L12 0z"/></svg>
+          <svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0l2.1 8.9L23 12l-8.9 2.1L12 24l-2.1-8.9L1 12l8.9-2.1L12 0z"/></svg>
+          <svg class="spark" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0l2.1 8.9L23 12l-8.9 2.1L12 24l-2.1-8.9L1 12l8.9-2.1L12 0z"/></svg>
+        </span>
+      </h1>
+      <p class="hero-subtitle">Pearls, perpetually pivoting with power.</p>
       <p class="hero-lede">Since 1989, Rho Chi Omega has carried Alpha Kappa Alpha's mission into North Alabama — scholarship, wellness, and sisterhood, chartered by twenty-seven women who called themselves the Cultured Pearls.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#story">Our Story</a>
         <a class="btn btn-outline" href="#foundation">Support the Foundation</a>
+      </div>
+
+      <!-- Upcoming Events teaser -->
+      <div class="events-teaser">
+        <span class="et-label">Upcoming Events</span>
+        <span class="et-sub">Empowering Communities</span>
+        <div class="et-row">
+          <button class="et-chip" data-modal-open="modal-event-fundraiser"><span class="et-plus">+</span> Emerald Fundraiser</button>
+          <button class="et-chip" data-modal-open="modal-event-pageant"><span class="et-plus">+</span> 35th Angel Pageant</button>
+        </div>
       </div>
     </div>
     <div class="hero-meta">
@@ -89,52 +112,52 @@
 <div class="ivy-spine" aria-hidden="true">
   <svg viewBox="0 0 128 960" preserveAspectRatio="none">
     <defs>
-      <path id="leafShape" d="M0,-11 C-9,-7 -11,5 0,13 C11,5 9,-7 0,-11 Z"/>
+      <path id="leafShape" d="M0,-12 C-10,-8 -12,6 0,15 C12,6 10,-8 0,-12 Z"/>
       <linearGradient id="leafGradApple" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#c3e6a0"/><stop offset="100%" stop-color="#5e8c2a"/>
+        <stop offset="0%" stop-color="#bfe38f"/><stop offset="100%" stop-color="#5e8c2a"/>
       </linearGradient>
-      <linearGradient id="leafGradSalmon" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#ffc4b4"/><stop offset="100%" stop-color="#c14f3d"/>
+      <linearGradient id="leafGradDeep" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#5e8c56"/><stop offset="100%" stop-color="#123524"/>
       </linearGradient>
-      <linearGradient id="leafGradGold" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="#f3e6c4"/><stop offset="100%" stop-color="#c9a24d"/>
+      <linearGradient id="leafGradSage" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#eef3e2"/><stop offset="100%" stop-color="#8fae72"/>
       </linearGradient>
     </defs>
     <path class="vine" d="M64 0 C34 55 94 95 64 140 C34 185 94 225 64 270 C34 315 94 355 64 400 C34 445 94 485 64 530 C34 575 94 615 64 660 C34 705 94 745 64 790 C34 835 94 875 64 920 L64 960"/>
 
-    <!-- decorative ivy leaves, threaded the full length of the spine -->
-    <use href="#leafShape" class="leaf apple"  transform="translate(30,30)  rotate(-25) scale(1.1)"/>
-    <use href="#leafShape" class="leaf salmon" transform="translate(96,20)  rotate(20)  scale(0.9)"/>
-    <use href="#leafShape" class="leaf gold"   transform="translate(20,95)  rotate(-40) scale(0.8)"/>
-    <use href="#leafShape" class="leaf apple"  transform="translate(100,115) rotate(35) scale(1)"/>
+    <!-- realistic ivy leaf clusters, all-green, threaded the full length of the spine -->
+    <g><use href="#leafShape" class="leaf deep"  transform="translate(30,28)  rotate(-25) scale(1.15)"/><path class="leaf-vein" d="M30,18 L30,38"/></g>
+    <use href="#leafShape" class="leaf apple" transform="translate(96,18)  rotate(20)  scale(0.9)"/>
+    <use href="#leafShape" class="leaf sage"  transform="translate(20,92)  rotate(-40) scale(0.85)"/>
+    <use href="#leafShape" class="leaf deep"  transform="translate(100,112) rotate(35) scale(1.05)"/>
 
-    <use href="#leafShape" class="leaf salmon" transform="translate(28,150) rotate(-15) scale(0.95)"/>
-    <use href="#leafShape" class="leaf apple"  transform="translate(98,205) rotate(28)  scale(1.1)"/>
-    <use href="#leafShape" class="leaf gold"   transform="translate(22,240) rotate(-30) scale(0.85)"/>
+    <use href="#leafShape" class="leaf apple" transform="translate(28,150) rotate(-15) scale(1)"/>
+    <use href="#leafShape" class="leaf deep"  transform="translate(98,205) rotate(28)  scale(1.1)"/>
+    <use href="#leafShape" class="leaf sage"  transform="translate(22,240) rotate(-30) scale(0.85)"/>
 
-    <use href="#leafShape" class="leaf apple"  transform="translate(96,265) rotate(18)  scale(1)"/>
-    <use href="#leafShape" class="leaf salmon" transform="translate(26,320) rotate(-22) scale(1.05)"/>
-    <use href="#leafShape" class="leaf gold"   transform="translate(100,360) rotate(30) scale(0.8)"/>
+    <use href="#leafShape" class="leaf deep"  transform="translate(96,265) rotate(18)  scale(1)"/>
+    <use href="#leafShape" class="leaf apple" transform="translate(26,320) rotate(-22) scale(1.1)"/>
+    <use href="#leafShape" class="leaf sage"  transform="translate(100,360) rotate(30) scale(0.8)"/>
 
-    <use href="#leafShape" class="leaf salmon" transform="translate(24,395) rotate(-18) scale(0.9)"/>
-    <use href="#leafShape" class="leaf apple"  transform="translate(98,430) rotate(24)  scale(1.1)"/>
-    <use href="#leafShape" class="leaf gold"   transform="translate(28,470) rotate(-35) scale(0.85)"/>
+    <use href="#leafShape" class="leaf apple" transform="translate(24,395) rotate(-18) scale(0.95)"/>
+    <use href="#leafShape" class="leaf deep"  transform="translate(98,430) rotate(24)  scale(1.15)"/>
+    <use href="#leafShape" class="leaf sage"  transform="translate(28,470) rotate(-35) scale(0.85)"/>
 
-    <use href="#leafShape" class="leaf apple"  transform="translate(98,510) rotate(20)  scale(1)"/>
-    <use href="#leafShape" class="leaf salmon" transform="translate(24,545) rotate(-20) scale(0.95)"/>
-    <use href="#leafShape" class="leaf gold"   transform="translate(100,580) rotate(30) scale(0.8)"/>
+    <use href="#leafShape" class="leaf deep"  transform="translate(98,510) rotate(20)  scale(1)"/>
+    <use href="#leafShape" class="leaf apple" transform="translate(24,545) rotate(-20) scale(1)"/>
+    <use href="#leafShape" class="leaf sage"  transform="translate(100,580) rotate(30) scale(0.8)"/>
 
-    <use href="#leafShape" class="leaf salmon" transform="translate(26,620) rotate(-25) scale(1.05)"/>
-    <use href="#leafShape" class="leaf apple"  transform="translate(98,655) rotate(22)  scale(1)"/>
-    <use href="#leafShape" class="leaf gold"   transform="translate(24,695) rotate(-30) scale(0.85)"/>
+    <use href="#leafShape" class="leaf apple" transform="translate(26,620) rotate(-25) scale(1.1)"/>
+    <use href="#leafShape" class="leaf deep"  transform="translate(98,655) rotate(22)  scale(1)"/>
+    <use href="#leafShape" class="leaf sage"  transform="translate(24,695) rotate(-30) scale(0.85)"/>
 
-    <use href="#leafShape" class="leaf apple"  transform="translate(98,735) rotate(18)  scale(1.1)"/>
-    <use href="#leafShape" class="leaf salmon" transform="translate(26,770) rotate(-20) scale(0.9)"/>
-    <use href="#leafShape" class="leaf gold"   transform="translate(100,805) rotate(28)  scale(0.85)"/>
+    <use href="#leafShape" class="leaf deep"  transform="translate(98,735) rotate(18)  scale(1.15)"/>
+    <use href="#leafShape" class="leaf apple" transform="translate(26,770) rotate(-20) scale(0.95)"/>
+    <use href="#leafShape" class="leaf sage"  transform="translate(100,805) rotate(28)  scale(0.85)"/>
 
-    <use href="#leafShape" class="leaf salmon" transform="translate(24,845) rotate(-22) scale(1)"/>
-    <use href="#leafShape" class="leaf apple"  transform="translate(98,880) rotate(24)  scale(0.95)"/>
-    <use href="#leafShape" class="leaf gold"   transform="translate(28,920) rotate(-18) scale(0.85)"/>
+    <use href="#leafShape" class="leaf apple" transform="translate(24,845) rotate(-22) scale(1.05)"/>
+    <use href="#leafShape" class="leaf deep"  transform="translate(98,880) rotate(24)  scale(1)"/>
+    <use href="#leafShape" class="leaf sage"  transform="translate(28,920) rotate(-18) scale(0.85)"/>
 
     <g class="node" data-target="stats"><circle cx="64" cy="60" r="4"/></g>
     <g class="node" data-target="president"><circle cx="64" cy="175" r="4"/></g>
@@ -164,8 +187,8 @@
     <p class="eyebrow">President's Corner</p>
     <div class="quote-block">
       <div class="quote-portrait has-photo">
-        <img src="images/president-portrait.jpg" alt="Tiffany Richardson accepting the 2024 Silver Soror of the Year award">
-        <span class="cap">2024 Silver Soror of the Year</span>
+        <img src="images/president.jpg" alt="Tiffany Richardson, President of the Rho Chi Omega Chapter">
+        <span class="cap">Tiffany Richardson</span>
       </div>
       <div>
         <blockquote>&ldquo;It is an honor to serve as the 11th president of an exceptional, award-winning chapter dedicated to service, scholarship, and sisterhood.&rdquo;</blockquote>
@@ -184,48 +207,52 @@
       <h2>Twenty-seven women. One Cultured Pearl legacy.</h2>
       <p style="color:var(--ink-soft);">In the fall of 1987, more than fifty accomplished women united to reclaim and retain sorors across North Alabama. After two years of dedication, twenty-seven of them &mdash; revered as the &ldquo;Cultured Pearls&rdquo; &mdash; were chartered as the Rho Chi Omega Chapter on July 29, 1989.</p>
       <p style="color:var(--ink-soft);">Today the chapter's signature initiatives, including the Angel Pageant and the Prince to King Mentoring Program, continue to empower youth across Madison and Morgan Counties, alongside more than $100,000 awarded in scholarships.</p>
-      <button class="btn btn-ivy" data-modal-open="modal-history">View the Charter Roster</button>
+      <button class="btn btn-ivy" data-modal-open="modal-story">Read Our Full Story</button>
     </div>
     <div class="history-figure has-photo">
-      <img src="images/chapter-group.jpg" alt="Sorors of the Rho Chi Omega Chapter gathered together">
+      <img src="images/founders.jpg" alt="The charter members of the Rho Chi Omega Chapter, 1989">
       <div class="yr">1989<small>Chartered as Rho Chi Omega</small></div>
     </div>
   </div>
 </section>
 
 <!-- ============ TARGETS ============ -->
-<section id="targets" class="section section-ivy has-spine reveal">
+<section id="targets" class="section section-bright has-spine reveal">
   <div class="container">
     <div class="section-head">
-      <p class="eyebrow">2026&ndash;2030 International Program</p>
-      <h2>Seven targets, one mission.</h2>
-      <p>Rho Chi Omega mobilizes alongside more than 120,000 sorors internationally. Tap any target to read more about how it shapes our work in North Alabama.</p>
+      <p class="eyebrow">2026&ndash;2030 International Program Targets</p>
+      <h2>Eight targets, one mission.</h2>
+      <p>Service and sisterhood have been the foundation of Alpha Kappa Alpha Sorority, Incorporated&reg; since 1908. Guided by the theme Championing Service. Empowering Sisterhood. Transforming the World, the 2026&ndash;2030 administration builds upon the Sorority&rsquo;s distinguished legacy by mobilizing a sisterhood of more than 120,000 active members to lead boldly on the front lines of change, education, and advocacy.</p>
     </div>
-    <div class="pop-grid grid-4">
-      <button class="pop-card" data-modal-open="modal-target" data-fill-num="01" data-fill-title="Educational Support &amp; Advocacy" data-fill-body="Scholarships and academic enrichment that keep college-bound students moving forward — building on a chapter history of more than $100,000 awarded to date.">
-        <span class="expand">+</span><span class="idx">01</span><h3>Educational Support &amp; Advocacy</h3><p>Scholarships and academic enrichment for college-bound students.</p>
+    <div class="target-rows">
+      <button class="target-row" data-modal-open="modal-target" data-fill-num="01" data-fill-title="Educational Support &amp; Advocacy" data-fill-body="Scholarships and academic enrichment that keep college-bound students moving forward — building on a chapter history of more than $100,000 awarded to date.">
+        <span class="tr-num">01</span><span class="tr-title">Educational Support &amp; Advocacy</span><span class="tr-plus">+</span>
       </button>
-      <button class="pop-card" data-modal-open="modal-target" data-fill-num="02" data-fill-title="AKA Family Matters" data-fill-body="Programs that strengthen the bonds of sisterhood itself — wellness check-ins, chapter fellowship, and support for sorors and the families who root for them.">
-        <span class="expand">+</span><span class="idx">02</span><h3>AKA Family Matters</h3><p>Strengthening the bonds of sisterhood and chapter wellbeing.</p>
+      <button class="target-row" data-modal-open="modal-target" data-fill-num="02" data-fill-title="AKA Family Matters" data-fill-body="Programs that strengthen the bonds of sisterhood itself — wellness check-ins, chapter fellowship, and support for sorors and the families who root for them.">
+        <span class="tr-num">02</span><span class="tr-title">AKA Family Matters</span><span class="tr-plus">+</span>
       </button>
-      <button class="pop-card" data-modal-open="modal-target" data-fill-num="03" data-fill-title="Health Awareness &amp; Well-Being" data-fill-body="Wellness outreach and health education brought directly into Madison and Morgan Counties, from community screenings to health-focused partnerships.">
-        <span class="expand">+</span><span class="idx">03</span><h3>Health Awareness &amp; Well-Being</h3><p>Wellness outreach and health education across the community.</p>
+      <button class="target-row" data-modal-open="modal-target" data-fill-num="03" data-fill-title="Health Awareness &amp; Well-Being" data-fill-body="Wellness outreach and health education brought directly into Madison and Morgan Counties, from community screenings to health-focused partnerships.">
+        <span class="tr-num">03</span><span class="tr-title">Health Awareness &amp; Well-Being</span><span class="tr-plus">+</span>
       </button>
-      <button class="pop-card" data-modal-open="modal-target" data-fill-num="04" data-fill-title="Economic Growth &amp; Success" data-fill-body="Financial literacy and economic-opportunity programming aimed at building lasting stability for families across North Alabama.">
-        <span class="expand">+</span><span class="idx">04</span><h3>Economic Growth &amp; Success</h3><p>Programs building financial literacy and economic opportunity.</p>
+      <button class="target-row" data-modal-open="modal-target" data-fill-num="04" data-fill-title="Economic Growth &amp; Success" data-fill-body="Financial literacy and economic-opportunity programming aimed at building lasting stability for families across North Alabama.">
+        <span class="tr-num">04</span><span class="tr-title">Economic Growth &amp; Success</span><span class="tr-plus">+</span>
       </button>
-      <button class="pop-card" data-modal-open="modal-target" data-fill-num="05" data-fill-title="Environmental &amp; Sustainability Action" data-fill-body="Community initiatives in environmental stewardship — from clean-up efforts to sustainability education for the neighborhoods we serve.">
-        <span class="expand">+</span><span class="idx">05</span><h3>Environmental &amp; Sustainability Action</h3><p>Community initiatives in environmental stewardship.</p>
+      <button class="target-row" data-modal-open="modal-target" data-fill-num="05" data-fill-title="Environmental &amp; Sustainability Action" data-fill-body="Community initiatives in environmental stewardship — from clean-up efforts to sustainability education for the neighborhoods we serve.">
+        <span class="tr-num">05</span><span class="tr-title">Environmental &amp; Sustainability Action</span><span class="tr-plus">+</span>
       </button>
-      <button class="pop-card" data-modal-open="modal-target" data-fill-num="06" data-fill-title="Arts Advocacy &amp; Cultural Awareness" data-fill-body="Championing the arts and cultural enrichment locally, celebrating creative expression across Madison and Morgan Counties.">
-        <span class="expand">+</span><span class="idx">06</span><h3>Arts Advocacy &amp; Cultural Awareness</h3><p>Championing the arts and cultural enrichment locally.</p>
+      <button class="target-row" data-modal-open="modal-target" data-fill-num="06" data-fill-title="Arts Advocacy &amp; Cultural Awareness" data-fill-body="Championing the arts and cultural enrichment locally, celebrating creative expression across Madison and Morgan Counties.">
+        <span class="tr-num">06</span><span class="tr-title">Arts Advocacy &amp; Cultural Awareness</span><span class="tr-plus">+</span>
       </button>
-      <button class="pop-card" data-modal-open="modal-target" data-fill-num="07" data-fill-title="The Global Community" data-fill-body="Extending service and partnership beyond North Alabama, in step with Alpha Kappa Alpha's international reach and global community programs.">
-        <span class="expand">+</span><span class="idx">07</span><h3>The Global Community</h3><p>Extending service and partnership beyond North Alabama.</p>
+      <button class="target-row" data-modal-open="modal-target" data-fill-num="07" data-fill-title="The Global Community" data-fill-body="Extending service and partnership beyond North Alabama, in step with Alpha Kappa Alpha's international reach and global community programs.">
+        <span class="tr-num">07</span><span class="tr-title">The Global Community</span><span class="tr-plus">+</span>
       </button>
-      <button class="pop-card" data-modal-open="modal-target" data-fill-num="08" data-fill-title="Undergraduate Impact Program" data-fill-body="Mentoring and supporting the next generation of sorors as they move from campus chapters into graduate membership.">
-        <span class="expand">+</span><span class="idx">08</span><h3>Undergraduate Impact Program</h3><p>Mentoring and supporting the next generation of sorors.</p>
+      <button class="target-row" data-modal-open="modal-target" data-fill-num="08" data-fill-title="Undergraduate Impact Program" data-fill-body="Mentoring and supporting the next generation of sorors as they move from campus chapters into graduate membership.">
+        <span class="tr-num">08</span><span class="tr-title">Undergraduate Impact Program</span><span class="tr-plus">+</span>
       </button>
+    </div>
+    <div class="targets-links">
+      <a class="btn btn-ivy" href="https://aka1908.com/2026-2030-overall-agenda/" target="_blank" rel="noopener">Visit AKA1908</a>
+      <a class="btn btn-ghost" href="https://aka1908.com/southeastern/home/" target="_blank" rel="noopener">South Eastern Region Home</a>
     </div>
   </div>
 </section>
@@ -236,19 +263,19 @@
     <div class="section-head">
       <p class="eyebrow">Our Leadership</p>
       <h2>Guided by an executive board of dedicated sorors.</h2>
-      <p>Tap a card for more about each officer's role on the board.</p>
+      <p>Eighteen sorors serve on the Rho Chi Omega executive board.</p>
     </div>
-    <div class="pop-grid grid-4">
-      <button class="pop-card" data-modal-open="modal-officer" data-fill-name="Tiffany Richardson" data-fill-role="President" data-fill-initials="TR"><span class="expand">+</span><div class="officer-photo">TR</div><span class="role">President</span><h3>Tiffany Richardson</h3></button>
-      <button class="pop-card" data-modal-open="modal-officer" data-fill-name="Bobbie Terry" data-fill-role="Vice President" data-fill-initials="BT"><span class="expand">+</span><div class="officer-photo">BT</div><span class="role">Vice President</span><h3>Bobbie Terry</h3></button>
-      <button class="pop-card" data-modal-open="modal-officer" data-fill-name="Sharon Rivers" data-fill-role="Treasurer" data-fill-initials="SR"><span class="expand">+</span><div class="officer-photo">SR</div><span class="role">Treasurer</span><h3>Sharon Rivers</h3></button>
-      <button class="pop-card" data-modal-open="modal-officer" data-fill-name="Jacqueline Jones" data-fill-role="Recording Secretary" data-fill-initials="JJ"><span class="expand">+</span><div class="officer-photo">JJ</div><span class="role">Recording Secretary</span><h3>Jacqueline Jones</h3></button>
-      <button class="pop-card" data-modal-open="modal-officer" data-fill-name="Utevia Nobles" data-fill-role="Financial Secretary" data-fill-initials="UN"><span class="expand">+</span><div class="officer-photo">UN</div><span class="role">Financial Secretary</span><h3>Utevia Nobles</h3></button>
-      <button class="pop-card" data-modal-open="modal-officer" data-fill-name="Felicia McCarty" data-fill-role="Parliamentarian" data-fill-initials="FM"><span class="expand">+</span><div class="officer-photo">FM</div><span class="role">Parliamentarian</span><h3>Felicia McCarty</h3></button>
-      <button class="pop-card" data-modal-open="modal-officer" data-fill-name="Phyllis Looney-Jones" data-fill-role="Chaplain" data-fill-initials="PL"><span class="expand">+</span><div class="officer-photo">PL</div><span class="role">Chaplain</span><h3>Phyllis Looney-Jones</h3></button>
-      <button class="pop-card" data-modal-open="modal-officer" data-fill-name="Mariel Chambers" data-fill-role="Ivy Leaf Reporter" data-fill-initials="MC"><span class="expand">+</span><div class="officer-photo">MC</div><span class="role">Ivy Leaf Reporter</span><h3>Mariel Chambers</h3></button>
+    <div class="leaders-preview">
+      <div class="stack">
+        <img src="images/leadership/tiffany-richardson-president.jpg" alt="Tiffany Richardson">
+        <img src="images/leadership/bobbie-terry-vice-president.jpg" alt="Bobbie Terry">
+        <img src="images/leadership/sharon-rivers-treasurer.jpg" alt="Sharon Rivers">
+        <img src="images/leadership/jacqueline-jones-recording-secretary.jpg" alt="Jacqueline Jones">
+        <img src="images/leadership/mariel-chambers-ivy-leaf-reporter.jpg" alt="Mariel Chambers">
+        <span class="more-count">+13</span>
+      </div>
+      <button class="btn btn-ivy" data-modal-open="modal-board">Meet the Full Board</button>
     </div>
-    <p class="text-center mt-lg" style="color:var(--ink-soft);font-size:0.9rem;">Plus Q. Chynell Gray, Kassel Kendricks, Valerie Britton, Lyscelle Reyes, Courtney Jones, Acacia Sturdivant, Chandra Marsh, and members-at-large Gloria Flowers, Lenita Davis &amp; Felicia West.</p>
   </div>
 </section>
 
@@ -257,6 +284,7 @@
   <div class="container">
     <div class="banner">
       <div>
+        <img class="foundation-logo" src="images/emerald-logo.png" alt="The Emerald Community Empowerment Foundation, Inc. logo">
         <p class="eyebrow" style="color:var(--ivy-black);">Emerald Community Empowerment Foundation</p>
         <h2>Powered by service. Perpetuated by sisterhood.</h2>
         <p>The official philanthropic affiliate of Rho Chi Omega — a registered 501(c)(3) public charity supporting scholarships and community programs across North Alabama.</p>
@@ -277,28 +305,50 @@
         <p class="eyebrow">Gallery</p>
         <h2>Moments of service and sisterhood.</h2>
       </div>
+      <div class="carousel-nav">
+        <button type="button" data-carousel-prev aria-label="Scroll gallery left"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg></button>
+        <button type="button" data-carousel-next aria-label="Scroll gallery right"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+      </div>
     </div>
-    <div class="gallery-grid mt-lg">
-      <button class="tile has-photo" data-modal-open="modal-gallery" data-fill-caption="Silver Soror of the Year 2024" data-fill-sub="Mrs. Tiffany Richardson" data-fill-photo="images/silver-soror-2024.jpg"><img src="images/silver-soror-2024.jpg" alt="Tiffany Richardson receiving the 2024 Silver Soror of the Year award"><span>Silver Soror of the Year 2024</span></button>
-      <button class="tile has-photo" data-modal-open="modal-gallery" data-fill-caption="Humanitarian of the Year" data-fill-sub="Dr. Rosalind Baty" data-fill-photo="images/humanitarian-of-year.jpg"><img src="images/humanitarian-of-year.jpg" alt="Dr. Rosalind Baty receiving the Humanitarian of the Year award"><span>Humanitarian of the Year</span></button>
-      <button class="tile has-photo" data-modal-open="modal-gallery" data-fill-caption="Awardees" data-fill-sub="Chapter honorees" data-fill-photo="images/awardees.jpg"><img src="images/awardees.jpg" alt="Rho Chi Omega chapter award honorees"><span>Awardees</span></button>
-      <button class="tile" data-modal-open="modal-gallery" data-fill-caption="Angel Pageant" data-fill-sub="Signature youth program">Angel Pageant</button>
-      <button class="tile" data-modal-open="modal-gallery" data-fill-caption="Prince to King Mentoring" data-fill-sub="Signature youth program">Prince to King Mentoring</button>
-      <button class="tile" data-modal-open="modal-gallery" data-fill-caption="Founders' Day" data-fill-sub="Chapter tradition">Founders' Day</button>
-      <button class="tile" data-modal-open="modal-gallery" data-fill-caption="Scholarship Presentation" data-fill-sub="$100,000+ awarded to date">Scholarship Presentation</button>
-      <button class="tile" data-modal-open="modal-gallery" data-fill-caption="Community Service Day" data-fill-sub="Madison &amp; Morgan Counties">Community Service Day</button>
+    <div class="carousel-wrap">
+      <div class="carousel" id="gallery-carousel">
+        <button class="slide" data-modal-open="modal-gallery" data-fill-caption="Silver Soror of the Year 2024" data-fill-sub="Mrs. Tiffany Richardson" data-fill-photo="images/gallery/silver-soror-of-the-year-2024-mrs-tiffany-richardson.jpg">
+          <img src="images/gallery/silver-soror-of-the-year-2024-mrs-tiffany-richardson.jpg" alt="Silver Soror of the Year 2024, Mrs. Tiffany Richardson">
+          <span class="cap-bar">Silver Soror of the Year 2024 — Mrs. Tiffany Richardson</span>
+        </button>
+        <button class="slide" data-modal-open="modal-gallery" data-fill-caption="Humanitarian of the Year" data-fill-sub="Dr. Roslind Baty" data-fill-photo="images/gallery/humanitarian-of-the-year-dr-roslind-baty.jpg">
+          <img src="images/gallery/humanitarian-of-the-year-dr-roslind-baty.jpg" alt="Humanitarian of the Year, Dr. Roslind Baty">
+          <span class="cap-bar">Humanitarian of the Year — Dr. Roslind Baty</span>
+        </button>
+        <button class="slide" data-modal-open="modal-gallery" data-fill-caption="Pearl Soror of the Year" data-fill-sub="Mrs. Mary Daniels — 65 years" data-fill-photo="images/gallery/pearl-soror-of-the-year-65-years-mrs-mary-daniels.jpg">
+          <img src="images/gallery/pearl-soror-of-the-year-65-years-mrs-mary-daniels.jpg" alt="Pearl Soror of the Year, 65 years, Mrs. Mary Daniels">
+          <span class="cap-bar">Pearl Soror of the Year (65 years) — Mrs. Mary Daniels</span>
+        </button>
+        <button class="slide" data-modal-open="modal-gallery" data-fill-caption="Sisterly Relations Award 2024" data-fill-sub="Ms. La Kesha Taldon" data-fill-photo="images/gallery/sisterly-relations-award-2024-ms-la-kesha-taldon.jpg">
+          <img src="images/gallery/sisterly-relations-award-2024-ms-la-kesha-taldon.jpg" alt="Sisterly Relations Award 2024, Ms. La Kesha Taldon">
+          <span class="cap-bar">Sisterly Relations Award 2024 — Ms. La Kesha Taldon</span>
+        </button>
+        <button class="slide" data-modal-open="modal-gallery" data-fill-caption="Soror of the Day" data-fill-sub="Nov 2025 — Mrs. NaKeisha Harden" data-fill-photo="images/gallery/soro-of-the-day-nov-2025-mrs-nakeisha-harden.jpg">
+          <img src="images/gallery/soro-of-the-day-nov-2025-mrs-nakeisha-harden.jpg" alt="Soror of the Day, November 2025, Mrs. NaKeisha Harden">
+          <span class="cap-bar">Soror of the Day, Nov 2025 — Mrs. NaKeisha Harden</span>
+        </button>
+        <button class="slide" data-modal-open="modal-gallery" data-fill-caption="Awardees" data-fill-sub="Chapter honorees" data-fill-photo="images/gallery/awardees.jpg">
+          <img src="images/gallery/awardees.jpg" alt="Rho Chi Omega chapter award honorees">
+          <span class="cap-bar">Awardees — Chapter honorees</span>
+        </button>
+      </div>
     </div>
-    <p style="margin-top:1.5rem;color:var(--ink-soft);font-size:0.88rem;">Three real moments from the chapter's own gallery — the rest are placeholder tiles, ready for more photos.</p>
+    <p style="margin-top:.5rem;color:var(--ink-soft);font-size:0.88rem;">Six real moments from the chapter's own gallery — swap in more any time.</p>
   </div>
 </section>
 
 <!-- ============ CONNECT ============ -->
-<section id="connect" class="section section-ivy has-spine reveal">
+<section id="connect" class="section section-green has-spine reveal">
   <div class="container contact-grid">
     <div>
       <p class="eyebrow">Get Involved</p>
       <h2>Give, visit, or join us.</h2>
-      <p style="color:rgba(250,246,238,.75);max-width:48ch;">However you'd like to connect with Rho Chi Omega, there's a place for you here. Alpha Kappa Alpha members relocating to North Alabama are always welcome — we'd be honored to have you join us.</p>
+      <p style="color:rgba(250,246,238,.85);max-width:48ch;">However you'd like to connect with Rho Chi Omega, there's a place for you here. Alpha Kappa Alpha members relocating to North Alabama are always welcome — we'd be honored to have you join us.</p>
       <div class="hero-actions mt-lg">
         <a class="btn btn-primary" href="mailto:rhochiomega1908@gmail.com?subject=Membership%20Interest">Membership Interest</a>
         <a class="btn btn-outline" href="mailto:rhochiomega1908@gmail.com?subject=Visiting%20Soror">Visiting Soror Form</a>
@@ -309,6 +359,7 @@
       <li><a href="#top"><span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s7-6.5 7-12a7 7 0 1 0-14 0c0 5.5 7 12 7 12Z"/><circle cx="12" cy="9" r="2.5"/></svg></span> P.O. Box 611, Madison, AL 35758</a></li>
       <li><a href="https://www.facebook.com/profile.php?id=61580972300881"><span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.6 9.9v-7H7.9V12h2.5V9.8c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.6.8-1.6 1.6V12h2.8l-.4 2.9h-2.4v7A10 10 0 0 0 22 12Z"/></svg></span> Facebook</a></li>
       <li><a href="https://www.instagram.com/rhochiomega/"><span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></span> Instagram</a></li>
+      <li><a href="https://www.youtube.com/@rhochiomega4894"><span class="ic"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.4-5.2c-.3-1-1-1.7-2-2C18.9 4.3 12 4.3 12 4.3s-6.9 0-8.6.5c-1 .3-1.7 1-2 2C1 8.5 1 12 1 12s0 3.5.4 5.2c.3 1 1 1.7 2 2 1.7.5 8.6.5 8.6.5s6.9 0 8.6-.5c1-.3 1.7-1 2-2 .4-1.7.4-5.2.4-5.2ZM9.8 15.5v-7l6 3.5-6 3.5Z"/></svg></span> YouTube</a></li>
     </ul>
   </div>
 </section>
@@ -374,12 +425,21 @@
   </div>
 </div>
 
-<div class="modal-backdrop" id="modal-history">
-  <div class="modal" role="dialog" aria-modal="true" aria-label="Charter member roster">
+<!-- Combined "Our Story": founders photo + full history + charter roster, all in one pop-out -->
+<div class="modal-backdrop" id="modal-story">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Our full story">
     <button class="modal-close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <p class="eyebrow" style="color:var(--rose-deep);">Charter Class of 1989</p>
-    <h3>The Cultured Pearls</h3>
-    <p>Twenty-seven charter members whose dedication brought Rho Chi Omega to life.</p>
+    <img class="modal-flyer" src="images/founders.jpg" alt="The charter members of the Rho Chi Omega Chapter, 1989">
+    <p class="eyebrow" style="color:var(--rose-deep);">Our Story</p>
+    <h3>Our History</h3>
+    <p>The Rho Chi Omega Chapter was established through the shared vision, determination, and sisterly dedication of members of Alpha Kappa Alpha Sorority, Incorporated&reg;, who sought to recruit, reclaim, and retain inactive sorors throughout North Alabama. In the fall of 1987, more than fifty accomplished and diverse women united with purpose to form a new Graduate Chapter serving Madison and Morgan Counties, along with surrounding communities.</p>
+    <p>After years of steadfast commitment and perseverance, twenty-seven women&mdash;revered as the &ldquo;Cultured Pearls&rdquo;&mdash;brought this vision to fruition. On July 29, 1989, they were proudly chartered as the Rho Chi Omega Chapter of Alpha Kappa Alpha Sorority, Incorporated&reg;, marking the beginning of a legacy rooted in service, excellence, and sisterhood.</p>
+    <h3 style="margin-top:1.6rem;">Our Impact</h3>
+    <p>Since its inception, Rho Chi Omega has faithfully upheld the Sorority&rsquo;s enduring mission of Service to All Mankind. The chapter remains deeply committed to supporting a wide range of local and national organizations, creating meaningful and lasting impact throughout the community.</p>
+    <p>Today, with a membership of more than 184 active sorors, the chapter continues to thrive in both scope and service. Signature initiatives such as the Angel Pageant and the Prince to King Mentoring Program are cherished community programs that empower, inspire, and uplift youth across the region. In addition, Rho Chi Omega proudly champions educational advancement, having awarded more than $100,000 in scholarships to deserving college-bound students&mdash;an investment in future leaders and lifelong learners.</p>
+    <h3 style="margin-top:1.6rem;">Our Commitment</h3>
+    <p>Rho Chi Omega remains steadfast in its dedication to the International Program Theme: &ldquo;Championing Service. Empowering Sisterhood. Transforming the World.&rdquo; Guided by the founding principles of Alpha Kappa Alpha Sorority, Incorporated&reg;&mdash;sisterhood, service, leadership, and community uplift&mdash;the chapter continues to make a powerful difference. United in purpose and passion, we proudly honor our rich legacy while boldly shaping its future through innovation, global engagement, and transformational service!</p>
+    <h3 style="margin-top:1.6rem;">The Cultured Pearls — Charter Class of 1989</h3>
     <ul class="roster">
       <li>Crystal S. Blackburn</li><li>Sara Bradley</li><li>Jacqueline Dennis</li><li>Yvonne Doyle</li>
       <li>Rita Eady</li><li>Jocelyn Hall</li><li>Evelyn L. Nettles Hines</li><li>Regina Ivey</li>
@@ -396,21 +456,12 @@
 <div class="modal-backdrop" id="modal-foundation">
   <div class="modal" role="dialog" aria-modal="true" aria-label="Emerald Community Empowerment Foundation">
     <button class="modal-close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <img class="foundation-logo" src="images/emerald-logo.png" alt="The Emerald Community Empowerment Foundation, Inc. logo" style="height:64px;">
     <p class="eyebrow" style="color:var(--rose-deep);">Emerald Community Empowerment Foundation</p>
     <h3>Powered by service, perpetuated by sisterhood.</h3>
     <p>The Emerald Community Empowerment Foundation is the official philanthropic affiliate of the Rho Chi Omega Chapter. As a registered IRS 501(c)(3) public charity, the Foundation supports charitable and educational initiatives that uplift, empower, and advocate for communities throughout North Alabama.</p>
     <p>Operating independently in governance and finances, the Foundation engages the public to raise and steward funds that support scholarships and community programs aligned with the chapter's mission of service and impact.</p>
     <a class="btn btn-ivy mt-lg" href="mailto:rhochiomega1908@gmail.com?subject=Emerald%20Foundation%20Giving">Give to the Foundation</a>
-  </div>
-</div>
-
-<div class="modal-backdrop" id="modal-officer">
-  <div class="modal" role="dialog" aria-modal="true" aria-label="Officer detail">
-    <button class="modal-close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <div class="modal-figure" data-slot="initials">TR</div>
-    <p class="role-line" data-slot="role">Role</p>
-    <h3 data-slot="name">Name</h3>
-    <p>Full bio coming soon — this card is ready for each officer's own words once the chapter is ready to add them.</p>
   </div>
 </div>
 
@@ -426,11 +477,64 @@
 <div class="modal-backdrop" id="modal-gallery">
   <div class="modal" role="dialog" aria-modal="true" aria-label="Gallery image detail">
     <button class="modal-close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <div class="modal-figure" data-slot="figure" style="width:100%;height:260px;border-radius:4px;overflow:hidden;position:relative;">🌿</div>
+    <div class="modal-figure" data-slot="figure" style="width:100%;height:320px;border-radius:8px;overflow:hidden;position:relative;">🌿</div>
     <p class="eyebrow" style="color:var(--rose-deep);margin-top:1.2rem;">Gallery</p>
     <h3 data-slot="caption">Caption</h3>
     <p data-slot="sub">Subcaption</p>
-    <p data-slot="note" style="font-size:0.85rem;">Placeholder — ready for the chapter's real photo here.</p>
+  </div>
+</div>
+
+<!-- Meet the Full Board: every officer, one pop-out -->
+<div class="modal-backdrop" id="modal-board">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Meet the full executive board">
+    <button class="modal-close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <p class="eyebrow" style="color:var(--rose-deep);">2025&ndash;2027 Executive Board</p>
+    <h3>Meet the Full Board</h3>
+    <div class="board-grid">
+      <div class="board-card"><img src="images/leadership/tiffany-richardson-president.jpg" alt="Tiffany Richardson"><span class="role">President</span><span class="name">Tiffany Richardson</span></div>
+      <div class="board-card"><img src="images/leadership/bobbie-terry-vice-president.jpg" alt="Bobbie Terry"><span class="role">Vice President</span><span class="name">Bobbie Terry</span></div>
+      <div class="board-card"><img src="images/leadership/sharon-rivers-treasurer.jpg" alt="Sharon Rivers"><span class="role">Treasurer</span><span class="name">Sharon Rivers</span></div>
+      <div class="board-card"><img src="images/leadership/q-chynell-gray-assistant-treasurer.jpg" alt="Q. Chynell Gray"><span class="role">Assistant Treasurer</span><span class="name">Q. Chynell Gray</span></div>
+      <div class="board-card"><img src="images/leadership/jacqueline-jones-recording-secretary.jpg" alt="Jacqueline Jones"><span class="role">Recording Secretary</span><span class="name">Jacqueline Jones</span></div>
+      <div class="board-card"><img src="images/leadership/valerie-britton-assistant-recording-secretary.jpg" alt="Valerie Britton"><span class="role">Assistant Recording Secretary</span><span class="name">Valerie Britton</span></div>
+      <div class="board-card"><img src="images/leadership/lyscelle-reyes-correspondence-secretary.jpg" alt="Lyscelle Reyes"><span class="role">Correspondence Secretary</span><span class="name">Lyscelle Reyes</span></div>
+      <div class="board-card"><img src="images/leadership/kassel-kendricks-assistant-financial-secretary.jpg" alt="Kassel Kendricks"><span class="role">Assistant Financial Secretary</span><span class="name">Kassel Kendricks</span></div>
+      <div class="board-card"><img src="images/leadership/felicia-mccarty-parliamentarian.jpg" alt="Felicia McCarty"><span class="role">Parliamentarian</span><span class="name">Felicia McCarty</span></div>
+      <div class="board-card"><img src="images/leadership/phyllis-looney-jones-chaplain.jpg" alt="Phyllis Looney-Jones"><span class="role">Chaplain</span><span class="name">Phyllis Looney-Jones</span></div>
+      <div class="board-card"><img src="images/leadership/courtney-jones-official-hostess.jpg" alt="Courtney Jones"><span class="role">Official Hostess</span><span class="name">Courtney Jones</span></div>
+      <div class="board-card"><img src="images/leadership/acacia-sturdivant-door-keeper.jpg" alt="Acacia Sturdivant"><span class="role">Door Keeper</span><span class="name">Acacia Sturdivant</span></div>
+      <div class="board-card"><img src="images/leadership/mariel-chambers-ivy-leaf-reporter.jpg" alt="Mariel Chambers"><span class="role">Ivy Leaf Reporter</span><span class="name">Mariel Chambers</span></div>
+      <div class="board-card"><img src="images/leadership/chandra-marsh-historian.jpg" alt="Chandra Marsh"><span class="role">Historian</span><span class="name">Chandra Marsh</span></div>
+      <div class="board-card"><img src="images/leadership/gloria-flowers-member-at-large.jpg" alt="Gloria Flowers"><span class="role">Member-at-Large</span><span class="name">Gloria Flowers</span></div>
+      <div class="board-card"><img src="images/leadership/lenita-davis-member-at-large.jpg" alt="Lenita Davis"><span class="role">Member-at-Large</span><span class="name">Lenita Davis</span></div>
+      <div class="board-card"><img src="images/leadership/felicia-west-member-at-large.jpg" alt="Felicia West"><span class="role">Member-at-Large</span><span class="name">Felicia West</span></div>
+      <div class="board-card"><img src="images/leadership/utevia-nobles-financial-secretary.jpg" alt="Utevia Nobles"><span class="role">Financial Secretary</span><span class="name">Utevia Nobles</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- Upcoming Events -->
+<div class="modal-backdrop" id="modal-event-fundraiser">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Emerald Fundraiser">
+    <button class="modal-close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <img class="modal-flyer" src="images/event-emerald-fundraiser.jpg" alt="Emerald Fundraiser flyer — Emerald Impact: Refining Potential, Polishing Futures">
+    <p class="eyebrow" style="color:var(--rose-deep);">Upcoming Event</p>
+    <h3>Emerald Fundraiser</h3>
+    <p class="role-line" style="color:var(--apple-deep);">Theme: Emerald Impact — Refining Potential, Polishing Futures</p>
+    <p>Runs July 1 &ndash; August 28, 2026. Your support fuels change, uplifts lives, and builds a stronger tomorrow — hosted by the Emerald Community Empowerment Foundation, Inc.</p>
+    <a class="btn btn-primary mt-lg" href="https://www.zeffy.com/en-US/peer-to-peer/emerald-impact-refining-potential-polishing-futures" target="_blank" rel="noopener">Donate Today</a>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-event-pageant">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="35th Angel Pageant">
+    <button class="modal-close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <img class="modal-flyer" src="images/event-angel-pageant.jpg" alt="35th Angel Pageant flyer — Shine Bright Like a Diamond">
+    <p class="eyebrow" style="color:var(--rose-deep);">Upcoming Event</p>
+    <h3>35th Angel Pageant</h3>
+    <p class="role-line" style="color:var(--apple-deep);">Theme: Shine Bright Like a Diamond</p>
+    <p>Rho Chi Omega's signature youth program, celebrating its 35th year of empowering and uplifting young women across Madison and Morgan Counties.</p>
+    <a class="btn btn-ivy mt-lg" href="mailto:rhochiomega1908@gmail.com?subject=35th%20Angel%20Pageant">Get More Details</a>
   </div>
 </div>
 

@@ -107,6 +107,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (openBackdrop) closeModal(openBackdrop);
   });
 
+  /* ---------- gallery carousel ---------- */
+  const carousel = document.getElementById('gallery-carousel');
+  const prevBtn = document.querySelector('[data-carousel-prev]');
+  const nextBtn = document.querySelector('[data-carousel-next]');
+  if (carousel && prevBtn && nextBtn) {
+    const scrollByAmount = () => carousel.querySelector('.slide')?.getBoundingClientRect().width + 18 || 300;
+    prevBtn.addEventListener('click', () => carousel.scrollBy({ left: -scrollByAmount(), behavior: 'smooth' }));
+    nextBtn.addEventListener('click', () => carousel.scrollBy({ left: scrollByAmount(), behavior: 'smooth' }));
+  }
+
   /* ---------- reveal on scroll ---------- */
   const revealEls = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && revealEls.length) {
