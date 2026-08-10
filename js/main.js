@@ -107,15 +107,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (openBackdrop) closeModal(openBackdrop);
   });
 
-  /* ---------- gallery carousel ---------- */
-  const carousel = document.getElementById('gallery-carousel');
-  const prevBtn = document.querySelector('[data-carousel-prev]');
-  const nextBtn = document.querySelector('[data-carousel-next]');
-  if (carousel && prevBtn && nextBtn) {
-    const scrollByAmount = () => carousel.querySelector('.slide')?.getBoundingClientRect().width + 18 || 300;
-    prevBtn.addEventListener('click', () => carousel.scrollBy({ left: -scrollByAmount(), behavior: 'smooth' }));
-    nextBtn.addEventListener('click', () => carousel.scrollBy({ left: scrollByAmount(), behavior: 'smooth' }));
-  }
+  /* ---------- carousels (gallery, ivies beyond the wall) ---------- */
+  // each nav button names its carousel: data-carousel-prev="gallery-carousel"
+  document.querySelectorAll('[data-carousel-prev], [data-carousel-next]').forEach(btn => {
+    const id = btn.dataset.carouselPrev || btn.dataset.carouselNext;
+    const track = document.getElementById(id);
+    if (!track) return;
+    const dir = ('carouselPrev' in btn.dataset) ? -1 : 1;
+    const step = () => (track.querySelector('.slide, .ibw-card')?.getBoundingClientRect().width + 18) || 300;
+    btn.addEventListener('click', () => track.scrollBy({ left: dir * step(), behavior: 'smooth' }));
+  });
 
   /* ---------- reveal on scroll ---------- */
   const revealEls = document.querySelectorAll('.reveal');
