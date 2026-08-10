@@ -287,7 +287,6 @@ p { margin: 0 0 1.1em; }
     radial-gradient(ellipse 70% 60% at 8% 25%, rgba(255,255,255,.22), transparent 55%),
     linear-gradient(180deg, rgba(31,81,56,.82) 0%, rgba(24,66,44,.86) 45%, rgba(15,45,30,.93) 100%);
 }
-.hero-ivy { position: absolute; inset: 0; opacity: 0.5; pointer-events: none; z-index: 2; }
 .hero-inner {
   position: relative; z-index: 3;
   padding-bottom: 6rem;
@@ -296,7 +295,7 @@ p { margin: 0 0 1.1em; }
   gap: 3rem;
   align-items: end;
 }
-.hero h1 { color: var(--pearl); font-size: clamp(2.4rem, 5.4vw, 4.6rem); font-weight: 600; max-width: 18ch; line-height: 1.05; text-shadow: 0 4px 28px rgba(8,25,18,.4); }
+.hero h1 { color: var(--pearl); font-size: clamp(2.4rem, 5.4vw, 4.6rem); font-weight: 600; max-width: 20ch; line-height: 1.25; padding-bottom: .1em; text-shadow: 0 4px 28px rgba(8,25,18,.4); }
 .hero h1 .script { font-family: var(--font-script); font-style: italic; font-weight: 400; color: var(--salmon-light); }
 .hero-subtitle { font-family: var(--font-script); font-style: italic; color: var(--salmon-light); font-size: clamp(1.25rem, 2.3vw, 1.8rem); margin: .45em 0 1.1em; }
 .hero-lede { max-width: 44ch; font-size: 1.1rem; color: rgba(250,246,238,.86); margin: 1.2em 0 2em; }
@@ -412,11 +411,11 @@ p { margin: 0 0 1.1em; }
 .section-photo-bg .sec-bg-img {
   position: absolute; inset: 0; z-index: 0;
   width: 100%; height: 100%; object-fit: cover;
-  opacity: .28;
+  opacity: .6;
 }
 .section-photo-bg .sec-bg-wash {
   position: absolute; inset: 0; z-index: 1;
-  background: linear-gradient(180deg, rgba(250,246,238,.88) 0%, rgba(250,246,238,.94) 100%);
+  background: linear-gradient(180deg, rgba(250,246,238,.58) 0%, rgba(250,246,238,.72) 100%);
 }
 .section-photo-bg .container { position: relative; z-index: 2; }
 .section-dim { background: var(--pearl-dim); }
@@ -825,7 +824,7 @@ p { margin: 0 0 1.1em; }
 .carousel-nav button:hover { background: var(--ivy); color: var(--pearl); border-color: var(--ivy); }
 
 /* Foundation logo — large, transparent, sitting above the banner in normal flow */
-.foundation-logo-row { margin-bottom: 1.6rem; }
+.foundation-logo-row { margin-bottom: -.5rem; position: relative; z-index: 2; }
 .foundation-logo-float {
   width: clamp(220px, 24vw, 340px);
   height: auto;
