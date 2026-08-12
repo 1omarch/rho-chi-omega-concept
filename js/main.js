@@ -151,4 +151,53 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- footer year ---------- */
   const yearEl = document.querySelector('[data-year]');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  /* ---------- countdown (Emerald Fundraiser) ---------- */
+  document.querySelectorAll('[data-countdown]').forEach(box => {
+    const target = new Date(box.dataset.countdown).getTime();
+    const numD = box.querySelector('[data-cd="d"]');
+    const numH = box.querySelector('[data-cd="h"]');
+    const numM = box.querySelector('[data-cd="m"]');
+    const numS = box.querySelector('[data-cd="s"]');
+    const pad = n => String(Math.max(n, 0)).padStart(2, '0');
+    function tick() {
+      const diff = target - Date.now();
+      if (diff <= 0) {
+        [numD, numH, numM, numS].forEach(el => el && (el.textContent = '00'));
+        clearInterval(timer);
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      if (numD) numD.textContent = pad(d);
+      if (numH) numH.textContent = pad(h);
+      if (numM) numM.textContent = pad(m);
+      if (numS) numS.textContent = pad(s);
+    }
+    tick();
+    const timer = setInterval(tick, 1000);
+  });
+
+  /* ---------- welcome promo popup (Emerald Fundraiser) ---------- */
+  const promo = document.getElementById('modal-welcome-promo');
+  if (promo) {
+    const alreadySeen = sessionStorage.getItem('rco-promo-seen');
+    if (!alreadySeen) {
+      setTimeout(() => {
+        promo.classList.add('is-open');
+        body.classList.add('modal-open');
+        sessionStorage.setItem('rco-promo-seen', '1');
+      }, 1200);
+    }
+    const learnMore = promo.querySelector('[data-promo-learn-more]');
+    if (learnMore) {
+      learnMore.addEventListener('click', () => {
+        promo.classList.remove('is-open');
+        body.classList.remove('modal-open');
+        document.getElementById('events')?.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
+  }
 });
