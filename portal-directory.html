@@ -41,23 +41,34 @@
   <div class="container">
     <p class="eyebrow">Directory</p>
     <h1>Get to know your chapter members.</h1>
-    <p>Search by name. No phone numbers, emails, or home addresses are shown here — this concept preview keeps it to names and photos only.</p>
+    <p>Search by name, or tap a soror for a closer look. No phone numbers, emails, or home addresses are shown here — this concept preview keeps it to names and photos only.</p>
   </div>
 </section>
 
 <section class="portal-section">
   <div class="container">
     <div class="dir-note">
-      Showing <strong>127</strong> sorors with a photo on file. Members without a photo on file are shown with an ivy leaf until one is added — this concept preview doesn't guess at anyone's identity. The full roster will populate automatically once this connects to the chapter's real membership system.
+      Showing <strong>174</strong> sorors. Members without a photo on file are shown with an ivy leaf until one is added — this concept preview doesn't guess at anyone's identity.
     </div>
     <div class="dir-toolbar">
       <input class="dir-search" type="search" id="dir-search" placeholder="Search by name&hellip;" aria-label="Search the directory by name">
-      <span class="dir-count" id="dir-count">127 sorors</span>
+      <span class="dir-count" id="dir-count">174 sorors</span>
     </div>
     <div class="dir-grid" id="dir-grid"></div>
     <p class="dir-empty" id="dir-empty">No sorors match that search.</p>
   </div>
 </section>
+
+<div class="modal-backdrop" id="modal-soror">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Soror detail" style="max-width:420px;text-align:center;">
+    <button class="modal-close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div id="soror-photo-wrap" style="width:180px;height:180px;border-radius:50%;overflow:hidden;margin:0 auto 1.4rem;background:var(--sage);display:flex;align-items:center;justify-content:center;box-shadow:0 16px 30px -14px rgba(8,25,18,.35);">
+      <img id="soror-photo" src="" alt="" style="width:100%;height:100%;object-fit:cover;">
+    </div>
+    <p class="eyebrow" style="justify-content:center;color:var(--rose-deep);">Rho Chi Omega</p>
+    <h3 id="soror-name" style="font-size:1.4rem;">Name</h3>
+  </div>
+</div>
 
 <footer class="portal-footer">
   <div class="container">
