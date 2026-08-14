@@ -4,12 +4,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const body = document.body;
 
   /* ---------- header solidify on scroll ---------- */
-  const onScroll = () => {
-    if (window.scrollY > 60) header.classList.add('is-solid');
-    else header.classList.remove('is-solid');
-  };
-  onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
+  // .site-header only exists on the public one-page site; portal pages use
+  // .portal-header (always solid) and skip this entirely.
+  if (header) {
+    const onScroll = () => {
+      if (window.scrollY > 60) header.classList.add('is-solid');
+      else header.classList.remove('is-solid');
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+  }
 
   /* ---------- full-screen menu overlay ---------- */
   const menuToggle = document.querySelector('.menu-toggle');
