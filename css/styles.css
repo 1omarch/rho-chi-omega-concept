@@ -555,9 +555,32 @@ p { margin: 0 0 1.1em; }
 /* Emerald Fundraiser spotlight — the headline event, built to stand out */
 .fundraiser-spotlight { display: grid; grid-template-columns: minmax(0,.85fr) minmax(0,1.15fr); gap: 2.6rem; align-items: center; }
 @media (max-width: 860px) { .fundraiser-spotlight { grid-template-columns: 1fr; gap: 1.8rem; } }
-.fs-photo { border-radius: 10px; overflow: hidden; box-shadow: 0 30px 60px -26px rgba(8,25,18,.4); background: #000; }
+.fs-photo { position: relative; border-radius: 10px; overflow: hidden; box-shadow: 0 30px 60px -26px rgba(8,25,18,.4); background: #000; }
 .fs-photo img { width: 100%; display: block; }
 .fs-photo video { width: 100%; display: block; aspect-ratio: 16/9; background: #000; }
+.fs-watch {
+  position: absolute; left: 50%; bottom: 1.1rem; transform: translateX(-50%);
+  display: inline-flex; align-items: center; gap: .6em;
+  background: rgba(8,25,18,.82);
+  backdrop-filter: blur(4px);
+  color: var(--pearl);
+  border: 1px solid rgba(250,246,238,.35);
+  border-radius: 999px;
+  padding: .6em 1.2em .6em .7em;
+  font-size: .84rem; font-weight: 600;
+  cursor: pointer;
+  transition: background .25s ease, transform .25s ease, border-color .25s ease;
+  white-space: nowrap;
+}
+.fs-watch:hover { background: var(--ivy-black); border-color: var(--salmon); transform: translateX(-50%) translateY(-2px); }
+.fs-watch-play {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--salmon);
+  color: var(--ivy-black);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+@media (max-width: 480px) { .fs-watch { font-size: .78rem; padding: .55em 1em .55em .6em; } }
 .fs-body .eyebrow { color: var(--salmon-deep); }
 .fs-body h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); }
 .fs-theme { font-family: var(--font-script); font-style: italic; color: var(--apple-deep); font-size: 1.15rem; margin-top: -.4em; margin-bottom: .7em; }

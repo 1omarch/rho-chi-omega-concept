@@ -137,10 +137,11 @@
   <div class="container">
     <div class="fundraiser-spotlight">
       <div class="fs-photo">
-        <video controls preload="none" poster="images/emerald-fundraiser-promo-poster.jpg" playsinline aria-label="Agent Purdy Mission 1 — Emerald Fundraiser promo video">
-          <source src="videos/emerald-fundraiser-promo.mp4" type="video/mp4">
-          Your browser doesn't support embedded video. <a href="videos/emerald-fundraiser-promo.mp4">Download the video</a> instead.
-        </video>
+        <img src="images/event-emerald-fundraiser.jpg" alt="Emerald Fundraiser flyer — Emerald Impact: Refining Potential, Polishing Futures">
+        <button class="fs-watch" type="button" data-modal-open="modal-fundraiser-video">
+          <span class="fs-watch-play"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          Watch: Agent Purdy's Mission
+        </button>
       </div>
       <div class="fs-body">
         <p class="eyebrow">Featured &middot; Emerald Community Empowerment Foundation</p>
@@ -647,6 +648,21 @@
     <h3>Emerald Fundraiser</h3>
     <p class="role-line" style="color:var(--apple-deep);">Theme: Emerald Impact — Refining Potential, Polishing Futures</p>
     <p>Giving closes September 30, 2026. Your support fuels change, uplifts lives, and builds a stronger tomorrow — hosted by the Emerald Community Empowerment Foundation, Inc.</p>
+    <a class="btn btn-primary mt-lg" href="https://www.zeffy.com/en-US/peer-to-peer/emerald-impact-refining-potential-polishing-futures" target="_blank" rel="noopener">Donate Today</a>
+  </div>
+</div>
+
+<div class="modal-backdrop" id="modal-fundraiser-video">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Agent Purdy's Mission — Emerald Fundraiser video" style="max-width:720px;">
+    <button class="modal-close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <p class="eyebrow" style="color:var(--rose-deep);">Emerald Fundraiser</p>
+    <h3>Agent Purdy's Mission</h3>
+    <div style="border-radius:8px;overflow:hidden;background:#000;margin-top:1rem;">
+      <video controls preload="none" poster="images/emerald-fundraiser-promo-poster.jpg" playsinline style="width:100%;display:block;aspect-ratio:16/9;" aria-label="Agent Purdy Mission 1 — Emerald Fundraiser promo video">
+        <source src="videos/emerald-fundraiser-promo.mp4" type="video/mp4">
+        Your browser doesn't support embedded video. <a href="videos/emerald-fundraiser-promo.mp4">Download the video</a> instead.
+      </video>
+    </div>
     <a class="btn btn-primary mt-lg" href="https://www.zeffy.com/en-US/peer-to-peer/emerald-impact-refining-potential-polishing-futures" target="_blank" rel="noopener">Donate Today</a>
   </div>
 </div>

@@ -83,6 +83,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function closeModal(backdrop) {
     backdrop.classList.remove('is-open');
     body.classList.remove('modal-open');
+    // stop any video inside so it doesn't keep playing (and playing audio) off-screen
+    backdrop.querySelectorAll('video').forEach(v => v.pause());
     if (lastTrigger) lastTrigger.focus();
   }
 
