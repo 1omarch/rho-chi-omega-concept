@@ -126,6 +126,7 @@ table.price-table th, table.price-table td { padding: .8em 1em; text-align: left
 table.price-table thead th { background: var(--ivy); color: var(--pearl); font-weight: 700; font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; }
 table.price-table tbody tr:last-child td { font-weight: 700; border-bottom: none; background: var(--sage); }
 table.price-table td:not(:first-child), table.price-table th:not(:first-child) { font-variant-numeric: tabular-nums; }
+.amt-hidden { color: rgba(23,31,25,.35); letter-spacing: .04em; }
 .dues-note { background: var(--pearl-dim); border-radius: 10px; padding: 1.3rem 1.5rem; font-size: .88rem; color: var(--ink-soft); margin-top: 1.4rem; }
 .dues-note strong { color: var(--ivy-black); }
 
