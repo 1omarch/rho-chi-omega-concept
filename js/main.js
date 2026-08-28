@@ -43,7 +43,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ---------- modal "pop-out windows" ---------- */
+  // most modals open one at a time, but the Ivies Beyond the Wall "full list"
+  // modal can have an individual soror's detail modal open on top of it — so
+  // track a real stack instead of assuming only one is ever open.
   let lastTrigger = null;
+  let openStack = [];
   const backdrops = document.querySelectorAll('.modal-backdrop');
 
   function openModal(id, trigger) {
@@ -77,14 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     backdrop.classList.add('is-open');
     body.classList.add('modal-open');
+    if (!openStack.includes(backdrop)) openStack.push(backdrop);
     const closeBtn = backdrop.querySelector('.modal-close');
     if (closeBtn) closeBtn.focus();
   }
   function closeModal(backdrop) {
     backdrop.classList.remove('is-open');
-    body.classList.remove('modal-open');
     // stop any video inside so it doesn't keep playing (and playing audio) off-screen
     backdrop.querySelectorAll('video').forEach(v => v.pause());
+    openStack = openStack.filter(b => b !== backdrop);
+    // only unlock body scroll once nothing else is still open behind it
+    if (!openStack.length) body.classList.remove('modal-open');
     if (lastTrigger) lastTrigger.focus();
   }
 
@@ -109,8 +116,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
-    const openBackdrop = document.querySelector('.modal-backdrop.is-open');
-    if (openBackdrop) closeModal(openBackdrop);
+    const top = openStack[openStack.length - 1];
+    if (top) closeModal(top);
   });
 
   /* ---------- carousels (gallery, ivies beyond the wall) ---------- */
@@ -194,14 +201,14 @@ document.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         promo.classList.add('is-open');
         body.classList.add('modal-open');
+        if (!openStack.includes(promo)) openStack.push(promo);
         sessionStorage.setItem('rco-promo-seen', '1');
       }, 1200);
     }
     const learnMore = promo.querySelector('[data-promo-learn-more]');
     if (learnMore) {
       learnMore.addEventListener('click', () => {
-        promo.classList.remove('is-open');
-        body.classList.remove('modal-open');
+        closeModal(promo);
         document.getElementById('events')?.scrollIntoView({ behavior: 'smooth' });
       });
     }

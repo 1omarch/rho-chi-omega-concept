@@ -873,6 +873,9 @@ p { margin: 0 0 1.1em; }
 .board-card .role { display: block; font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: var(--rose-deep); font-weight: 700; }
 .board-card .name { display: block; font-family: var(--font-display); font-size: 1.05rem; margin-top: .18em; color: var(--ivy-black); }
 #modal-board .modal { max-width: 1140px; max-height: 90vh; }
+#modal-ibw-list .modal { max-width: 1140px; max-height: 90vh; }
+/* the detail card can open on top of the full-list modal, so it must win the stack */
+#modal-ibw { z-index: 401; }
 
 /* Gallery carousel */
 .carousel-wrap {
