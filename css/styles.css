@@ -971,6 +971,7 @@ p { margin: 0 0 1.1em; }
 .history-columns > *,
 .contact-grid > *,
 .board-grid > *,
+.ibw-grid > *,
 .leaders-preview > *,
 .grid-2 > *, .grid-3 > *, .grid-4 > *,
 .target-rows > *,
@@ -998,16 +999,11 @@ p { margin: 0 0 1.1em; }
 }
 .section-ibw .section-head h2 { color: var(--ivy-black); }
 .section-ibw .eyebrow { color: var(--salmon-deep); }
-.ibw-carousel {
-  display: flex; gap: 1.1rem;
-  overflow-x: auto; scroll-snap-type: x mandatory;
-  padding: 0 var(--edge) 1rem;
-  scrollbar-width: thin;
-}
+.ibw-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.6rem; margin-top: 1.5rem; }
+@media (max-width: 900px) { .ibw-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .ibw-grid { grid-template-columns: repeat(2, 1fr); } }
 .ibw-card {
-  scroll-snap-align: start;
-  flex: 0 0 auto;
-  width: 220px;
+  width: 100%;
   background: linear-gradient(180deg, #fff 0%, #ffe3dd 78%, #ffd2c9 100%);
   border: 1px solid rgba(193,79,61,.16);
   border-radius: 10px;
