@@ -193,6 +193,40 @@ document.addEventListener('DOMContentLoaded', () => {
     const timer = setInterval(tick, 1000);
   });
 
+  /* ---------- visiting soror form ---------- */
+  // no backend on a static site, so the "submit" composes a filled-out email
+  // to the chapter instead — same destination as the old mailto link, but the
+  // sorors gets a real, easy-to-fill form instead of a blank email.
+  const vsForm = document.getElementById('visiting-soror-form');
+  if (vsForm) {
+    vsForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const val = id => (document.getElementById(id)?.value || '').trim();
+      const first = val('vs-first');
+      const last = val('vs-last');
+      const initLast = val('vs-init-last');
+      const chapter = val('vs-chapter');
+      const meeting = val('vs-meeting');
+      const phone = val('vs-phone');
+      const email = val('vs-email');
+
+      const subject = `Visiting Soror Request — ${first} ${last}`;
+      const body = [
+        `Name: ${first} ${last}`,
+        initLast && `Last name at initiation (if different): ${initLast}`,
+        `Initiating / last affiliated chapter: ${chapter}`,
+        `Meeting requesting to attend: ${meeting}`,
+        `Mobile phone: ${phone}`,
+        `Email: ${email}`,
+      ].filter(Boolean).join('\n');
+
+      window.location.href = `mailto:rhochiomega1908@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+      const note = document.getElementById('vs-form-note');
+      if (note) note.hidden = false;
+    });
+  }
+
   /* ---------- welcome promo popup (Emerald Fundraiser) ---------- */
   const promo = document.getElementById('modal-welcome-promo');
   if (promo) {

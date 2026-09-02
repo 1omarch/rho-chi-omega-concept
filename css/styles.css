@@ -876,6 +876,29 @@ p { margin: 0 0 1.1em; }
 #modal-ibw-list .modal { max-width: 1140px; max-height: 90vh; }
 /* the detail card can open on top of the full-list modal, so it must win the stack */
 #modal-ibw { z-index: 401; }
+#modal-visiting-soror .modal { max-width: 660px; }
+
+/* ============ Forms (Visiting Soror Form, etc.) ============ */
+.site-form { display: flex; flex-direction: column; gap: 1.15rem; margin-top: 1.8rem; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.15rem; }
+@media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
+.form-field { display: flex; flex-direction: column; gap: .4rem; }
+.form-field label { font-size: .82rem; font-weight: 600; color: var(--ivy-black); line-height: 1.4; }
+.form-field .req { color: var(--salmon-deep); }
+.form-field input {
+  border: 1px solid rgba(18,53,36,.2); border-radius: 8px;
+  padding: .75em 1em; font-size: .92rem; font-family: var(--font-body);
+  background: #fff; color: var(--ink);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.form-field input:focus { outline: none; border-color: var(--salmon-deep); box-shadow: 0 0 0 3px rgba(193,79,61,.12); }
+.form-field input::placeholder { color: rgba(23,31,25,.35); }
+.form-note {
+  margin: 0; font-size: .85rem; color: var(--ivy-black); line-height: 1.5;
+  background: var(--pearl-dim); border-left: 3px solid var(--apple-deep);
+  padding: .85em 1.1em; border-radius: 6px;
+}
+.form-note a { color: var(--salmon-deep); font-weight: 600; }
 
 /* Gallery carousel */
 .carousel-wrap {

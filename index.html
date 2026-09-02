@@ -360,7 +360,7 @@
       <p style="color:rgba(250,246,238,.85);max-width:48ch;">However you'd like to connect with Rho Chi Omega, there's a place for you here. Alpha Kappa Alpha members relocating to North Alabama are always welcome — we'd be honored to have you join us.</p>
       <div class="hero-actions mt-lg">
         <a class="btn btn-primary" href="mailto:rhochiomega1908@gmail.com?subject=Membership%20Interest">Membership Interest</a>
-        <a class="btn btn-outline" href="mailto:rhochiomega1908@gmail.com?subject=Visiting%20Soror">Visiting Soror Form</a>
+        <button class="btn btn-outline" data-modal-open="modal-visiting-soror">Visiting Soror Form</button>
       </div>
     </div>
     <ul class="contact-list">
@@ -722,6 +722,55 @@
       <p>We ask God&rsquo;s mercy and prayers,<br>Meditating from day to day;<br>Help us, Lord, to climb our stairs,<br>Guide us, keep us along the way.</p>
     </div>
     <p class="poem-cite">Soror Carrie M. Shedd<br><em>(Source: An AKA&rsquo;s Poetic Leisure, 1981)</em></p>
+  </div>
+</div>
+
+<!-- Visiting Soror Form -->
+<div class="modal-backdrop" id="modal-visiting-soror">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Soror Visitor Request Form">
+    <button class="modal-close" aria-label="Close"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <p class="eyebrow" style="color:var(--rose-deep);">Visiting Soror</p>
+    <h3>Soror Visitor Request Form</h3>
+    <p>If you wish to invite a soror to visit our in-person chapter meeting, please complete the request form no later than three (3) business days before the chapter meeting.</p>
+    <p>Once approved, the Rho Chi Omega member will be notified of the visiting soror&rsquo;s approval to attend. The visiting soror will be sent a personalized meeting invitation, agenda, and additional information regarding membership.</p>
+    <p>Visiting Sorors may also bring proof of membership (financial card, Ivy Leaf magazine with their name on it, etc.) with them to the meeting for verification.</p>
+
+    <form class="site-form" id="visiting-soror-form">
+      <div class="form-row">
+        <div class="form-field">
+          <label for="vs-first">First Name <span class="req">*</span></label>
+          <input type="text" id="vs-first" name="firstName" autocomplete="given-name" required>
+        </div>
+        <div class="form-field">
+          <label for="vs-last">Last Name <span class="req">*</span></label>
+          <input type="text" id="vs-last" name="lastName" autocomplete="family-name" required>
+        </div>
+      </div>
+      <div class="form-field">
+        <label for="vs-init-last">Last name at the time of initiation, if different</label>
+        <input type="text" id="vs-init-last" name="initLastName">
+      </div>
+      <div class="form-field">
+        <label for="vs-chapter">Initiating chapter or last affiliated chapter <span class="req">*</span></label>
+        <input type="text" id="vs-chapter" name="chapter" required>
+      </div>
+      <div class="form-field">
+        <label for="vs-meeting">Which meeting would you like to attend? Please include the month and year. <span class="req">*</span></label>
+        <input type="text" id="vs-meeting" name="meeting" placeholder="e.g., October 2026" required>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label for="vs-phone">Mobile Phone <span class="req">*</span></label>
+          <input type="tel" id="vs-phone" name="phone" autocomplete="tel" required>
+        </div>
+        <div class="form-field">
+          <label for="vs-email">Email <span class="req">*</span></label>
+          <input type="email" id="vs-email" name="email" autocomplete="email" required>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit Request</button>
+      <p class="form-note" id="vs-form-note" hidden>Thank you! Your email app should have opened with your request filled in — just hit send. If nothing opened, email us directly at <a href="mailto:rhochiomega1908@gmail.com">rhochiomega1908@gmail.com</a>.</p>
+    </form>
   </div>
 </div>
 
