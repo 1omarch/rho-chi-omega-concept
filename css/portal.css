@@ -94,19 +94,10 @@ body.portal-body { background: var(--pearl); }
 .guide-card p { font-size: .9rem; color: var(--ink-soft); margin: 0; }
 .guide-card a { color: var(--apple-deep); font-weight: 600; text-decoration: underline; }
 
-/* Calendar mock */
-.cal-mock { border: 1px solid rgba(18,53,36,.12); border-radius: 10px; overflow: hidden; background: #fff; }
-.cal-mock-head { display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.3rem; background: var(--ivy); color: var(--pearl); }
-.cal-mock-head .cm-nav { display: flex; gap: .5rem; align-items: center; font-weight: 700; }
-.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
-.cal-grid .cg-day-label { text-align: center; font-size: .68rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--ink-soft); padding: .7em 0; background: var(--pearl-dim); }
-.cal-grid .cg-cell { min-height: 84px; border-top: 1px solid rgba(18,53,36,.08); border-left: 1px solid rgba(18,53,36,.08); padding: .5rem; font-size: .78rem; color: var(--ink-soft); position: relative; }
-.cal-grid .cg-cell:nth-child(7n+1) { border-left: none; }
-.cal-grid .cg-cell .cg-date { font-weight: 700; color: var(--ivy-black); }
-.cal-grid .cg-cell.is-today { background: rgba(242,145,126,.1); }
-.cal-grid .cg-cell.is-today .cg-date { color: var(--salmon-deep); }
-.cal-grid .cg-event { margin-top: .3rem; font-size: .68rem; font-weight: 600; background: var(--apple); color: var(--ivy-black); border-radius: 4px; padding: .2em .4em; }
-.cal-grid .cg-cell.is-out { color: rgba(23,31,25,.28); }
+/* live Google Calendar embed */
+.cal-embed { border: 1px solid rgba(18,53,36,.12); border-radius: 10px; overflow: hidden; background: #fff; }
+.cal-embed iframe { display: block; width: 100%; height: 620px; border: 0; }
+@media (max-width: 640px) { .cal-embed iframe { height: 520px; } }
 
 /* Event registration cards */
 .reg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
