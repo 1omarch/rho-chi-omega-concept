@@ -103,9 +103,12 @@ body.portal-body { background: var(--pearl); }
 .reg-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
 @media (max-width: 900px) { .reg-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 620px) { .reg-grid { grid-template-columns: 1fr; } }
-.reg-card { background: #fff; border: 1px solid rgba(18,53,36,.12); border-radius: 10px; overflow: hidden; }
+.reg-card { background: #fff; border: 1px solid rgba(18,53,36,.12); border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; }
 .reg-card .rc-photo { aspect-ratio: 4/3; background: linear-gradient(150deg, var(--sage), var(--pearl-dim)); display: flex; align-items: center; justify-content: center; color: var(--ivy); font-family: var(--font-display); font-style: italic; }
-.reg-card .rc-body { padding: 1.2rem 1.3rem 1.4rem; }
+.reg-card .rc-photo.is-flyer { aspect-ratio: 1/1; background: none; display: block; }
+.reg-card .rc-photo.is-flyer img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.reg-card .rc-body { padding: 1.2rem 1.3rem 1.4rem; flex: 1; display: flex; flex-direction: column; }
+.reg-card .rc-body .btn { margin-top: auto; align-self: flex-start; }
 .reg-card .rc-date { font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--salmon-deep); }
 .reg-card h3 { font-size: 1.02rem; margin: .3em 0 .4em; }
 .reg-card p { font-size: .86rem; color: var(--ink-soft); margin: 0 0 1rem; }
