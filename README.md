@@ -14,7 +14,7 @@ A one-page concept redesign for the **Rho Chi Omega Chapter of Alpha Kappa Alpha
 
 ## Photos
 
-Real chapter photos throughout, supplied by the chapter: the full-chapter hero photo, a professional headshot of President Tiffany Richardson, the 1989 charter members photo, the AKA crest and Emerald Foundation logo, all 18 executive board members' headshots (pop-out "Meet the Full Board"), a 6-photo gallery carousel, and both Upcoming Events flyers (Emerald Fundraiser, 35th Angel Pageant).
+Real chapter photos throughout, supplied by the chapter: the full-chapter hero photo, a professional headshot of President Tiffany Richardson, the 1989 charter members photo, the AKA crest and Emerald Foundation logo, all 18 executive board members' headshots (pop-out "Meet the Full Board"), a 6-photo gallery carousel, and the 35th Angel Pageant flyer.
 
 ## What's placeholder
 
