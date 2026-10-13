@@ -551,6 +551,18 @@ p { margin: 0 0 1.1em; }
 .banner-actions { display: flex; gap: 0.8rem; flex-wrap: wrap; position: relative; z-index: 1; }
 .banner .eyebrow { position: relative; z-index: 1; }
 
+/* Upcoming event feature */
+.event-feature { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); gap: 2.6rem; align-items: center; }
+.ef-photo { border-radius: 10px; overflow: hidden; box-shadow: 0 30px 60px -26px rgba(8,25,18,.4); }
+.ef-photo-btn { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.ef-photo-btn img { width: 100%; display: block; transition: transform .6s var(--ease); }
+.ef-photo-btn:hover img { transform: scale(1.03); }
+.ef-body .eyebrow { color: var(--salmon-deep); }
+.ef-body h2 { font-size: clamp(1.9rem, 3.6vw, 2.9rem); }
+.ef-theme { font-family: var(--font-script); font-style: italic; color: var(--apple-deep); font-size: 1.25rem; margin-top: -.4em; margin-bottom: .7em; }
+.ef-actions { display: flex; gap: .8rem; flex-wrap: wrap; margin-top: 1.5rem; }
+@media (max-width: 860px) { .event-feature { grid-template-columns: 1fr; gap: 1.8rem; } }
+
 @media (max-width: 760px) { .banner { grid-template-columns: 1fr; } }
 
 /* Gallery */
