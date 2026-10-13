@@ -196,3 +196,10 @@ table.price-table td:not(:first-child), table.price-table th:not(:first-child) {
 /* Portal footer */
 .portal-footer { background: var(--ivy-black); color: rgba(250,246,238,.7); padding: 2.4rem 0; text-align: center; font-size: .84rem; }
 .portal-footer a { color: var(--salmon-light); }
+
+/* Featured hub tile (RCO Rewards) */
+.portal-tile.is-featured { grid-column: 1 / -1; background: linear-gradient(155deg, #1f5138, #081912); border-color: rgba(201,162,77,.6); color: var(--pearl); }
+.portal-tile.is-featured h3 { color: var(--pearl); }
+.portal-tile.is-featured p { color: rgba(250,246,238,.82); max-width: 60ch; }
+.portal-tile.is-featured .pt-icon { background: rgba(250,246,238,.1); color: var(--gold-soft); }
+.portal-tile.is-featured .pt-go { color: var(--gold-soft); }
