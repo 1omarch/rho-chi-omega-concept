@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dues, Documents &amp; Finances | Rho Chi Omega Member Portal (Concept)</title>
+<meta name="description" content="Pay dues, find a form, read a governing document, or open a financial report, all in one place.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon-32.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/portal.css">
+<link rel="stylesheet" href="css/resources.css">
+</head>
+<body class="portal-body resources-body">
+
+<div class="portal-ribbon">🌿 <strong>Concept preview</strong> — this portal is a design mockup, not a real secured member login. No private data should be entered here.</div>
+
+<header class="portal-header">
+  <div class="container">
+    <a class="portal-brand" href="index.html#top">
+      <img src="images/aka-emblem.png" alt="Alpha Kappa Alpha Sorority, Incorporated crest">
+      Rho Chi Omega <span class="tag">Member Portal</span>
+    </a>
+    <a class="portal-back" href="index.html#top">&larr; Back to Public Site</a>
+  </div>
+</header>
+
+<nav class="portal-tabs" aria-label="Portal sections">
+  <div class="container">
+    <a href="portal.html">Portal Home</a>
+    <a href="portal-calendar.html">Chapter Calendar</a>
+    <a href="portal-events.html">Events Registration</a>
+    <a href="portal-dues.html">Membership Dues</a>
+    <a href="portal-documents.html">Documents &amp; Forms</a>
+    <a href="portal-financials.html">Financial Documents</a>
+    <a href="portal-directory.html">Directory</a>
+    <a href="portal-rewards.html">RCO Rewards</a>
+    <a class="is-active" href="portal-resources.html">Resources (preview)</a>
+  </div>
+</nav>
+
+<div class="spine-wrap">
+<div class="ivy-spine" aria-hidden="true">
+  <div class="ivy-img"></div>
+</div>
+
+<section class="rs-hero has-spine">
+  <div class="container">
+    <p class="eyebrow">Chapter Resources</p>
+    <h1>Dues, documents &amp; finances.</h1>
+    <p class="lede">Everything in one place. Pay dues, find a form, read a governing document, or open a financial report.</p>
+
+    <div class="rs-search">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input type="search" id="rs-q" placeholder="Search forms, bylaws, budgets, resources&hellip;" aria-label="Search forms, documents, and resources" autocomplete="off">
+    </div>
+    <p class="rs-search-note" id="rs-note">Looking for a monthly report like the Balance Sheet or PG Summary? Use the report finder under Financial Reports.</p>
+
+    <div class="rs-quick">
+      <a class="rs-quick-card" href="#dues">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20M6 15h4"/></svg></span>
+        <strong>Pay dues</strong><span>2026 deadlines and how to pay</span>
+      </a>
+      <a class="rs-quick-card" href="#forms">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="m9 14 2 2 4-4"/></svg></span>
+        <strong>Find a form</strong><span>Requests, money, chapter business</span>
+      </a>
+      <a class="rs-quick-card" href="#governing">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span>
+        <strong>Bylaws &amp; plans</strong><span>Governing documents</span>
+      </a>
+      <a class="rs-quick-card" href="#finance">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/></svg></span>
+        <strong>Financial reports</strong><span>Budgets and monthly reports</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<nav class="rs-chips" aria-label="On this page">
+  <div class="container">
+    <a href="#current">This Year</a>
+    <a href="#dues">Dues</a>
+    <a href="#forms">Forms</a>
+    <a href="#governing">Bylaws &amp; Plans</a>
+    <a href="#finance">Financial Reports</a>
+    <a href="#more">More Resources</a>
+  </div>
+</nav>
+
+<p class="rs-empty container" id="rs-empty" hidden></p>
+
+<section id="current" class="rs-section has-spine">
+  <div class="container">
+    <div class="rs-head">
+      <p class="eyebrow">This chapter year</p>
+      <h2>Start here.</h2>
+      <p class="sub">The things sorors ask for most right now.</p>
+    </div>
+    <ul class="rs-list rs-list-wide" id="year-root"></ul>
+    <p class="rs-after"><a class="btn btn-ghost btn-sm" href="#" data-pending>Open Dropbox Document Library</a></p>
+  </div>
+</section>
+
+<section id="dues" class="rs-section rs-alt has-spine">
+  <div class="container">
+    <div class="rs-head">
+      <p class="eyebrow">Membership dues</p>
+      <h2>2026 dues &amp; assessments.</h2>
+      <p class="sub">Approved at the November chapter meeting.</p>
+    </div>
+    <div class="rs-dues">
+      <ol class="rs-steps">
+        <li><span class="rs-date">Dec 20</span><div><strong>Due to the chapter</strong><p>Chapter dues, assessments, per capita, and EAF. Preferably by the December chapter meeting.</p></div></li>
+        <li><span class="rs-date">Jan 1</span><div><strong>Due to the Corporate Office</strong><p>Dues not paid by January 1 are considered inactive.</p></div></li>
+        <li><span class="rs-date">After Feb 1</span><div><strong>10% late fine</strong><p>Payments received after February 1 are subject to a 10% late fine.</p></div></li>
+      </ol>
+      <aside class="rs-pay">
+        <h3>Ready to pay?</h3>
+        <a class="btn btn-primary" href="#" data-pending>Pay Dues Online</a>
+        <p class="rs-fine">Partial pre-payments are accepted online.</p>
+        <p class="rs-or">Or mail a check to</p>
+        <address>Rho Chi Omega Chapter<br>Attn: Pecunious Grammateus<br>P.O. Box 611<br>Madison, AL 35758</address>
+      </aside>
+    </div>
+    <details class="rs-breakdown">
+      <summary>Read the full dues policy</summary>
+      <div class="rs-policy">
+        <p>An active member of Rho Chi Omega Chapter shall satisfy all dues and assessments (including the Regional Conference Assessment*) before per capita payment is made on her behalf for a new membership year.</p>
+        <p>All dues and assessments are due to the Corporate Office by January 1. To meet this deadline, all chapter dues, chapter assessments, per capita, and Educational Advancement Foundation (EAF) tax are due to the chapter by December 20. If they are not paid by January 1, sorors are considered inactive with both the Corporate Office and the chapter. All monies received after February 1 are subject to a 10% fine.</p>
+        <p>All dues and assessments are non-refundable. The per capita for individual sorors is not remitted to the Corporate Office until all assessments, fees, and dues have been collected.</p>
+        <p><strong>Exceptions:</strong> Sorors reactivating in Rho Chi Omega do not incur the 10% fine on per capita, chapter dues, and chapter assessments. Sorors transferring in Rho Chi Omega incur the 10% fine on per capita after February 1 if not already paid for the year.</p>
+        <p class="rs-fine">*Sorors who were active in Rho Chi Omega in 2022 and have not paid the SERC Assessment must pay the assessment in order to reactivate or transfer.</p>
+      </div>
+    </details>
+    <details class="rs-breakdown">
+      <summary>See the dues breakdown by membership type</summary>
+      <div class="rs-table-scroll"><table id="dues-table"></table></div>
+      <p class="rs-fine">Exact dollar amounts are shared directly with active members and are hidden on this public concept preview.</p>
+    </details>
+  </div>
+</section>
+
+<section id="forms" class="rs-section has-spine">
+  <div class="container">
+    <div class="rs-head">
+      <p class="eyebrow">Forms</p>
+      <h2>Find the form you need.</h2>
+      <p class="sub">Grouped by what you are trying to do.</p>
+    </div>
+    <div class="rs-cards" id="forms-root"></div>
+  </div>
+</section>
+
+<section id="governing" class="rs-section rs-alt has-spine">
+  <div class="container">
+    <div class="rs-head">
+      <p class="eyebrow">Bylaws &amp; plans</p>
+      <h2>Governing documents.</h2>
+      <p class="sub">Archive files are also housed in the chapter&rsquo;s Dropbox Document Library.</p>
+    </div>
+    <div class="rs-cards rs-cards-2" id="gov-root"></div>
+    <p class="rs-after"><a class="btn btn-ghost btn-sm" href="#" data-pending>Open Dropbox Document Library</a></p>
+  </div>
+</section>
+
+<section id="finance" class="rs-section has-spine">
+  <div class="container">
+    <div class="rs-head">
+      <p class="eyebrow">Financial reports</p>
+      <h2>Budgets &amp; monthly reports.</h2>
+      <p class="sub">Pick a report, a year, and a month. No more hunting through lists.</p>
+    </div>
+
+    <div class="rs-finder">
+      <div class="rs-finder-grid">
+        <label>Report<select id="f-report"></select></label>
+        <label>Fund<select id="f-fund"></select></label>
+        <label>Year<select id="f-year"></select></label>
+        <label>Month<select id="f-month"></select></label>
+      </div>
+      <div class="rs-finder-out">
+        <div>
+          <p class="rs-finder-sum" id="f-summary"></p>
+          <p class="rs-fine" id="f-by"></p>
+        </div>
+        <a class="btn btn-primary" id="f-open" href="#" data-pending>Open Report</a>
+      </div>
+      <div class="rs-latest"><span>Jump to the latest:</span><div id="f-latest"></div></div>
+    </div>
+
+    <h3 class="rs-sub-h">Approved budgets</h3>
+    <ul class="rs-list rs-list-wide" id="budgets-root"></ul>
+    <p class="rs-fine rs-contact">Questions about a report? Contact the chapter&rsquo;s Pecunious Grammateus or Tamiouchos at <a href="mailto:rhochiomega1908@gmail.com">rhochiomega1908@gmail.com</a>.</p>
+  </div>
+</section>
+
+<section id="more" class="rs-section rs-alt has-spine">
+  <div class="container">
+    <div class="rs-head">
+      <p class="eyebrow">More resources</p>
+      <h2>Chapter and Corporate Office resources.</h2>
+    </div>
+    <div class="rs-cards rs-cards-3" id="more-root"></div>
+  </div>
+</section>
+</div><!-- /spine-wrap -->
+
+<div class="rs-toast" id="rs-toast" role="status" aria-live="polite"></div>
+
+<footer class="portal-footer">
+  <div class="container">
+    <p>&copy; <span data-year>2026</span> Rho Chi Omega Chapter, Alpha Kappa Alpha Sorority, Incorporated&reg; &mdash; Member Portal concept preview. <a href="index.html#top">Return to the public site</a>.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/resources-data.js"></script>
+<script src="js/resources.js"></script>
+
+</body>
+</html>
