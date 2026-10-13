@@ -1,111 +1,117 @@
-// Resources — content mirrors the live portal's inventory. href "#" marks a link still to be connected.
+// Resources — content mirrors the live portal's inventory.
 window.RCO_RESOURCES = {
+  // links open the live chapter portal (login-protected), scrolled to and highlighting the item
+  portal: {
+    docs: 'https://www.aka-rco.org/documents-and-forms',
+    finance: 'https://www.aka-rco.org/financialdocuments',
+    dues: 'https://www.aka-rco.org/membership-dues'
+  },
   thisYear: [
-    { title: 'Chapter Meeting Presentations', kind: 'Resource', href: '#' },
-    { title: '2026 Officers & 2026-27 Committee Chairman', kind: 'Resource', href: '#' },
-    { title: 'Committee Sign-Up Form', kind: 'Form', href: '#' },
-    { title: '2026 Awards Committee', kind: 'Resource', href: '#' }
+    { title: 'Chapter Meeting Presentations', kind: 'Resource' },
+    { find: '2026 Officers', title: '2026 Officers & 2026-27 Committee Chairman', kind: 'Resource' },
+    { find: 'Committee SignUp Form', title: 'Committee Sign-Up Form', kind: 'Form' },
+    { title: '2026 Awards Committee', kind: 'Resource' }
   ],
 
   forms: [
     { label: 'Request something', items: [
-      { title: 'Graphics / Flyer Request Form', kind: 'Form', href: '#' },
-      { title: 'Event / Meeting Request Form', kind: 'Form', href: '#' },
-      { title: 'Evaluation Survey Request Form', kind: 'Form', href: '#' },
-      { title: 'Newsletter Form', kind: 'Form', href: '#' },
-      { title: 'Calhoun Room Request', kind: 'Form', href: '#' }
+      { find: 'Graphics/Flyer Request Form', title: 'Graphics / Flyer Request Form', kind: 'Form' },
+      { find: 'Event/Meeting Request Form', title: 'Event / Meeting Request Form', kind: 'Form' },
+      { title: 'Evaluation Survey Request Form', kind: 'Form' },
+      { title: 'Newsletter Form', kind: 'Form' },
+      { title: 'Calhoun Room Request', kind: 'Form' }
     ]},
     { label: 'Money', items: [
-      { title: 'Voucher (Google Form with electronic approval, Excel, or PDF)', kind: 'Form', href: '#' },
-      { title: 'Budget Expense Log', kind: 'Form', href: '#' }
+      { find: 'Voucher - Google Form', title: 'Voucher (Google Form with electronic approval, Excel, or PDF)', kind: 'Form' },
+      { title: 'Budget Expense Log', kind: 'Form' }
     ]},
     { label: 'Reports & records', items: [
-      { title: '2024 Event Report Google Form', kind: 'Form', href: '#' },
-      { title: '2023 Event Report Google Form', kind: 'Form', href: '#' },
-      { title: 'Committee Meeting Report Form', kind: 'Form', href: '#' },
-      { title: 'Sign-In Sheet', kind: 'Form', href: '#' },
-      { title: 'Incident Response Form', kind: 'Form', href: '#' }
+      { title: '2024 Event Report Google Form', kind: 'Form' },
+      { find: '2023Event Report', title: '2023 Event Report Google Form', kind: 'Form' },
+      { title: 'Committee Meeting Report Form', kind: 'Form' },
+      { find: 'Sign in Sheet', title: 'Sign-In Sheet', kind: 'Form' },
+      { title: 'Incident Response Form', kind: 'Form' }
     ]},
     { label: 'Running for office', items: [
-      { title: 'Application Profile for Seeking Office', kind: 'Form', href: '#' },
-      { title: 'Financial Officer Candidate Disclosure Form', kind: 'Form', href: '#' },
-      { title: 'Member-at-Large Submission Form', kind: 'Form', href: '#' }
+      { title: 'Application Profile for Seeking Office', kind: 'Form' },
+      { title: 'Financial Officer Candidate Disclosure Form', kind: 'Form' },
+      { find: 'Member-At-Large Submission Form', title: 'Member-at-Large Submission Form', kind: 'Form' }
     ]},
     { label: 'Chapter business', items: [
-      { title: 'Proposed Bylaws Amendment Form', kind: 'Form', href: '#' },
-      { title: 'Proposed Standing Rules Form', kind: 'Form', href: '#' },
-      { title: 'Formal Application for Retired Sorors', kind: 'Form', href: '#' }
+      { title: 'Proposed Bylaws Amendment Form', kind: 'Form' },
+      { title: 'Proposed Standing Rules Form', kind: 'Form' },
+      { title: 'Formal Application for Retired Sorors', kind: 'Form' }
     ]},
     { label: 'About you', items: [
-      { title: 'Soror Contact Form', kind: 'Form', href: '#' },
-      { title: 'Soror-Owned Business Input Form', kind: 'Form', href: '#' },
-      { title: 'Soror Squad Sign Up', kind: 'Form', href: '#' }
+      { title: 'Soror Contact Form', kind: 'Form' },
+      { find: 'Soror Owned Business Input Form', title: 'Soror-Owned Business Input Form', kind: 'Form' },
+      { title: 'Soror Squad Sign Up', kind: 'Form' }
     ]}
   ],
 
   governing: [
     { label: 'Bylaws, rules & plans', items: [
-      { title: 'Chapter Bylaws', note: 'Approved 11/10/2025', kind: 'Document', href: '#' },
-      { title: 'Standing Rules', note: 'Approved 04/11/2026', kind: 'Document', href: '#' },
-      { title: 'Strategic Plan', note: 'Approved 03/08/2021', kind: 'Document', href: '#' },
-      { title: 'Risk Management Plan', note: 'Approved 03/14/2022', kind: 'Document', href: '#' },
-      { title: 'Chapter Disaster & Recovery Plan', kind: 'Document', href: '#' },
-      { title: 'Chapter & Foundation Memorandum of Understanding', note: 'Approved 02/09/2026', kind: 'Document', href: '#' }
+      { title: 'Chapter Bylaws', note: 'Approved 11/10/2025', kind: 'Document' },
+      { title: 'Standing Rules', note: 'Approved 04/11/2026', kind: 'Document' },
+      { title: 'Strategic Plan', note: 'Approved 03/08/2021', kind: 'Document' },
+      { title: 'Risk Management Plan', note: 'Approved 03/14/2022', kind: 'Document' },
+      { find: 'Chapter Disaster and Recovery Plan', title: 'Chapter Disaster & Recovery Plan', kind: 'Document' },
+      { find: 'Chapter and Foundation Memorandum', title: 'Chapter & Foundation Memorandum of Understanding', note: 'Approved 02/09/2026', kind: 'Document' }
     ]},
     { label: 'Standards & transitions', items: [
-      { title: 'Standards', kind: 'Document', href: '#' },
-      { title: 'Process and Results', kind: 'Document', href: '#' },
-      { title: 'Transition Document', kind: 'Document', href: '#' }
+      { title: 'Standards', kind: 'Document' },
+      { title: 'Process and Results', kind: 'Document' },
+      { find: 'Transition Document PDF', title: 'Transition Document', kind: 'Document' }
     ]}
   ],
 
   more: [
     { label: 'Chapter resources', items: [
-      { title: 'Charter Member Directory', kind: 'Resource', href: '#' },
-      { title: 'Chapter Handbook', kind: 'Resource', href: '#' },
-      { title: 'Committee Chairman Toolkit', kind: 'Resource', href: '#' },
-      { title: 'End of the Year Reports', kind: 'Resource', href: '#' },
-      { title: 'AKA Conference Delegate Reports', kind: 'Resource', href: '#' },
-      { title: 'Workshop Presentations', kind: 'Resource', href: '#' },
-      { title: 'Reflections Newsletters', kind: 'Resource', href: '#' },
-      { title: 'External Audit Reports', kind: 'Resource', href: '#' },
-      { title: 'Virtual Backgrounds', kind: 'Resource', href: '#' },
-      { title: 'Logos', kind: 'Resource', href: '#' },
-      { title: 'Chapter Cookbook', kind: 'Resource', href: '#' },
-      { title: 'NPHC Addresses', kind: 'Resource', href: '#' }
+      { title: 'Charter Member Directory', kind: 'Resource' },
+      { title: 'Chapter Handbook', kind: 'Resource' },
+      { title: 'Committee Chairman Toolkit', kind: 'Resource' },
+      { title: 'End of the Year Reports', kind: 'Resource' },
+      { title: 'AKA Conference Delegate Reports', kind: 'Resource' },
+      { title: 'Workshop Presentations', kind: 'Resource' },
+      { title: 'Reflections Newsletters', kind: 'Resource' },
+      { title: 'External Audit Reports', kind: 'Resource' },
+      { title: 'Virtual Backgrounds', kind: 'Resource' },
+      { title: 'Logos', kind: 'Resource' },
+      { title: 'Chapter Cookbook', kind: 'Resource' },
+      { title: 'NPHC Addresses', kind: 'Resource' }
     ]},
     { label: 'Committee resources (live data)', items: [
-      { title: 'Completed Event Report Spreadsheet', kind: 'Sheet', href: '#' },
-      { title: 'Contact Information Spreadsheet', kind: 'Sheet', href: '#' },
-      { title: '2026 Committee Sign Up Spreadsheet', kind: 'Sheet', href: '#' },
-      { title: '2026-2030 Program Initiatives Sign Up Spreadsheet', kind: 'Sheet', href: '#' },
-      { title: 'Soror Squad Sign Up', kind: 'Sheet', href: '#' },
-      { title: 'Soror-Owned Business Spreadsheet', kind: 'Sheet', href: '#' }
+      { title: 'Completed Event Report Spreadsheet', kind: 'Sheet' },
+      { title: 'Contact Information Spreadsheet', kind: 'Sheet' },
+      { title: '2026 Committee Sign Up Spreadsheet', kind: 'Sheet' },
+      { title: '2026-2030 Program Initiatives Sign Up Spreadsheet', kind: 'Sheet' },
+      { title: 'Soror Squad Sign Up', kind: 'Sheet' },
+      { find: 'Soror Owned Business Spreadsheet', title: 'Soror-Owned Business Spreadsheet', kind: 'Sheet' }
     ]},
     { label: 'Corporate Office resources', items: [
-      { title: 'Pinky Trademark Guidance', kind: 'Resource', href: '#' },
-      { title: 'Insurance Form', kind: 'Form', href: '#' },
-      { title: 'AKA University Presentations', kind: 'Resource', href: '#' },
-      { title: 'AKA Branding Guidance', kind: 'Resource', href: '#' },
-      { title: 'Membership Experience Requirements', kind: 'Resource', href: '#' }
+      { find: 'Pinky Trademark', title: 'Pinky Trademark Guidance', kind: 'Resource' },
+      { title: 'Insurance Form', kind: 'Form' },
+      { title: 'AKA University Presentations', kind: 'Resource' },
+      { title: 'AKA Branding Guidance', kind: 'Resource' },
+      { title: 'Membership Experience Requirements', kind: 'Resource' }
     ]}
   ],
 
   finance: {
     budgets: [
-      { title: 'Approved 2026 Operations & Fundraiser Budgets', kind: 'Budget', href: '#' },
-      { title: 'Approved 2025 Operations & Fundraiser Budgets', kind: 'Budget', href: '#' },
-      { title: 'Approved 2024 Operations & Fundraiser Budgets', kind: 'Budget', href: '#' }
+      { page: 'finance', find: 'Approved 2026 Operations and Fundraiser Budgets', title: 'Approved 2026 Operations & Fundraiser Budgets', kind: 'Budget' },
+      { page: 'finance', find: 'Approved 2025 Operations and Fundraiser Budgets', title: 'Approved 2025 Operations & Fundraiser Budgets', kind: 'Budget' },
+      { page: 'finance', find: 'Approved 2024 Operations and Fundraiser Budgets', title: 'Approved 2024 Operations & Fundraiser Budgets', kind: 'Budget' }
     ],
     // preparedBy mirrors how the chapter files each report today
     reportTypes: [
-      { id: 'pg-summary',    label: 'PG Summary',                     preparedBy: 'Pecunious Grammateus', funds: ['Operations & Fundraisers'] },
-      { id: 'cash-receipts', label: 'Cash Receipts Report & Journal', preparedBy: 'Pecunious Grammateus', funds: ['Operations', 'Fundraisers'] },
-      { id: 'transmittal',   label: 'Transmittal Reports',            preparedBy: 'Pecunious Grammateus', funds: ['Operations', 'Fundraisers'] },
-      { id: 'balance',       label: 'Balance Sheet',                  preparedBy: 'Tamiouchos',           funds: ['All Accounts'] },
-      { id: 'disbursement',  label: 'Cash Disbursement',              preparedBy: 'Tamiouchos',           funds: ['Operations', 'Fundraisers'] },
-      { id: 'budget-actual', label: 'Budget to Actual',               preparedBy: 'Tamiouchos',           funds: ['Operations', 'Fundraisers'] },
-      { id: 'reconciliation',label: 'Reconciliation',                 preparedBy: 'Tamiouchos',           funds: ['Operations', 'Fundraisers', 'Savings'] }
+      { id: 'pg-summary', find: 'PG Summary',    label: 'PG Summary',                     preparedBy: 'Pecunious Grammateus', funds: ['Operations & Fundraisers'] },
+      { id: 'cash-receipts', find: 'Cash Receipts', label: 'Cash Receipts Report & Journal', preparedBy: 'Pecunious Grammateus', funds: ['Operations', 'Fundraisers'] },
+      { id: 'transmittal', find: 'Transmittal',   label: 'Transmittal Reports',            preparedBy: 'Pecunious Grammateus', funds: ['Operations', 'Fundraisers'] },
+      { id: 'balance', find: 'Balance Sheet',       label: 'Balance Sheet',                  preparedBy: 'Tamiouchos',           funds: ['All Accounts'] },
+      { id: 'disbursement', find: 'Cash Disbursement',  label: 'Cash Disbursement',              preparedBy: 'Tamiouchos',           funds: ['Operations', 'Fundraisers'] },
+      { id: 'budget-actual', find: 'Budget to Actual', label: 'Budget to Actual',               preparedBy: 'Tamiouchos',           funds: ['Operations', 'Fundraisers'] },
+      { id: 'reconciliation', find: 'Reconciliation',label: 'Reconciliation',                 preparedBy: 'Tamiouchos',           funds: ['Operations', 'Fundraisers', 'Savings'] }
     ],
     firstYear: 2015,
     latestShortcuts: ['pg-summary', 'balance', 'budget-actual']

@@ -30,12 +30,10 @@
     <a href="portal.html">Portal Home</a>
     <a href="portal-calendar.html">Chapter Calendar</a>
     <a href="portal-events.html">Events Registration</a>
-    <a href="portal-dues.html">Membership Dues</a>
-    <a href="portal-documents.html">Documents &amp; Forms</a>
-    <a href="portal-financials.html">Financial Documents</a>
+    <a class="is-active" href="portal-resources.html">Resources</a>
+    <a href="portal-committees.html">Committees</a>
     <a href="portal-directory.html">Directory</a>
     <a href="portal-rewards.html">RCO Rewards</a>
-    <a class="is-active" href="portal-resources.html">Resources (preview)</a>
   </div>
 </nav>
 
@@ -55,6 +53,7 @@
       <input type="search" id="rs-q" placeholder="Search forms, bylaws, budgets, resources&hellip;" aria-label="Search forms, documents, and resources" autocomplete="off">
     </div>
     <p class="rs-search-note" id="rs-note">Looking for a monthly report like the Balance Sheet or PG Summary? Use the report finder under Financial Reports.</p>
+    <p class="rs-search-note rs-portal-note">Every link opens the chapter portal at aka-rco.org. If asked, sign in with your member account.</p>
 
     <div class="rs-quick">
       <a class="rs-quick-card" href="#dues">
@@ -98,7 +97,7 @@
       <p class="sub">The things sorors ask for most right now.</p>
     </div>
     <ul class="rs-list rs-list-wide" id="year-root"></ul>
-    <p class="rs-after"><a class="btn btn-ghost btn-sm" href="#" data-pending>Open Dropbox Document Library</a></p>
+    <p class="rs-after"><a class="btn btn-ghost btn-sm" href="#" data-portal="docs|Dropbox Document Library">Open Dropbox Document Library</a></p>
   </div>
 </section>
 
@@ -117,7 +116,7 @@
       </ol>
       <aside class="rs-pay">
         <h3>Ready to pay?</h3>
-        <a class="btn btn-primary" href="#" data-pending>Pay Dues Online</a>
+        <a class="btn btn-primary" href="#" data-portal="dues|Partial Payments">Pay Dues Online</a>
         <p class="rs-fine">Partial pre-payments are accepted online.</p>
         <p class="rs-or">Or mail a check to</p>
         <address>Rho Chi Omega Chapter<br>Attn: Pecunious Grammateus<br>P.O. Box 611<br>Madison, AL 35758</address>
@@ -160,7 +159,7 @@
       <p class="sub">Archive files are also housed in the chapter&rsquo;s Dropbox Document Library.</p>
     </div>
     <div class="rs-cards rs-cards-2" id="gov-root"></div>
-    <p class="rs-after"><a class="btn btn-ghost btn-sm" href="#" data-pending>Open Dropbox Document Library</a></p>
+    <p class="rs-after"><a class="btn btn-ghost btn-sm" href="#" data-portal="docs|Dropbox Document Library">Open Dropbox Document Library</a></p>
   </div>
 </section>
 
@@ -183,8 +182,9 @@
         <div>
           <p class="rs-finder-sum" id="f-summary"></p>
           <p class="rs-fine" id="f-by"></p>
+          <p class="rs-fine" id="f-hint"></p>
         </div>
-        <a class="btn btn-primary" id="f-open" href="#" data-pending>Open Report</a>
+        <a class="btn btn-primary" id="f-open" href="#" target="_blank" rel="noopener">Open Report</a>
       </div>
       <div class="rs-latest"><span>Jump to the latest:</span><div id="f-latest"></div></div>
     </div>

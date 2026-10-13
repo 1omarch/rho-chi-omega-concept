@@ -18,6 +18,7 @@
 .rs-search input { flex: 1; min-width: 0; border: 0; background: none; font: 500 1rem var(--font-body); color: var(--ink); padding: 1.05em .8em; outline: none; }
 .rs-search input::placeholder { color: rgba(23,31,25,.45); }
 .rs-search-note { margin: .7rem 0 0; font-size: .82rem; color: var(--ink-soft); }
+.rs-portal-note { margin-top: .3rem; }
 
 .rs-quick { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-top: 1.8rem; }
 .rs-quick-card { display: flex; flex-direction: column; gap: .2rem; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 1.2rem 1.2rem 1.3rem; transition: transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s var(--ease); }
@@ -132,3 +133,14 @@
 @media (max-width: 480px) {
   .rs-quick { grid-template-columns: 1fr; }
 }
+
+/* ---------- committee dashboard ---------- */
+.cm-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.1rem; }
+.cm-card { display: flex; flex-direction: column; gap: .6rem; background: #fff; border: 1px solid var(--line); border-radius: 18px; box-shadow: var(--shadow); padding: 1.4rem; }
+.cm-card h3 { font-family: var(--font-display); font-size: 1.15rem; color: var(--ivy-black); margin: 0; }
+.cm-card p { margin: 0 0 .6rem; font-size: .9rem; color: var(--ink-soft); }
+.cm-card .btn { margin-top: auto; align-self: flex-start; }
+.cm-tip { margin-top: 1.2rem; }
+.cm-live { display: flex; gap: .8rem; flex-wrap: wrap; }
+@media (max-width: 1000px) { .cm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .cm-grid { grid-template-columns: 1fr; } .cm-live .btn { width: 100%; justify-content: center; min-height: 50px; } }

@@ -18,21 +18,16 @@
   const icon = (kind, size = 17) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[kind] || ICONS.Document}</svg>`;
   const ARROW = '<svg class="go" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
-  /* ---------- toast ---------- */
-  let toastTimer;
-  function toast(msg) {
-    const el = $('#rs-toast');
-    el.textContent = msg;
-    el.classList.add('is-on');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => el.classList.remove('is-on'), 4200);
-  }
+  /* ---------- deep links into the live portal ---------- */
+  // #:~:text= scrolls the live page to the item and highlights it
+  const frag = t => '#:~:text=' + encodeURIComponent(t).replace(/-/g, '%2D');
+  const portalLink = (page, find) => data.portal[page] + frag(find);
+  const hrefFor = it => portalLink(it.page || 'docs', it.find || it.title);
 
   /* ---------- rendering ---------- */
   function itemHTML(it) {
-    const pending = it.href === '#' ? ' data-pending' : '';
     const text = `${it.title} ${it.note || ''} ${it.kind}`.toLowerCase();
-    return `<li class="rs-item" data-text="${esc(text)}"><a class="rs-link" href="${esc(it.href)}"${pending} target="_blank" rel="noopener">
+    return `<li class="rs-item" data-text="${esc(text)}"><a class="rs-link" href="${esc(hrefFor(it))}" target="_blank" rel="noopener">
       <span class="ic">${icon(it.kind)}</span>
       <span class="t">${esc(it.title)}${it.note ? `<small>${esc(it.note)}</small>` : ''}</span>
       <span class="rs-kind">${esc(it.kind)}</span>${ARROW}</a></li>`;
@@ -117,6 +112,8 @@
       const fundTxt = r.funds.length > 1 || r.funds[0] === 'All Accounts' ? ` · ${fund.value}` : '';
       $('#f-summary').textContent = `${r.label}${fundTxt} · ${MONTHS[Number(month.value)]} ${year.value}`;
       $('#f-by').textContent = `Prepared by the ${r.preparedBy}`;
+      $('#f-open').href = portalLink('finance', r.find);
+      $('#f-hint').textContent = `Opens the ${r.label} list on the chapter portal. Choose ${MONTHS[Number(month.value)]} ${year.value} there.`;
     }
 
     rep.addEventListener('change', () => { fillFunds(); summary(); });
@@ -143,14 +140,7 @@
     summary();
   }
 
-  /* ---------- pending links, chips, sticky offset ---------- */
-  document.addEventListener('click', e => {
-    const a = e.target.closest('a[data-pending]');
-    if (!a) return;
-    e.preventDefault();
-    toast('This link gets connected once the real files are set up for the new portal.');
-  });
-
+  /* ---------- chips and sticky offset ---------- */
   function setupChips() {
     const tabs = $('.portal-tabs');
     if (tabs) document.documentElement.style.setProperty('--tabs-h', tabs.offsetHeight + 'px');
@@ -165,6 +155,12 @@
     targets.forEach(t => io.observe(t));
   }
 
+  $$('[data-portal]').forEach(a => {
+    const [page, find] = a.dataset.portal.split('|');
+    a.href = find ? portalLink(page, find) : data.portal[page];
+    a.target = '_blank';
+    a.rel = 'noopener';
+  });
   renderStatic();
   setupSearch();
   setupFinder();
