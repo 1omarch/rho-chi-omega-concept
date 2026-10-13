@@ -203,3 +203,7 @@ table.price-table td:not(:first-child), table.price-table th:not(:first-child) {
 .portal-tile.is-featured p { color: rgba(250,246,238,.82); max-width: 60ch; }
 .portal-tile.is-featured .pt-icon { background: rgba(250,246,238,.1); color: var(--gold-soft); }
 .portal-tile.is-featured .pt-go { color: var(--gold-soft); }
+
+/* Events page empty state */
+.events-empty { padding: 1.6rem 1.8rem; border: 1px dashed rgba(18,53,36,.25); border-radius: 12px; background: #fff; color: var(--ink-soft); }
+.events-empty p { margin: 0; }
