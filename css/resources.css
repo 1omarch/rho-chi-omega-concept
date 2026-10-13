@@ -57,6 +57,7 @@
 .rs-link .t { flex: 1; min-width: 0; }
 .rs-link .t small { display: block; font-size: .74rem; font-weight: 600; color: var(--salmon-deep); margin-top: .1rem; }
 .rs-kind { flex: none; font-size: .64rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-soft); background: var(--pearl-dim); border-radius: 999px; padding: .3em .75em; }
+.rs-gate { flex: none; display: inline-flex; color: var(--ink-soft); opacity: .7; }
 .rs-link .go { flex: none; color: var(--ink-soft); transition: transform .2s ease, color .2s ease; }
 .rs-link:hover .go { transform: translateX(3px); color: var(--salmon-deep); }
 
@@ -67,6 +68,7 @@
 .rs-card h3 span { font-family: var(--font-body); font-size: .74rem; font-weight: 700; color: var(--ink-soft); }
 .rs-card .rs-list { gap: .4rem; }
 .rs-card .rs-link { background: var(--pearl); border-color: transparent; }
+.rs-card .rs-kind { display: none; }
 .rs-card .rs-link:hover { background: #fff; border-color: var(--salmon-deep); }
 
 /* ---------- dues ---------- */

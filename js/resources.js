@@ -16,13 +16,14 @@
     Budget: '<path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 5-6"/>'
   };
   const icon = (kind, size = 17) => `<svg width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[kind] || ICONS.Document}</svg>`;
+  const GATE = '<span class="rs-gate" title="Opens in the chapter portal. Sign in if asked."><svg class="gate" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>';
   const ARROW = '<svg class="go" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
   /* ---------- deep links into the live portal ---------- */
   // #:~:text= scrolls the live page to the item and highlights it
   const frag = t => '#:~:text=' + encodeURIComponent(t).replace(/-/g, '%2D');
   const portalLink = (page, find) => data.portal[page] + frag(find);
-  const hrefFor = it => portalLink(it.page || 'docs', it.find || it.title);
+  const hrefFor = it => it.url || portalLink(it.page || 'docs', it.find || it.title);
 
   /* ---------- rendering ---------- */
   function itemHTML(it) {
@@ -30,7 +31,7 @@
     return `<li class="rs-item" data-text="${esc(text)}"><a class="rs-link" href="${esc(hrefFor(it))}" target="_blank" rel="noopener">
       <span class="ic">${icon(it.kind)}</span>
       <span class="t">${esc(it.title)}${it.note ? `<small>${esc(it.note)}</small>` : ''}</span>
-      <span class="rs-kind">${esc(it.kind)}</span>${ARROW}</a></li>`;
+      <span class="rs-kind">${esc(it.kind)}</span>${it.url ? '' : GATE}${ARROW}</a></li>`;
   }
   const listHTML = items => `<ul class="rs-list">${items.map(itemHTML).join('')}</ul>`;
   const cardsHTML = groups => groups.map(g => `<article class="rs-card"><h3>${esc(g.label)}<span>${g.items.length}</span></h3>${listHTML(g.items)}</article>`).join('');
