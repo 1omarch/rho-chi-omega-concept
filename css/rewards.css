@@ -100,7 +100,15 @@
 .rw-hero-art svg { display: block; width: 100%; height: auto; max-height: 440px; overflow: visible; }
 .strand-thread { fill: none; stroke: rgba(168,131,47,.6); stroke-width: 1.1; }
 .strand-pearl { fill: url(#pearlGrad); stroke: rgba(150,118,84,.35); stroke-width: .6; filter: drop-shadow(0 2px 2.5px rgba(70,45,20,.3)); animation: pearl-in .7s var(--ease) backwards; animation-delay: calc(var(--i) * 55ms + 250ms); transform-box: fill-box; transform-origin: center; }
-.strand-ring { fill: rgba(255,255,255,.65); stroke: rgba(201,162,77,.7); stroke-width: 1.2; }
+.charm { filter: drop-shadow(0 8px 7px rgba(110,55,50,.38)); }
+.charm-ring { fill: none; stroke: url(#roseRing); stroke-width: 3.2; }
+.charm-bezel { fill: url(#roseBody); stroke: #8a4d46; stroke-opacity: .7; stroke-width: .7; }
+.charm-vein { fill: none; stroke: #7e443e; stroke-width: 1.15; stroke-linecap: round; opacity: .85; }
+.charm-vein-light { fill: none; stroke: #ffe3d7; stroke-width: .8; stroke-linecap: round; opacity: .7; }
+.charm-sheen { opacity: 0; animation: charm-sheen 6s ease-in-out 2.6s infinite; }
+@keyframes charm-sheen { 0% { transform: rotate(20deg) translateX(-60px); opacity: 0; } 10% { opacity: .9; } 40% { opacity: .9; } 52%, 100% { transform: rotate(20deg) translateX(60px); opacity: 0; } }
+.charm-sparkle path { fill: #fff6ee; stroke: rgba(201,132,122,.7); stroke-width: .5; opacity: 0; transform-box: fill-box; transform-origin: center; animation: charm-twinkle 3.8s ease-in-out infinite; animation-delay: calc(var(--d) * 1s + 2.2s); }
+@keyframes charm-twinkle { 0%, 100% { opacity: 0; transform: scale(.3) rotate(0deg); } 35% { opacity: 1; transform: scale(1) rotate(45deg); } 65% { opacity: 0; transform: scale(.4) rotate(90deg); } }
 .strand-pendant { animation: pearl-in .8s var(--ease) 1.9s backwards; transform-box: fill-box; transform-origin: top center; }
 @keyframes pearl-in { from { opacity: 0; transform: scale(.4); } }
 
