@@ -147,5 +147,6 @@
 @media (max-width: 1000px) { .cm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 620px) { .cm-grid { grid-template-columns: 1fr; } .cm-live .btn { width: 100%; justify-content: center; min-height: 50px; } }
 
-.rs-contact { margin: .9rem 0 0; font-size: .86rem; color: var(--ink-soft); line-height: 1.5; }
-.rs-contact a { color: var(--ivy); font-weight: 700; }
+.rs-contact { margin: 1rem 0 0; padding-top: .9rem; border-top: 1px solid rgba(250,246,238,.18); font-size: .9rem; color: rgba(250,246,238,.9); line-height: 1.55; }
+.rs-contact a { color: var(--gold-soft, #e8d9a6); font-weight: 700; text-decoration: none; }
+.rs-contact a:hover { text-decoration: underline; }
