@@ -79,11 +79,29 @@
   }
 
   function viewSent(email) {
+    const input = el('input', { type: 'text', id: 'auth-code', name: 'code', required: true, autocomplete: 'one-time-code', inputmode: 'numeric', pattern: '[0-9]*', maxlength: '10', placeholder: 'Code from the email', 'aria-describedby': 'auth-help' });
+    const btn = el('button', { type: 'submit', class: 'btn btn-primary auth-btn', text: 'Sign in with code' });
+    const note = el('p', { class: 'auth-msg', role: 'alert' });
+    const form = el('form', { class: 'auth-form' }, el('label', { for: 'auth-code', text: 'Sign-in code' }), input, btn, note);
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+      const token = input.value.replace(/\s+/g, '');
+      if (!token) return;
+      btn.disabled = true; btn.textContent = 'Checking…'; note.textContent = '';
+      const { error } = await state.client.auth.verifyOtp({ email, token, type: 'email' });
+      if (error) {
+        btn.disabled = false; btn.textContent = 'Sign in with code';
+        note.textContent = 'That code didn’t work. It may have expired. Check the digits or request a new one.';
+        input.focus();
+      }
+      // on success, onAuthStateChange takes over and checks the roster
+    });
     const again = el('button', { type: 'button', class: 'btn btn-ghost auth-btn', text: 'Use a different email' });
     again.addEventListener('click', () => viewSignIn());
     showGate([
       el('h1', { id: 'auth-title', text: 'Check your email' }),
-      el('p', { class: 'auth-help' }, 'We sent a sign-in link to ', el('strong', { text: email }), '. It can take a minute to arrive, and it may land in your spam folder. Open the link on this device to finish signing in.'),
+      el('p', { id: 'auth-help', class: 'auth-help' }, 'We sent a sign-in email to ', el('strong', { text: email }), '. It can take a minute and may land in spam. Open the link in it, or type the code from it below.'),
+      form,
       again
     ]);
   }
