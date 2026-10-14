@@ -949,7 +949,6 @@ p { margin: 0 0 1.1em; }
 }
 
 /* ============ CWJ administration logo (header, transparent) ============ */
-.cwj-logo { height: 62px; width: auto; flex-shrink: 0; background: none; }
 .targets-cwj-logo {
   width: clamp(220px, 23vw, 320px); height: auto; flex-shrink: 0; opacity: .96;
   filter: drop-shadow(0 10px 20px rgba(8,25,18,.18));
@@ -957,7 +956,6 @@ p { margin: 0 0 1.1em; }
   margin-top: 2.6em; /* aligns the logo beside the "Eight targets, one mission." headline */
 }
 @media (max-width: 900px) { .targets-cwj-logo { display: none; } }
-@media (max-width: 640px) { .cwj-logo { height: 44px; } }
 
 /* ============ Ivies Beyond the Wall ============ */
 .section-ibw {
