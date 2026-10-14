@@ -1,5 +1,5 @@
 // Committee Dashboard — points each link at the live chapter portal
-(function () {
+document.addEventListener('rco-resources-ready', function () {
   const data = window.RCO_RESOURCES;
   if (!data) return;
   const frag = t => '#:~:text=' + encodeURIComponent(t).replace(/-/g, '%2D');
@@ -13,4 +13,4 @@
     a.target = '_blank';
     a.rel = 'noopener';
   });
-})();
+});

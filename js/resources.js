@@ -1,5 +1,5 @@
 // Resources — renders the consolidated page from RCO_RESOURCES
-(function () {
+document.addEventListener('rco-resources-ready', function () {
   const data = window.RCO_RESOURCES;
   if (!data) return;
 
@@ -166,4 +166,4 @@
   setupSearch();
   setupFinder();
   setupChips();
-})();
+});
