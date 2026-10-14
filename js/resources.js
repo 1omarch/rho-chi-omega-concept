@@ -6,6 +6,7 @@ document.addEventListener('rco-resources-ready', function () {
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const money = n => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   const ICONS = {
@@ -44,7 +45,7 @@ document.addEventListener('rco-resources-ready', function () {
     $('#budgets-root').innerHTML = data.finance.budgets.map(itemHTML).join('');
 
     const head = '<thead><tr><th scope="col">Line item</th>' + data.dues.memberTypes.map(t => `<th scope="col">${esc(t)}</th>`).join('') + '</tr></thead>';
-    const rows = data.dues.rows.map(r => '<tr><td>' + esc(r[0]) + '</td>' + r.slice(1).map(v => v ? '<td>$&bull;&bull;&bull;.&bull;&bull;</td>' : '<td class="na">&mdash;</td>').join('') + '</tr>').join('');
+    const rows = data.dues.rows.map(r => '<tr><td>' + esc(r[0]) + '</td>' + r.slice(1).map(v => typeof v === 'number' && v > 1 ? '<td>' + money(v) + '</td>' : v ? '<td>$&bull;&bull;&bull;.&bull;&bull;</td>' : '<td class="na">&mdash;</td>').join('') + '</tr>').join('');
     $('#dues-table').innerHTML = head + '<tbody>' + rows + '</tbody>';
   }
 
