@@ -146,7 +146,7 @@
 .portal-hero--home { padding: clamp(2.6rem, 6vw, 4.2rem) 0 clamp(1.6rem, 3vw, 2.4rem); }
 .portal-hero--home h1 { font-size: clamp(2.3rem, 5.6vw, 4.2rem); line-height: 1.04; letter-spacing: -.01em; color: var(--ivy-black); margin: .35rem 0 .7rem; }
 .rg-word {
-  display: inline-block; padding: 0 .04em .06em; font-style: italic;
+  display: inline; padding: 0 .04em .08em; -webkit-box-decoration-break: clone; box-decoration-break: clone;
   color: #b76e79;
   background: linear-gradient(105deg, #8a4340 0%, #b86b64 14%, #d58b7c 27%, #f2bba9 33%, #d28576 40%, #b0666d 52%, #8a4340 62%, #c27a6e 76%, #e8a695 84%, #9c524f 100%);
   background-size: 240% 100%;
@@ -156,5 +156,6 @@
   filter: drop-shadow(0 2px 1px rgba(110,55,50,.28));
   animation: rg-shine 7s ease-in-out infinite;
 }
+.rg-word em { font-style: italic; }
 @keyframes rg-shine { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 @media (prefers-reduced-motion: reduce) { .rg-word { animation: none; background-position: 30% 50%; } }
