@@ -1,0 +1,76 @@
+/* Member portal sign-in gate */
+html.auth-pending body { visibility: hidden; }
+html.auth-locked, html.auth-locked body { overflow: hidden; }
+html.auth-locked body { visibility: visible; }
+
+.auth-gate {
+  position: fixed; inset: 0; z-index: 2000;
+  display: grid; place-items: center; padding: 1.5rem;
+  background:
+    radial-gradient(60% 80% at 90% 0%, rgba(255,214,205,.75), transparent 62%),
+    radial-gradient(50% 60% at 0% 100%, rgba(139,195,74,.14), transparent 60%),
+    var(--pearl, #faf6ee);
+  overflow-y: auto;
+}
+.auth-card {
+  width: 100%; max-width: 430px;
+  background: #fff; border: 1px solid rgba(18,53,36,.12); border-radius: 22px;
+  box-shadow: 0 34px 70px -34px rgba(8,25,18,.5);
+  border-top: 3px solid var(--gold, #c9a24d);
+  padding: clamp(1.8rem, 5vw, 2.6rem);
+  text-align: left;
+}
+.auth-crest { display: block; width: 58px; height: auto; margin-bottom: 1rem; }
+.auth-eyebrow { margin: 0 0 .5rem; font-size: .72rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; color: var(--salmon-deep, #c14f3d); }
+.auth-card h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.7rem, 4vw, 2.1rem); color: var(--ivy-black, #081912); margin: 0 0 .6rem; }
+.auth-help { margin: 0 0 1.4rem; color: var(--ink-soft, #3f5548); font-size: .96rem; line-height: 1.55; }
+.auth-form { display: flex; flex-direction: column; gap: .6rem; }
+.auth-form label { font-size: .74rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--ivy, #123524); }
+.auth-form input {
+  font: 500 1rem var(--font-body); color: var(--ink, #171f19);
+  border: 1.5px solid rgba(18,53,36,.25); border-radius: 12px; padding: .9em 1em; background: #fff;
+}
+.auth-form input:focus { outline: none; border-color: var(--salmon-deep, #c14f3d); box-shadow: 0 0 0 4px rgba(242,145,126,.25); }
+.auth-btn { width: 100%; justify-content: center; min-height: 52px; margin-top: .3rem; text-transform: uppercase; letter-spacing: .1em; font-size: .78rem; }
+.auth-btn:disabled { opacity: .55; cursor: wait; }
+.auth-msg { min-height: 1.2em; margin: .2rem 0 0; font-size: .85rem; font-weight: 600; color: var(--salmon-deep, #c14f3d); }
+.auth-gate :focus-visible { outline: 3px solid rgba(193,79,61,.5); outline-offset: 3px; }
+
+/* signed-in badge in the portal header */
+.auth-who { display: flex; align-items: center; gap: .8rem; margin-left: auto; font-size: .84rem; color: var(--pearl, #faf6ee); }
+.auth-who span { opacity: .85; max-width: 18ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.auth-out { background: none; border: 1px solid rgba(250,246,238,.4); color: var(--pearl, #faf6ee); border-radius: 999px; padding: .4em 1em; font: 600 .78rem var(--font-body); cursor: pointer; transition: background .2s ease, border-color .2s ease; }
+.auth-out:hover { background: rgba(250,246,238,.12); border-color: var(--pearl, #faf6ee); }
+@media (max-width: 560px) { .auth-who span { display: none; } }
+
+/* officer roster */
+.rost-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.2rem; }
+.rost-card { display: flex; flex-direction: column; gap: .5rem; background: #fff; border: 1px solid rgba(18,53,36,.1); border-radius: 18px; box-shadow: 0 22px 46px -30px rgba(8,25,18,.38); padding: 1.4rem; }
+.rost-card h2, .rost-list h2 { font-family: var(--font-display); font-size: 1.3rem; color: var(--ivy-black, #081912); margin: 0 0 .3rem; }
+.rost-card label { font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--ivy, #123524); margin-top: .3rem; }
+.rost-card input, .rost-card select, .rost-card textarea, .rost-bar input { font: 500 .95rem var(--font-body); color: var(--ink, #171f19); border: 1.5px solid rgba(18,53,36,.22); border-radius: 10px; padding: .7em .9em; background: #fff; width: 100%; }
+.rost-card textarea { resize: vertical; }
+.rost-card input:focus, .rost-card select:focus, .rost-card textarea:focus, .rost-bar input:focus { outline: none; border-color: var(--salmon-deep, #c14f3d); box-shadow: 0 0 0 3px rgba(242,145,126,.25); }
+.rost-card .btn { align-self: flex-start; margin-top: .5rem; }
+.rost-msg { min-height: 1.2em; margin: .3rem 0 0; font-size: .85rem; font-weight: 600; }
+.rost-msg.is-ok { color: var(--apple-deep, #4f7a24); }
+.rost-msg.is-bad { color: var(--salmon-deep, #c14f3d); }
+.rost-list { margin-top: 2rem; }
+.rost-bar { display: flex; align-items: center; gap: .6rem 1.2rem; flex-wrap: wrap; margin-bottom: .6rem; }
+.rost-bar h2 { margin: 0; }
+.rost-count { font-size: .85rem; color: var(--ink-soft, #3f5548); }
+.rost-bar input { max-width: 300px; margin-left: auto; }
+.rost-scroll { overflow-x: auto; background: #fff; border: 1px solid rgba(18,53,36,.1); border-radius: 14px; }
+.rost-table { width: 100%; border-collapse: collapse; font-size: .9rem; min-width: 560px; }
+.rost-table th, .rost-table td { padding: .7rem 1rem; text-align: left; border-bottom: 1px solid rgba(18,53,36,.08); }
+.rost-table thead th { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft, #3f5548); background: var(--pearl, #faf6ee); }
+.rost-table tr.is-off td:not(:last-child) { opacity: .5; }
+.rost-email { color: var(--ink-soft, #3f5548); overflow-wrap: anywhere; }
+.rost-empty { text-align: center !important; color: var(--ink-soft, #3f5548); padding: 1.6rem !important; }
+.rost-rolepill { font-size: .78rem; font-weight: 700; color: var(--ink-soft, #3f5548); }
+.rost-role { font: 600 .85rem var(--font-body); border: 1px solid rgba(18,53,36,.22); border-radius: 8px; padding: .35em .6em; background: #fff; }
+.rost-btn { font: 700 .76rem var(--font-body); border: 1px solid rgba(18,53,36,.25); background: #fff; color: var(--ink-soft, #3f5548); border-radius: 999px; padding: .45em 1.1em; cursor: pointer; }
+.rost-btn.is-on { background: #e8f2d6; border-color: transparent; color: var(--apple-deep, #4f7a24); }
+.rost-btn:disabled { cursor: not-allowed; opacity: .55; }
+.rost-denied { background: #fff; border: 1px dashed rgba(18,53,36,.25); border-radius: 12px; padding: 1.4rem; color: var(--ink-soft, #3f5548); }
+@media (max-width: 760px) { .rost-grid { grid-template-columns: 1fr; } .rost-bar input { max-width: none; margin-left: 0; width: 100%; } }
