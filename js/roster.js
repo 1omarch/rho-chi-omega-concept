@@ -21,11 +21,15 @@ document.addEventListener('rco-auth-ready', e => {
   const emailOk = s => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(s);
 
   let rows = [];
+  let titles = {};
 
   async function load() {
     const { data, error } = await sb.from('members').select('id,email,full_name,role,active').order('full_name', { ascending: true, nullsFirst: false });
     if (error) { say($('#rost-status'), 'Could not load the roster. Please refresh.', false); return; }
     rows = data;
+    const { data: ts } = await sb.from('profiles').select('member_id,title');
+    titles = {};
+    (ts || []).forEach(t => { titles[t.member_id] = t.title || ''; });
     render();
   }
 
@@ -37,7 +41,7 @@ document.addEventListener('rco-auth-ready', e => {
     const body = $('#rost-body');
     body.replaceChildren();
     if (!list.length) {
-      body.append(el('tr', {}, el('td', { colspan: '4', class: 'rost-empty', text: rows.length ? 'No one matches that search.' : 'No one has been added yet.' })));
+      body.append(el('tr', {}, el('td', { colspan: '5', class: 'rost-empty', text: rows.length ? 'No one matches that search.' : 'No one has been added yet.' })));
       return;
     }
     list.forEach(r => {
@@ -66,9 +70,17 @@ document.addEventListener('rco-auth-ready', e => {
         roleCell = el('span', { class: 'rost-rolepill', text: r.role[0].toUpperCase() + r.role.slice(1) });
       }
 
+      const titleIn = el('input', { type: 'text', class: 'rost-title', maxlength: '80', placeholder: 'Title (optional)', value: titles[r.id] || '', 'aria-label': 'Title for ' + (r.full_name || r.email) });
+      titleIn.addEventListener('change', async () => {
+        const v = titleIn.value.trim();
+        const { error } = await sb.from('profiles').upsert({ member_id: r.id, title: v || null }, { onConflict: 'member_id' });
+        if (error) say($('#rost-status'), 'The title wasn\u2019t saved.', false); else { titles[r.id] = v; say($('#rost-status'), 'Title saved.', true); }
+      });
+
       body.append(el('tr', { class: r.active ? '' : 'is-off' },
         el('td', { text: r.full_name || '—' }),
         el('td', { class: 'rost-email', text: r.email }),
+        el('td', {}, titleIn),
         el('td', {}, roleCell),
         el('td', {}, toggle)));
     });

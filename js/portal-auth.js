@@ -152,7 +152,13 @@
     if (header && !header.querySelector('.auth-who')) {
       const out = el('button', { type: 'button', class: 'auth-out', text: 'Sign out' });
       out.addEventListener('click', signOut);
-      header.append(el('div', { class: 'auth-who' }, el('span', { text: m.name }), out));
+      header.append(el('div', { class: 'auth-who' }, el('a', { class: 'auth-name', href: 'portal-profile.html', title: 'My profile', text: m.name }), out));
+    }
+    const tabBar = document.querySelector('.portal-tabs .container');
+    if (tabBar && !tabBar.querySelector('[href="portal-profile.html"]')) {
+      const mine = el('a', { href: 'portal-profile.html', text: 'My Profile' });
+      if (location.pathname.endsWith('portal-profile.html')) mine.classList.add('is-active');
+      tabBar.append(mine);
     }
     if (m.role === 'officer' || m.role === 'admin') {
       const tabs = document.querySelector('.portal-tabs .container');

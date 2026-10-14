@@ -23,9 +23,21 @@ document.addEventListener('rco-auth-ready', async () => {
     (signed || []).forEach(s => { if (s.signedUrl) urls[s.path] = s.signedUrl; });
   }
 
+  // soror profiles (title, contact details, school, initiation) matched to directory names
+  const profiles = {};
+  const { data: plist } = await sb.rpc('get_profiles');
+  (plist || []).forEach(p => { if (p.full_name) profiles[p.full_name.trim().toLowerCase()] = p; });
+  const ownPics = (plist || []).filter(p => p.photo_file).map(p => p.photo_file);
+  const ownUrls = {};
+  if (ownPics.length) {
+    const { data: signed } = await sb.storage.from('portal-files').createSignedUrls(ownPics, 3600);
+    (signed || []).forEach(s => { if (s.signedUrl) ownUrls[s.path] = s.signedUrl; });
+  }
+
   const DIRECTORY = data.map(r => {
-    const photo = r.photo_file && urls['directory/' + r.photo_file];
-    return { display: r.display_name, photo: photo || placeholder, hasPhoto: !!photo };
+    const profile = profiles[r.display_name.trim().toLowerCase()] || null;
+    const photo = (profile && profile.photo_file && ownUrls[profile.photo_file]) || (r.photo_file && urls['directory/' + r.photo_file]);
+    return { display: r.display_name, photo: photo || placeholder, hasPhoto: !!photo, profile };
   });
 
   function makeCard(person, idx) {
@@ -75,6 +87,34 @@ document.addEventListener('rco-auth-ready', async () => {
   const modalPhotoWrap = document.getElementById('soror-photo-wrap');
   const modalName = document.getElementById('soror-name');
 
+  const extra = document.getElementById('soror-extra');
+  function renderExtra(p) {
+    if (!extra) return;
+    extra.replaceChildren();
+    if (!p) return;
+    if (p.title) {
+      const b = document.createElement('span'); b.className = 'sr-badge'; b.textContent = p.title; extra.append(b);
+    }
+    const rows = [
+      ['Email', p.contact_email, p.contact_email && 'mailto:' + p.contact_email],
+      ['Phone', p.phone, p.phone && 'tel:' + p.phone.replace(/[^\d+]/g, '')],
+      ['Home', p.address],
+      ['School', p.school],
+      ['Initiated', [p.initiation_year, p.initiated_chapter].filter(Boolean).join(' · ')]
+    ].filter(r => r[1]);
+    if (!rows.length) {
+      const n = document.createElement('p'); n.className = 'sr-empty'; n.textContent = 'This soror has not added her details yet.'; extra.append(n); return;
+    }
+    const dl = document.createElement('dl'); dl.className = 'sr-details';
+    rows.forEach(([k, v, href]) => {
+      const dt = document.createElement('dt'); dt.textContent = k;
+      const dd = document.createElement('dd');
+      if (href) { const a = document.createElement('a'); a.href = href; a.textContent = v; dd.append(a); } else dd.textContent = v;
+      dl.append(dt, dd);
+    });
+    extra.append(dl);
+  }
+
   function openSoror(person) {
     if (!modal) return;
     modalPhoto.src = person.photo;
@@ -82,6 +122,7 @@ document.addEventListener('rco-auth-ready', async () => {
     modalPhoto.style.objectFit = person.hasPhoto ? 'cover' : 'contain';
     modalPhotoWrap.style.padding = person.hasPhoto ? '0' : '2.2rem';
     modalName.textContent = person.display;
+    renderExtra(person.profile);
     modal.classList.add('is-open');
     document.body.classList.add('modal-open');
     const closeBtn = modal.querySelector('.modal-close');
