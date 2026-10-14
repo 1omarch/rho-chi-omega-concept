@@ -47,6 +47,18 @@ document.addEventListener('rco-resources-ready', function () {
     const head = '<thead><tr><th scope="col">Line item</th>' + data.dues.memberTypes.map(t => `<th scope="col">${esc(t)}</th>`).join('') + '</tr></thead>';
     const rows = data.dues.rows.map(r => '<tr><td>' + esc(r[0]) + '</td>' + r.slice(1).map(v => typeof v === 'number' && v > 1 ? '<td>' + money(v) + '</td>' : v ? '<td>$&bull;&bull;&bull;.&bull;&bull;</td>' : '<td class="na">&mdash;</td>').join('') + '</tr>').join('');
     $('#dues-table').innerHTML = head + '<tbody>' + rows + '</tbody>';
+
+    const c = data.dues.contact, box = $('#dues-contact');
+    if (c && box) {
+      box.replaceChildren(document.createTextNode(`Questions? ${c.role}: ${c.name}`));
+      if (c.phone) {
+        const tel = document.createElement('a');
+        tel.href = 'tel:' + c.phone.replace(/[^\d+]/g, '');
+        tel.textContent = c.phone;
+        box.append(document.createElement('br'), tel);
+      }
+      box.hidden = false;
+    }
   }
 
   /* ---------- search ---------- */

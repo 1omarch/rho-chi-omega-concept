@@ -146,3 +146,6 @@
 .cm-live { display: flex; gap: .8rem; flex-wrap: wrap; }
 @media (max-width: 1000px) { .cm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 620px) { .cm-grid { grid-template-columns: 1fr; } .cm-live .btn { width: 100%; justify-content: center; min-height: 50px; } }
+
+.rs-contact { margin: .9rem 0 0; font-size: .86rem; color: var(--ink-soft); line-height: 1.5; }
+.rs-contact a { color: var(--ivy); font-weight: 700; }
