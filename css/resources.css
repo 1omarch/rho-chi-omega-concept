@@ -150,3 +150,26 @@
 .rs-contact { margin: 1rem 0 0; padding-top: .9rem; border-top: 1px solid rgba(250,246,238,.18); font-size: .9rem; color: rgba(250,246,238,.9); line-height: 1.55; }
 .rs-contact a { color: var(--gold-soft, #e8d9a6); font-weight: 700; text-decoration: none; }
 .rs-contact a:hover { text-decoration: underline; }
+
+/* ---------- chapter leadership ---------- */
+.ld-search { margin: 0 0 1.4rem; }
+.ld-note { color: var(--ink-soft); font-size: .92rem; margin: .4rem 0 1rem; }
+.ld-h { font-family: var(--font-display); font-size: 1.25rem; color: var(--ivy-black); margin: 1.6rem 0 .9rem; }
+.ld-root > .ld-h:first-child { margin-top: .2rem; }
+.ld-officers { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: .8rem; }
+.ld-officer, .ld-pan { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: .85rem 1rem; display: flex; flex-direction: column; gap: .15rem; }
+.ld-officer[hidden], .ld-pan[hidden], .ld-group[hidden], .ld-table tr[hidden] { display: none; }
+.ld-role { font-size: .68rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--salmon-deep); }
+.ld-officer strong, .ld-pan strong { font-family: var(--font-display); font-size: 1.02rem; color: var(--ivy-black); font-weight: 600; }
+.ld-pan { margin-top: .8rem; background: var(--pearl); }
+.ld-group { background: #fff; border: 1px solid var(--line); border-radius: 14px; margin-bottom: .8rem; overflow: hidden; }
+.ld-group summary { cursor: pointer; padding: 1rem 1.2rem; font-weight: 700; color: var(--ivy-black); display: flex; align-items: center; gap: .7rem; list-style: none; }
+.ld-group summary::-webkit-details-marker { display: none; }
+.ld-group summary::after { content: "+"; margin-left: auto; font-size: 1.3rem; color: var(--salmon-deep); }
+.ld-group[open] summary::after { content: "\2212"; }
+.ld-count { font-size: .72rem; font-weight: 800; background: var(--pearl); border-radius: 999px; padding: .15em .7em; color: var(--ink-soft); }
+.ld-table { width: 100%; border-collapse: collapse; font-size: .9rem; min-width: 560px; }
+.ld-table th, .ld-table td { padding: .65rem 1.2rem; text-align: left; border-top: 1px solid var(--line); vertical-align: top; }
+.ld-table thead th { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft); background: var(--pearl); }
+.ld-table tbody th { font-weight: 600; color: var(--ivy-black); }
+.ld-table td.is-empty { color: rgba(23,31,25,.35); }
