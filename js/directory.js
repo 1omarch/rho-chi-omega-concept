@@ -119,7 +119,9 @@ document.addEventListener('rco-auth-ready', async () => {
   function renderExtra(p) {
     if (!extra) return;
     extra.replaceChildren();
-    if (!p) return;
+    if (!p) {
+      const n = document.createElement('p'); n.className = 'sr-empty'; n.textContent = 'This soror has not set up her portal profile yet.'; extra.append(n); return;
+    }
     if (p.title) {
       const b = document.createElement('span'); b.className = 'sr-badge'; b.textContent = p.title; extra.append(b);
     }
