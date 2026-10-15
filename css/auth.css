@@ -61,7 +61,7 @@ html.auth-locked body { visibility: visible; }
 .rost-count { font-size: .85rem; color: var(--ink-soft, #3f5548); }
 .rost-bar input { max-width: 300px; margin-left: auto; }
 .rost-scroll { overflow-x: auto; background: #fff; border: 1px solid rgba(18,53,36,.1); border-radius: 14px; }
-.rost-table { width: 100%; border-collapse: collapse; font-size: .9rem; min-width: 720px; }
+.rost-table { width: 100%; border-collapse: collapse; font-size: .9rem; min-width: 980px; }
 .rost-table th, .rost-table td { padding: .7rem 1rem; text-align: left; border-bottom: 1px solid rgba(18,53,36,.08); }
 .rost-table thead th { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-soft, #3f5548); background: var(--pearl, #faf6ee); }
 .rost-table tr.is-off td:not(:last-child) { opacity: .5; }
@@ -78,3 +78,6 @@ html.auth-locked body { visibility: visible; }
 .auth-name { display: inline-block; vertical-align: middle; color: inherit; text-decoration: none; }
 .auth-name:hover { text-decoration: underline; }
 .rost-title { font: 500 .85rem var(--font-body); border: 1px solid rgba(18,53,36,.2); border-radius: 8px; padding: .4em .6em; width: 100%; min-width: 150px; background: #fff; }
+.rost-name { min-width: 170px; }
+.rost-card-sel { max-width: 200px; }
+.rost-file { display: flex; }

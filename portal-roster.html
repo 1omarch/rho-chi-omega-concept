@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/portal.css">
 <link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/profile.css">
 <script src="js/vendor/supabase.js"></script>
 <script src="js/supabase-config.js"></script>
 <script src="js/portal-auth.js"></script>
@@ -75,8 +76,9 @@
 
         <form class="rost-card" id="bulk-form" novalidate>
           <h2>Add many at once</h2>
-          <label for="bulk-text">One per line: email, Full Name</label>
-          <textarea id="bulk-text" rows="5" placeholder="soror1@example.com, First Last&#10;soror2@example.com, First Last"></textarea>
+          <label for="bulk-text">One per line: email, Full Name, Title (optional)</label>
+          <textarea id="bulk-text" rows="5" placeholder="soror1@example.com, First Last, President&#10;soror2@example.com, First Last"></textarea>
+          <div class="rost-file"><label for="bulk-file" class="btn btn-ghost btn-sm">Load a CSV file</label><input type="file" id="bulk-file" accept=".csv,.txt,text/csv,text/plain" class="pf-file"></div>
           <button type="submit" class="btn btn-ghost btn-sm">Add all</button>
           <p class="rost-msg" id="bulk-msg" role="status"></p>
         </form>
@@ -91,7 +93,7 @@
         <p class="rost-msg" id="rost-status" role="status"></p>
         <div class="rost-scroll">
           <table class="rost-table">
-            <thead><tr><th scope="col">Name</th><th scope="col">Email</th><th scope="col">Title</th><th scope="col">Role</th><th scope="col">Access</th></tr></thead>
+            <thead><tr><th scope="col">Name</th><th scope="col">Email</th><th scope="col">Title</th><th scope="col">Directory card</th><th scope="col">Role</th><th scope="col">Access</th></tr></thead>
             <tbody id="rost-body"></tbody>
           </table>
         </div>

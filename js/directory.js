@@ -11,7 +11,7 @@ document.addEventListener('rco-auth-ready', async () => {
   const placeholder = 'images/single-ivy-leaf-tight.png';
 
   const { data, error } = await sb.from('directory')
-    .select('display_name, photo_file')
+    .select('display_name, photo_file, member_id')
     .order('last_name', { ascending: true }).order('first_name', { ascending: true });
   if (error) { countEl.textContent = 'The directory could not be loaded. Please refresh.'; return; }
 
@@ -25,8 +25,13 @@ document.addEventListener('rco-auth-ready', async () => {
 
   // soror profiles (title, contact details, school, initiation) matched to directory names
   const profiles = {};
+  const profilesById = {};
   const { data: plist } = await sb.rpc('get_profiles');
-  (plist || []).forEach(p => { if (p.full_name) profiles[p.full_name.trim().toLowerCase()] = p; });
+  (plist || []).forEach(p => {
+    profilesById[p.member_id] = p;
+    if (p.full_name) profiles[p.full_name.trim().toLowerCase()] = p;
+  });
+  const isComplete = p => !!(p && p.phone && p.address && p.school && p.initiation_year && p.initiated_chapter);
   const ownPics = (plist || []).filter(p => p.photo_file).map(p => p.photo_file);
   const ownUrls = {};
   if (ownPics.length) {
@@ -35,9 +40,13 @@ document.addEventListener('rco-auth-ready', async () => {
   }
 
   const DIRECTORY = data.map(r => {
-    const profile = profiles[r.display_name.trim().toLowerCase()] || null;
+    // exact link first; the name match only fills in for cards an officer hasn't linked yet
+    const profile = (r.member_id && profilesById[r.member_id]) || (!r.member_id && profiles[r.display_name.trim().toLowerCase()]) || null;
     const photo = (profile && profile.photo_file && ownUrls[profile.photo_file]) || (r.photo_file && urls['directory/' + r.photo_file]);
-    return { display: r.display_name, photo: photo || placeholder, hasPhoto: !!photo, profile };
+    const search = [r.display_name, profile && profile.title, profile && profile.school, profile && profile.initiated_chapter,
+                    profile && profile.initiation_year].filter(Boolean).join(' ').toLowerCase();
+    return { display: r.display_name, photo: photo || placeholder, hasPhoto: !!photo, profile, search,
+             title: (profile && profile.title) || '', complete: isComplete(profile) };
   });
 
   function makeCard(person, idx) {
@@ -60,10 +69,23 @@ document.addEventListener('rco-auth-ready', async () => {
     name.textContent = person.display;
 
     btn.append(wrap, name);
+    if (person.title) {
+      const sub = document.createElement('div');
+      sub.className = 'dc-sub';
+      sub.textContent = person.title;
+      btn.append(sub);
+    }
+    if (person.complete) {
+      const dot = document.createElement('span');
+      dot.className = 'dc-dot';
+      dot.title = 'Profile complete';
+      name.append(dot);
+    }
     return btn;
   }
 
   let currentList = DIRECTORY;
+  let mode = 'all';
 
   function render(list) {
     currentList = list;
@@ -72,14 +94,20 @@ document.addEventListener('rco-auth-ready', async () => {
     emptyEl.classList.toggle('is-visible', list.length === 0);
   }
 
-  render(DIRECTORY);
-
-  if (search) {
-    search.addEventListener('input', () => {
-      const q = search.value.trim().toLowerCase();
-      render(q ? DIRECTORY.filter(p => p.display.toLowerCase().includes(q)) : DIRECTORY);
-    });
+  function apply() {
+    const q = search ? search.value.trim().toLowerCase() : '';
+    const tokens = q.split(/\s+/).filter(Boolean);
+    render(DIRECTORY.filter(p => (mode === 'all' || p.title) && tokens.every(t => p.search.includes(t))));
   }
+
+  apply();
+  if (search) search.addEventListener('input', apply);
+
+  document.querySelectorAll('[data-dir-filter]').forEach(b => b.addEventListener('click', () => {
+    mode = b.dataset.dirFilter;
+    document.querySelectorAll('[data-dir-filter]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    apply();
+  }));
 
   /* ---------- soror pop-out ---------- */
   const modal = document.getElementById('modal-soror');

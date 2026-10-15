@@ -45,3 +45,18 @@ textarea.pf-input { resize: vertical; }
 .sr-details a { color: var(--ivy, #123524); font-weight: 600; }
 .sr-badge { display: inline-block; margin: 0 0 .4rem; padding: .25em .8em; border-radius: 999px; background: #e8f2d6; color: var(--apple-deep, #4f7a24); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
 .sr-empty { margin: 1rem 0 0; font-size: .85rem; color: var(--ink-soft, #3f5548); font-style: italic; }
+
+/* directory: filters, title line, completion dot */
+.dir-filters { display: inline-flex; gap: .4rem; }
+.dir-chip { font: 700 .76rem var(--font-body); border: 1px solid rgba(18,53,36,.25); background: #fff; color: var(--ink-soft, #3f5548); border-radius: 999px; padding: .5em 1.1em; cursor: pointer; transition: background .2s, color .2s; }
+.dir-chip[aria-pressed="true"] { background: var(--ivy, #123524); border-color: var(--ivy, #123524); color: var(--pearl, #faf6ee); }
+.dir-chip:focus-visible { outline: 3px solid rgba(193,79,61,.5); outline-offset: 2px; }
+.dir-card .dc-sub { margin-top: .15rem; font-size: .66rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--apple-deep, #4f7a24); line-height: 1.25; }
+.dir-card .dc-dot, .dir-dot { width: 11px; height: 11px; border-radius: 50%; background: #7cb342; box-shadow: 0 0 0 2px #fff; }
+.dir-card .dc-dot { display: inline-block; margin-left: .4em; vertical-align: 1px; }
+.dir-dot { display: inline-block; vertical-align: -1px; margin: 0 .15em; }
+/* portal home: finish-your-profile nudge */
+.pf-nudge { display: flex; align-items: center; gap: .9rem 1.4rem; flex-wrap: wrap; margin: 0 0 1.4rem; padding: .95rem 1.3rem; border-radius: 14px; background: linear-gradient(100deg, #ffeae4, #fff7f2); border: 1px solid rgba(193,79,61,.2); }
+.pf-nudge p { margin: 0; flex: 1 1 280px; color: var(--ink, #171f19); font-size: .95rem; }
+.pf-nudge strong { color: var(--ivy-black, #081912); }
+.pf-nudge .x { background: none; border: 0; font-size: 1.3rem; line-height: 1; cursor: pointer; color: var(--ink-soft, #3f5548); padding: .2rem .5rem; }
