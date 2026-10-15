@@ -1018,3 +1018,16 @@ p { margin: 0 0 1.1em; }
 /* Tribute poem modal */
 .modal .poem { font-family: var(--font-display); font-style: italic; color: var(--ink); line-height: 1.75; }
 .modal .poem-cite { margin-top: 1.2rem; font-size: .85rem; color: var(--ink-soft); }
+
+/* larger crest in the header */
+.brand .aka-emblem { height: 84px; transition: height .35s var(--ease); }
+.site-header.is-solid .brand .aka-emblem { height: 68px; }
+@media (max-width: 480px) { .brand .aka-emblem { height: 58px; } .site-header.is-solid .brand .aka-emblem { height: 50px; } }
+
+/* hero: open the photo without the green wash */
+.hero-view { display: inline-flex; align-items: center; gap: .55rem; background: rgba(250,246,238,.12); color: var(--pearl); border: 1px solid rgba(250,246,238,.45); border-radius: 999px; padding: .6em 1.2em; font: 700 .76rem var(--font-body); letter-spacing: .12em; text-transform: uppercase; cursor: pointer; backdrop-filter: blur(6px); transition: background .25s ease, border-color .25s ease, transform .25s ease; }
+.hero-view:hover { background: rgba(250,246,238,.24); border-color: var(--pearl); transform: translateY(-2px); }
+.hero-view:focus-visible { outline: 3px solid rgba(242,145,126,.7); outline-offset: 3px; }
+#modal-hero-photo .modal { max-width: min(1200px, 94vw); padding: .8rem; background: var(--ivy-black, #081912); }
+#modal-hero-photo .modal img { display: block; width: 100%; height: auto; max-height: 82vh; object-fit: contain; border-radius: 10px; }
+#modal-hero-photo .modal-close { top: .9rem; right: .9rem; }
