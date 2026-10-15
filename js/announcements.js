@@ -4,7 +4,15 @@
   if (!root) return;
 
   const track = root.querySelector('.ann-track');
+
+  // a slide with data-expires="YYYY-MM-DD" disappears the day after that date
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  track.querySelectorAll('.ann-slide[data-expires]').forEach(sl => {
+    const [y, m, d] = sl.dataset.expires.split('-').map(Number);
+    if (new Date(y, m - 1, d) < today) sl.remove();
+  });
   const slides = Array.from(track.querySelectorAll('.ann-slide'));
+  if (!slides.length) { root.hidden = true; return; }
   const dotsWrap = root.querySelector('.ann-dots');
   const prev = root.querySelector('[data-ann-prev]');
   const next = root.querySelector('[data-ann-next]');
