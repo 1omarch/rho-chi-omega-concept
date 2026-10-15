@@ -1031,3 +1031,20 @@ p { margin: 0 0 1.1em; }
 #modal-hero-photo .modal { max-width: min(1200px, 94vw); padding: .8rem; background: var(--ivy-black, #081912); }
 #modal-hero-photo .modal img { display: block; width: 100%; height: auto; max-height: 82vh; object-fit: contain; border-radius: 10px; }
 #modal-hero-photo .modal-close { top: .9rem; right: .9rem; }
+
+/* Membership & Reactivation */
+.mem-feature { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, .65fr); gap: clamp(1.6rem, 4vw, 3.4rem); align-items: center; }
+.mem-body h2 { font-size: clamp(1.9rem, 3.4vw, 2.7rem); margin: .3em 0 .6em; }
+.mem-quote { margin: 0 0 1.6rem; padding-left: 1.3rem; border-left: 3px solid var(--gold); font-family: var(--font-display); font-style: italic; font-weight: 400; font-size: clamp(1.1rem, 1.9vw, 1.4rem); line-height: 1.55; color: var(--ivy-black); max-width: 56ch; }
+.mem-actions { display: flex; gap: .8rem; flex-wrap: wrap; }
+.mem-points { list-style: none; margin: 0; padding: 0; display: grid; gap: .7rem; }
+.mem-points li { background: #fff; border: 1px solid rgba(18,53,36,.1); border-left: 3px solid var(--salmon); border-radius: 12px; padding: .9rem 1.1rem; display: flex; flex-direction: column; gap: .1rem; box-shadow: 0 18px 36px -28px rgba(8,25,18,.4); }
+.mem-points strong { font-family: var(--font-display); font-size: 1.05rem; color: var(--ivy-black); }
+.mem-points span { font-size: .86rem; color: var(--ink-soft); }
+#modal-membership .modal { max-width: 760px; }
+.mem-block { padding: 1.2rem 0 0; margin-top: 1.2rem; border-top: 1px solid rgba(18,53,36,.12); }
+.mem-block h4 { font-family: var(--font-display); font-size: 1.2rem; color: var(--ivy-black); margin: 0 0 .5rem; }
+.mem-block p { color: var(--ink-soft); }
+.mem-block a { color: var(--ivy); font-weight: 600; text-decoration-color: rgba(193,79,61,.5); }
+.mem-block .btn { margin-top: .4rem; }
+@media (max-width: 860px) { .mem-feature { grid-template-columns: 1fr; } }

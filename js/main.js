@@ -114,6 +114,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // an in-page link inside a modal that should close the modal first (data-close-modal)
+  document.querySelectorAll('[data-close-modal]').forEach(a => {
+    a.addEventListener('click', () => { const b = a.closest('.modal-backdrop'); if (b) closeModal(b); });
+  });
+
   document.addEventListener('keydown', e => {
     if (e.key !== 'Escape') return;
     const top = openStack[openStack.length - 1];
