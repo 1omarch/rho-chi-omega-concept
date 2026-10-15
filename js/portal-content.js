@@ -26,6 +26,18 @@ document.addEventListener('rco-auth-ready', async () => {
     withFiles.forEach(o => { if (urls[o.file]) o.url = urls[o.file]; });
   }
 
+  // links marked data-resource="<item title or find text>" take their address from the catalog
+  const all = [];
+  (function collect(o) {
+    if (Array.isArray(o)) o.forEach(collect);
+    else if (o && typeof o === 'object') { if (o.url && (o.find || o.title)) all.push(o); Object.values(o).forEach(collect); }
+  })(res);
+  document.querySelectorAll('[data-resource]').forEach(a => {
+    const key = a.dataset.resource.toLowerCase();
+    const hit = all.find(i => (i.find || i.title).toLowerCase() === key);
+    if (hit) { a.href = hit.url; a.hidden = false; }
+  });
+
   window.RCO_RESOURCES = res;
   document.dispatchEvent(new CustomEvent('rco-resources-ready'));
 });
