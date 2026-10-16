@@ -70,3 +70,10 @@ select.pf-input { appearance: auto; }
 .mg-alert:hover { border-color: #d93025; }
 .mg-alert .n { min-width: 22px; height: 22px; padding: 0 .4em; border-radius: 999px; background: #d93025; color: #fff; display: inline-grid; place-items: center; font-size: .72rem; font-weight: 800; }
 .mg-alert[hidden] { display: none; }
+
+/* My Profile page: soft pink background */
+body.portal-body.profile-page { background: linear-gradient(180deg, #ffeeed 0%, #ffe0e2 55%, #ffd6da 100%) fixed; }
+.profile-page .portal-hero { background: radial-gradient(60% 90% at 92% 0%, rgba(255,255,255,.65), transparent 62%); }
+.profile-page .portal-section { border-top: 0; }
+.profile-page .pf-tabs { border-bottom-color: rgba(176,58,88,.2); }
+.profile-page .pf-tabs [role="tab"][aria-selected="true"] { border-bottom-color: #c2415f; }
