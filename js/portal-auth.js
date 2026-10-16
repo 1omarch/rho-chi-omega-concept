@@ -1,6 +1,18 @@
 // Member portal sign-in. Sorors sign in with an emailed link; the roster (Supabase) decides who gets in.
 (function () {
   const doc = document.documentElement;
+
+  // Features that can be switched off until the chapter is ready for them.
+  // To show RCO Rewards again, change `rewards` to true (one word, then publish).
+  const FEATURES = { rewards: false };
+  if (!FEATURES.rewards) {
+    doc.classList.add('no-rewards');
+    const css = document.createElement('style');
+    css.textContent = 'html.no-rewards a[href="portal-rewards.html"], html.no-rewards [data-feature="rewards"] { display: none !important; }';
+    document.head.append(css);
+    if (location.pathname.endsWith('portal-rewards.html')) { location.replace('portal.html'); return; }
+  }
+
   doc.classList.add('auth-pending');
 
   const state = { client: null, member: null, session: null, checking: false };
