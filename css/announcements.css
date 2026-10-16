@@ -164,3 +164,12 @@
 .ann-actions [hidden] { display: none !important; }
 
 .ann-more { margin: .1rem 0 0; font-size: .82rem; color: var(--ink-soft); }
+
+/* birthday faces */
+.bd-face { flex: none; display: inline-grid; place-items: center; border-radius: 50%; background: var(--salmon, #f2917e) center / cover no-repeat; color: var(--ivy-black, #081912); font-weight: 800; letter-spacing: .04em; box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--gold, #c9a24d); overflow: hidden; }
+.bd-face.is-sm { width: 30px; height: 30px; font-size: .62rem; box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--gold, #c9a24d); }
+.bd-face.is-md { width: 96px; height: 96px; font-size: 1.1rem; }
+.bd-face.is-lg { width: 150px; height: 150px; font-size: 1.8rem; }
+.bd-faces { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: .9rem; }
+.ann-facts .bd-li { align-items: center; gap: .6rem; }
+.ann-facts .bd-li::before { display: none; }
