@@ -162,3 +162,5 @@
 
 .ann-actions { flex-wrap: wrap; }
 .ann-actions [hidden] { display: none !important; }
+
+.ann-more { margin: .1rem 0 0; font-size: .82rem; color: var(--ink-soft); }

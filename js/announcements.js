@@ -11,8 +11,8 @@
     const [y, m, d] = sl.dataset.expires.split('-').map(Number);
     if (new Date(y, m - 1, d) < today) sl.remove();
   });
-  const slides = Array.from(track.querySelectorAll('.ann-slide'));
-  if (!slides.length) { root.hidden = true; return; }
+  let slides = Array.from(track.querySelectorAll('.ann-slide'));
+  if (!slides.length) root.hidden = true;
   const dotsWrap = root.querySelector('.ann-dots');
   const prev = root.querySelector('[data-ann-prev]');
   const next = root.querySelector('[data-ann-next]');
@@ -28,18 +28,23 @@
   let focusing = false;
   let ticking = false;
 
-  slides.forEach((slide, i) => {
-    slide.setAttribute('role', 'group');
-    slide.setAttribute('aria-roledescription', 'slide');
-    slide.setAttribute('aria-label', `${i + 1} of ${slides.length}`);
-    const dot = document.createElement('button');
-    dot.type = 'button';
-    dot.className = 'ann-dot';
-    dot.setAttribute('aria-label', `Show announcement ${i + 1} of ${slides.length}`);
-    dot.addEventListener('click', () => { pause(); go(i); });
-    dotsWrap.appendChild(dot);
-  });
-  const dots = Array.from(dotsWrap.children);
+  let dots = [];
+  function buildSlides() {
+    slides = Array.from(track.querySelectorAll('.ann-slide'));
+    dotsWrap.replaceChildren();
+    slides.forEach((slide, i) => {
+      slide.setAttribute('role', 'group');
+      slide.setAttribute('aria-roledescription', 'slide');
+      slide.setAttribute('aria-label', `${i + 1} of ${slides.length}`);
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'ann-dot';
+      dot.setAttribute('aria-label', `Show announcement ${i + 1} of ${slides.length}`);
+      dot.addEventListener('click', () => { pause(); go(i); });
+      dotsWrap.appendChild(dot);
+    });
+    dots = Array.from(dotsWrap.children);
+  }
 
   function setActive(i) {
     index = i;
@@ -88,6 +93,18 @@
     go(index + 1);
   }, 7000);
 
+  buildSlides();
   setActive(0);
   renderToggle();
+
+  // other scripts (like birthdays) can put a slide first once their data arrives
+  window.rcoAnnouncements = {
+    addFirst(slide) {
+      track.prepend(slide);
+      root.hidden = false;
+      buildSlides();
+      track.scrollLeft = 0;
+      setActive(0);
+    }
+  };
 })();

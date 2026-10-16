@@ -229,6 +229,7 @@
       const n = Number(data) || 0;
       badge.hidden = n === 0;
       badge.textContent = n > 9 ? '9+' : String(n);
+      document.dispatchEvent(new CustomEvent('rco-unread', { detail: n }));
       avatar.href = n ? 'portal-profile.html#messages' : 'portal-profile.html';
       avatar.title = n ? `My profile (${n} unread message${n === 1 ? '' : 's'})` : 'My profile';
       const tab = document.getElementById('pf-badge');

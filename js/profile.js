@@ -37,6 +37,7 @@ document.addEventListener('rco-auth-ready', async e => {
     return true;
   }
 
+  const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
   const val = v => (v === null || v === undefined || v === '' ? null : String(v));
 
   function row(label, value, href) {
@@ -66,6 +67,7 @@ document.addEventListener('rco-auth-ready', async e => {
           row('Email', email, 'mailto:' + email),
           row('Phone', profile.phone, profile.phone ? 'tel:' + profile.phone.replace(/[^\d+]/g, '') : null),
           row('Home address', profile.address),
+          row('Birthday', profile.birth_month && profile.birth_day ? `${MONTHS[profile.birth_month - 1]} ${profile.birth_day}${profile.show_birthday === false ? ' (private)' : ''}` : null),
           row('School', profile.school),
           row('Year initiated', profile.initiation_year),
           row('Chapter initiated', profile.initiated_chapter)),
@@ -123,6 +125,11 @@ document.addEventListener('rco-auth-ready', async e => {
       field('Email', 'f-email', profile.contact_email || me.email, { type: 'email', extra: { maxlength: '160', autocomplete: 'email' } }),
       field('Phone', 'f-phone', profile.phone, { type: 'tel', extra: { maxlength: '40', autocomplete: 'tel' } }),
       field('Home address', 'f-address', profile.address, { tag: 'textarea', extra: { rows: '2', maxlength: '240', autocomplete: 'street-address' } }),
+      el('div', { class: 'pf-field' }, el('label', { for: 'f-bmonth', text: 'Birthday (month and day)' }),
+        el('div', { class: 'pf-two' },
+          (() => { const sel = el('select', { id: 'f-bmonth', class: 'pf-input' }, el('option', { value: '', text: 'Month' }), ...MONTHS.map((m, i) => el('option', { value: String(i + 1), text: m }))); sel.value = profile.birth_month ? String(profile.birth_month) : ''; return sel; })(),
+          (() => { const sel = el('select', { id: 'f-bday', class: 'pf-input', 'aria-label': 'Day' }, el('option', { value: '', text: 'Day' }), ...Array.from({ length: 31 }, (_, i) => el('option', { value: String(i + 1), text: String(i + 1) }))); sel.value = profile.birth_day ? String(profile.birth_day) : ''; return sel; })()),
+        el('label', { class: 'pf-check' }, (() => { const c = el('input', { type: 'checkbox', id: 'f-bshow' }); c.checked = profile.show_birthday !== false; return c; })(), ' Celebrate my birthday on the portal announcement board. Only the month and day are shown, never the year.')),
       field('School', 'f-school', profile.school, { extra: { maxlength: '120' } }),
       el('div', { class: 'pf-two' },
         field('Year initiated', 'f-year', profile.initiation_year, { type: 'number', extra: { min: '1908', max: '2100', inputmode: 'numeric' } }),
@@ -140,6 +147,9 @@ document.addEventListener('rco-auth-ready', async e => {
       const t = id => { const v = $(id).value.trim(); return v === '' ? null : v; };
       const year = t('#f-year');
       const row = { member_id: myId, contact_email: t('#f-email'), phone: t('#f-phone'), address: t('#f-address'), school: t('#f-school'), initiation_year: year ? parseInt(year, 10) : null, initiated_chapter: t('#f-chapter') };
+      const bm = t('#f-bmonth'), bd = t('#f-bday');
+      if ((bm && !bd) || (!bm && bd)) { msg.textContent = 'Please choose both a month and a day for your birthday, or leave both empty.'; msg.className = 'pf-msg is-bad'; return; }
+      row.birth_month = bm ? parseInt(bm, 10) : null; row.birth_day = bd ? parseInt(bd, 10) : null; row.show_birthday = $('#f-bshow').checked;
       if (isOfficer) row.title = t('#f-title');
       if (row.initiation_year !== null && (isNaN(row.initiation_year) || row.initiation_year < 1908 || row.initiation_year > 2100)) { msg.textContent = 'Please enter a valid year, such as 2008.'; msg.className = 'pf-msg is-bad'; return; }
       msg.textContent = 'Saving…'; msg.className = 'pf-msg';

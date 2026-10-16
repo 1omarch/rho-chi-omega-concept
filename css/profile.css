@@ -62,3 +62,11 @@ textarea.pf-input { resize: vertical; }
 .pf-nudge .x { background: none; border: 0; font-size: 1.3rem; line-height: 1; cursor: pointer; color: var(--ink-soft, #3f5548); padding: .2rem .5rem; }
 
 .sr-msg { margin: .2rem 0 .6rem; }
+
+.pf-field .pf-check, .pf-check { display: flex; gap: .5rem; align-items: flex-start; font-size: .84rem; color: var(--ink-soft, #3f5548); margin-top: .5rem; text-transform: none; letter-spacing: 0; font-weight: 500; }
+.pf-check input { margin-top: .25em; flex: none; }
+select.pf-input { appearance: auto; }
+.mg-alert { display: inline-flex; align-items: center; gap: .6rem; margin: 0 0 1rem; padding: .5rem .9rem; border-radius: 999px; background: #fff; border: 1px solid rgba(217,48,37,.35); color: var(--ivy-black, #081912); font-size: .86rem; font-weight: 700; text-decoration: none; box-shadow: 0 10px 22px -16px rgba(8,25,18,.4); }
+.mg-alert:hover { border-color: #d93025; }
+.mg-alert .n { min-width: 22px; height: 22px; padding: 0 .4em; border-radius: 999px; background: #d93025; color: #fff; display: inline-grid; place-items: center; font-size: .72rem; font-weight: 800; }
+.mg-alert[hidden] { display: none; }

@@ -1,7 +1,23 @@
 // Portal home: nudge sorors to finish their profile (hidden once it is complete, or dismissed for this visit)
+// Portal home: a small "unread messages" pill, and a nudge to finish your profile
 document.addEventListener('rco-auth-ready', async () => {
   const slot = document.getElementById('pf-nudge-slot');
   if (!slot) return;
+
+  const alertEl = document.createElement('a');
+  alertEl.className = 'mg-alert'; alertEl.href = 'portal-profile.html#messages'; alertEl.hidden = true;
+  const dot = document.createElement('span'); dot.className = 'n';
+  const txt = document.createElement('span');
+  alertEl.append(dot, txt);
+  slot.prepend(alertEl);
+  const showUnread = n => {
+    alertEl.hidden = !(n > 0);
+    dot.textContent = n > 9 ? '9+' : String(n);
+    txt.textContent = n === 1 ? 'new message from a soror. Open your inbox' : 'new messages from sorors. Open your inbox';
+  };
+  document.addEventListener('rco-unread', ev => showUnread(Number(ev.detail) || 0));
+  window.rcoAuth.client.rpc('unread_total').then(r => { if (!r.error) showUnread(Number(r.data) || 0); });
+
   try { if (sessionStorage.getItem('rco-nudge-off')) return; } catch (e) { /* storage unavailable */ }
   const sb = window.rcoAuth.client;
   const { data: id } = await sb.rpc('my_member_id');
