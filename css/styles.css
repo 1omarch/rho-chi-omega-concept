@@ -1048,3 +1048,7 @@ p { margin: 0 0 1.1em; }
 .mem-block a { color: var(--ivy); font-weight: 600; text-decoration-color: rgba(193,79,61,.5); }
 .mem-block .btn { margin-top: .4rem; }
 @media (max-width: 860px) { .mem-feature { grid-template-columns: 1fr; } }
+
+/* gallery pop-out: wide enough for landscape photos, and never cropped */
+#modal-gallery .modal { max-width: min(920px, 94vw); }
+#modal-gallery .modal .modal-figure { width: 100%; border-radius: 8px; overflow: hidden; }

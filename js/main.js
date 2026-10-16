@@ -71,9 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (figure) {
         const photoSrc = trigger.dataset.fillPhoto;
         if (photoSrc) {
-          figure.innerHTML = `<img src="${photoSrc}" alt="" style="width:100%;height:100%;object-fit:cover;">`;
+          // show the whole photo, whatever its shape, so nobody's head is cropped
+          figure.style.height = 'auto'; figure.style.background = 'transparent';
+          figure.innerHTML = `<img src="${photoSrc}" alt="" style="display:block;width:100%;height:auto;max-height:70vh;object-fit:contain;border-radius:8px;">`;
           if (note) note.style.display = 'none';
         } else {
+          figure.style.height = '320px'; figure.style.background = '';
           figure.innerHTML = '<img src="images/single-ivy-leaf-tight.png" alt="" style="width:55%;height:55%;object-fit:contain;">';
           if (note) note.style.display = '';
         }
