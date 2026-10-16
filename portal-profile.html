@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="css/portal.css">
 <link rel="stylesheet" href="css/auth.css">
 <link rel="stylesheet" href="css/profile.css">
+<link rel="stylesheet" href="css/messages.css">
 <script src="js/vendor/supabase.js"></script>
 <script src="js/supabase-config.js"></script>
 <script src="js/portal-auth.js"></script>
@@ -50,14 +51,19 @@
   <div class="container">
     <p class="eyebrow">Members Only</p>
     <h1>My profile.</h1>
-    <p>Keep your details current so sorors can find and reach you. Your dues and balance will live here too, visible only to you and the treasurer.</p>
+    <p>Keep your details current so sorors can find and reach you, and check your messages from other sorors. Your dues and balance will live here too, visible only to you and the treasurer.</p>
   </div>
 </section>
 
 <section class="portal-section has-spine">
   <div class="container">
+    <div class="pf-tabs" role="tablist" aria-label="My profile sections">
+      <button type="button" role="tab" id="tab-profile" aria-selected="true">Profile</button>
+      <button type="button" role="tab" id="tab-messages" aria-selected="false">Messages <span class="pf-badge" id="pf-badge" hidden></span></button>
+    </div>
     <p class="pf-status" id="pf-status" role="status"></p>
     <div id="pf-view" class="pf-grid"></div>
+    <div id="msg-app" class="mg-app" hidden></div>
   </div>
 </section>
 </div><!-- /spine-wrap -->
@@ -70,6 +76,7 @@
 
 <script src="js/main.js"></script>
 <script src="js/profile.js"></script>
+<script src="js/messages.js"></script>
 
 </body>
 </html>

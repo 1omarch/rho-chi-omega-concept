@@ -110,9 +110,17 @@ document.addEventListener('rco-auth-ready', async () => {
   const modalName = document.getElementById('soror-name');
 
   const extra = document.getElementById('soror-extra');
+  const { data: myMemberId } = await sb.rpc('my_member_id');
   function renderExtra(p) {
     if (!extra) return;
     extra.replaceChildren();
+    if (p && p.member_id && p.member_id !== myMemberId) {
+      const m = document.createElement('a');
+      m.className = 'btn btn-ivy btn-sm sr-msg';
+      m.href = 'portal-profile.html?to=' + encodeURIComponent(p.member_id) + '#messages';
+      m.textContent = 'Message';
+      extra.append(m);
+    }
     if (!p) {
       const n = document.createElement('p'); n.className = 'sr-empty'; n.textContent = 'This soror has not set up her portal profile yet.'; extra.append(n); return;
     }

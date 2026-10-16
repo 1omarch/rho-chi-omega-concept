@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Message review | Rho Chi Omega Member Portal</title>
+<meta name="description" content="Administrator review of reported messages.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon-32.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/portal.css">
+<link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/profile.css">
+<link rel="stylesheet" href="css/messages.css">
+<script src="js/vendor/supabase.js"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/portal-auth.js"></script>
+</head>
+<body class="portal-body">
+
+<div class="portal-ribbon">🌿 <strong>Concept preview</strong> — sign-in is live for rostered sorors, but the content below is sample data while the portal is being built. Please don’t enter private information yet.</div>
+
+<header class="portal-header">
+  <div class="container">
+    <a class="portal-brand" href="index.html#top">
+      <img src="images/aka-emblem.png" alt="Alpha Kappa Alpha Sorority, Incorporated crest">
+      Rho Chi Omega <span class="tag">Member Portal</span>
+    </a>
+    <a class="portal-back" href="index.html#top">&larr; Back to Public Site</a>
+  </div>
+</header>
+
+<nav class="portal-tabs" aria-label="Portal sections">
+  <div class="container">
+    <a href="portal.html">Portal Home</a>
+    <a href="portal-calendar.html">Chapter Calendar</a>
+    <a href="portal-events.html">Events Registration</a>
+    <a href="portal-resources.html">Resources</a>
+    <a href="portal-committees.html">Committees</a>
+    <a href="portal-directory.html">Directory</a>
+    <a href="portal-rewards.html">RCO Rewards</a>
+  </div>
+</nav>
+
+<div class="spine-wrap">
+<div class="ivy-spine" aria-hidden="true">
+  <div class="ivy-img"></div>
+</div>
+
+<section class="portal-hero has-spine">
+  <div class="container">
+    <p class="eyebrow">Administrators</p>
+    <h1>Message review.</h1>
+    <p>For reported messages and emergencies only. Every time you open a conversation, it is written to the review log below.</p>
+  </div>
+</section>
+
+<section class="portal-section has-spine">
+  <div class="container">
+    <p class="rost-denied" id="mr-denied" hidden>This page is for chapter administrators only.</p>
+    <div id="mr-app" hidden>
+      <h2 class="mr-h">Reported messages</h2>
+      <div id="mr-reports" class="mr-list"></div>
+
+      <h2 class="mr-h">Find a soror&rsquo;s conversations</h2>
+      <div class="mr-find">
+        <input type="search" id="mr-q" class="mg-input" placeholder="Search a soror by name&hellip;" aria-label="Search a soror">
+        <ul id="mr-results" class="mg-results" hidden></ul>
+      </div>
+      <div id="mr-convos" class="mr-list"></div>
+
+      <div id="mr-thread" class="mr-thread" hidden></div>
+
+      <h2 class="mr-h">Review log</h2>
+      <p class="mg-notice">The most recent 100 actions by administrators.</p>
+      <div class="rost-scroll"><table class="rost-table"><thead><tr><th scope="col">When</th><th scope="col">Administrator</th><th scope="col">Action</th></tr></thead><tbody id="mr-log"></tbody></table></div>
+    </div>
+  </div>
+</section>
+</div><!-- /spine-wrap -->
+
+<footer class="portal-footer">
+  <div class="container">
+    <p>&copy; <span data-year>2026</span> Rho Chi Omega Chapter, Alpha Kappa Alpha Sorority, Incorporated&reg; &mdash; Member Portal.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/message-review.js"></script>
+
+</body>
+</html>

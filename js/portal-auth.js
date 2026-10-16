@@ -154,14 +154,25 @@
       out.addEventListener('click', signOut);
       const initials = m.name.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase() || '?';
       const avatar = el('a', { class: 'auth-avatar', href: 'portal-profile.html', title: 'My profile', 'aria-label': 'My profile', text: initials });
-      header.append(el('div', { class: 'auth-who' }, avatar, el('a', { class: 'auth-name', href: 'portal-profile.html', title: 'My profile', text: m.name }), out));
+      const badge = el('span', { class: 'auth-badge', 'aria-live': 'polite', hidden: true });
+      header.append(el('div', { class: 'auth-who' }, el('span', { class: 'auth-avatar-wrap' }, avatar, badge), el('a', { class: 'auth-name', href: 'portal-profile.html', title: 'My profile', text: m.name }), out));
       loadAvatar(avatar, m);
+      startInbox(badge, avatar);
+      sweepFiles();
     }
     const tabBar = document.querySelector('.portal-tabs .container');
     if (tabBar && !tabBar.querySelector('[href="portal-profile.html"]')) {
       const mine = el('a', { href: 'portal-profile.html', text: 'My Profile' });
       if (location.pathname.endsWith('portal-profile.html')) mine.classList.add('is-active');
       tabBar.append(mine);
+    }
+    if (m.role === 'admin') {
+      const bar = document.querySelector('.portal-tabs .container');
+      if (bar && !bar.querySelector('[href="portal-message-review.html"]')) {
+        const a = el('a', { href: 'portal-message-review.html', text: 'Message review' });
+        if (location.pathname.endsWith('portal-message-review.html')) a.classList.add('is-active');
+        bar.append(a);
+      }
     }
     if (m.role === 'officer' || m.role === 'admin') {
       const tabs = document.querySelector('.portal-tabs .container');
@@ -207,6 +218,44 @@
       showAvatar(node, s.signedUrl);
       try { sessionStorage.setItem('rco-avatar', JSON.stringify({ email: m.email, url: s.signedUrl, exp: Date.now() + 50 * 60 * 1000 })); } catch (e) { /* ignore */ }
     } catch (e) { /* initials stay */ }
+  }
+
+  // unread messages: a red number on the profile picture, updated live and every minute
+  async function startInbox(badge, avatar) {
+    const sb = state.client;
+    async function refresh() {
+      const { data, error } = await sb.rpc('unread_total');
+      if (error) return;
+      const n = Number(data) || 0;
+      badge.hidden = n === 0;
+      badge.textContent = n > 9 ? '9+' : String(n);
+      avatar.href = n ? 'portal-profile.html#messages' : 'portal-profile.html';
+      avatar.title = n ? `My profile (${n} unread message${n === 1 ? '' : 's'})` : 'My profile';
+      const tab = document.getElementById('pf-badge');
+      if (tab) { tab.hidden = n === 0; tab.textContent = n > 9 ? '9+' : String(n); }
+    }
+    await refresh();
+    document.addEventListener('rco-inbox-refresh', refresh);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+    setInterval(() => { if (!document.hidden) refresh(); }, 60000);
+    sb.channel('inbox-badge').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, refresh).subscribe();
+  }
+
+  // attachments whose message was destroyed are removed from storage the next time anyone opens the portal
+  async function sweepFiles() {
+    try {
+      const last = Number(sessionStorage.getItem('rco-sweep') || 0);
+      if (Date.now() - last < 30 * 60 * 1000) return;
+      sessionStorage.setItem('rco-sweep', String(Date.now()));
+    } catch (e) { /* storage unavailable */ }
+    try {
+      const sb = state.client;
+      const { data, error } = await sb.from('storage_purge_queue').select('path').limit(25);
+      if (error || !data || !data.length) return;
+      const paths = data.map(r => r.path);
+      await sb.storage.from('message-files').remove(paths);
+      await sb.from('storage_purge_queue').delete().in('path', paths);
+    } catch (e) { /* try again next time */ }
   }
 
   async function signOut() {

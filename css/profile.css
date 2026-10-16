@@ -60,3 +60,5 @@ textarea.pf-input { resize: vertical; }
 .pf-nudge p { margin: 0; flex: 1 1 280px; color: var(--ink, #171f19); font-size: .95rem; }
 .pf-nudge strong { color: var(--ivy-black, #081912); }
 .pf-nudge .x { background: none; border: 0; font-size: 1.3rem; line-height: 1; cursor: pointer; color: var(--ink-soft, #3f5548); padding: .2rem .5rem; }
+
+.sr-msg { margin: .2rem 0 .6rem; }
