@@ -175,6 +175,12 @@
       }
     }
     if (m.role === 'officer' || m.role === 'admin') {
+      const galleryBar = document.querySelector('.portal-tabs .container');
+      if (galleryBar && !galleryBar.querySelector('[href="portal-gallery.html"]')) {
+        const g = el('a', { href: 'portal-gallery.html', text: 'Gallery' });
+        if (location.pathname.endsWith('portal-gallery.html')) g.classList.add('is-active');
+        galleryBar.append(g);
+      }
       const tabs = document.querySelector('.portal-tabs .container');
       if (tabs && !tabs.querySelector('[href="portal-roster.html"]')) {
         const a = el('a', { href: 'portal-roster.html', text: 'Roster' });

@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (lastTrigger) lastTrigger.focus();
   }
 
-  document.querySelectorAll('[data-modal-open]').forEach(trigger => {
+  function bindTrigger(trigger) {
     trigger.addEventListener('click', () => openModal(trigger.dataset.modalOpen, trigger));
     trigger.addEventListener('keydown', e => {
       if (e.key === 'Enter' || e.key === ' ') {
@@ -103,7 +103,10 @@ document.addEventListener('DOMContentLoaded', () => {
         openModal(trigger.dataset.modalOpen, trigger);
       }
     });
-  });
+  }
+  document.querySelectorAll('[data-modal-open]').forEach(bindTrigger);
+  // lets scripts that add pop-out triggers later (like the gallery) wire them up
+  window.rcoBindModals = root => root.querySelectorAll('[data-modal-open]').forEach(bindTrigger);
 
   backdrops.forEach(backdrop => {
     backdrop.addEventListener('click', e => {

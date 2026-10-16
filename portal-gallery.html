@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery | Rho Chi Omega Member Portal</title>
+<meta name="description" content="Officers manage the photos in the home page gallery.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon-32.png">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/portal.css">
+<link rel="stylesheet" href="css/auth.css">
+<link rel="stylesheet" href="css/profile.css">
+<link rel="stylesheet" href="css/gallery-admin.css">
+<script src="js/vendor/supabase.js"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/portal-auth.js"></script>
+</head>
+<body class="portal-body">
+
+<div class="portal-ribbon">🌿 <strong>Concept preview</strong> — sign-in is live for rostered sorors, but the content below is sample data while the portal is being built. Please don’t enter private information yet.</div>
+
+<header class="portal-header">
+  <div class="container">
+    <a class="portal-brand" href="index.html#top">
+      <img src="images/aka-emblem.png" alt="Alpha Kappa Alpha Sorority, Incorporated crest">
+      Rho Chi Omega <span class="tag">Member Portal</span>
+    </a>
+    <a class="portal-back" href="index.html#top">&larr; Back to Public Site</a>
+  </div>
+</header>
+
+<nav class="portal-tabs" aria-label="Portal sections">
+  <div class="container">
+    <a href="portal.html">Portal Home</a>
+    <a href="portal-calendar.html">Chapter Calendar</a>
+    <a href="portal-events.html">Events Registration</a>
+    <a href="portal-resources.html">Resources</a>
+    <a href="portal-committees.html">Committees</a>
+    <a href="portal-directory.html">Directory</a>
+    <a href="portal-rewards.html">RCO Rewards</a>
+  </div>
+</nav>
+
+<div class="spine-wrap">
+<div class="ivy-spine" aria-hidden="true">
+  <div class="ivy-img"></div>
+</div>
+
+<section class="portal-hero has-spine">
+  <div class="container">
+    <p class="eyebrow">Officers</p>
+    <h1>Gallery.</h1>
+    <p>These are the photos on the public home page. The gallery holds <strong>12</strong> at a time. When you add a 13th, the oldest is permanently deleted.</p>
+  </div>
+</section>
+
+<section class="portal-section has-spine">
+  <div class="container">
+    <p class="rost-denied" id="gl-denied" hidden>This page is for chapter officers only.</p>
+    <div id="gl-app" hidden>
+      <form class="rost-card gl-add" id="gl-form" novalidate>
+        <h2>Add a photo</h2>
+        <div class="gl-add-row">
+          <div class="pf-field"><label for="gl-file">Photo</label><input type="file" id="gl-file" accept="image/jpeg,image/png,image/webp,image/heic,image/*" class="pf-input"></div>
+          <div class="pf-field"><label for="gl-caption">Caption</label><input type="text" id="gl-caption" class="pf-input" maxlength="80" placeholder="Founders&rsquo; Day Brunch" autocomplete="off"></div>
+          <div class="pf-field"><label for="gl-sub">Second line (optional)</label><input type="text" id="gl-sub" class="pf-input" maxlength="120" placeholder="2026" autocomplete="off"></div>
+        </div>
+        <p class="gl-note">Pictures are shrunk automatically so the home page stays fast. Only add photos the chapter is happy to share publicly.</p>
+        <div class="gl-actions"><button type="submit" class="btn btn-ivy btn-sm" id="gl-add">Add to gallery</button><span class="rost-msg" id="gl-msg" role="status"></span></div>
+        <div class="gl-confirm" id="gl-confirm" hidden></div>
+      </form>
+
+      <div class="rost-bar"><h2>On the home page</h2><span class="rost-count" id="gl-count"></span></div>
+      <p class="mg-notice">The first photo is the first one visitors see. Use the arrows to reorder. Deleting a photo removes it from the site for good.</p>
+      <div class="gl-grid" id="gl-grid"></div>
+    </div>
+  </div>
+</section>
+</div><!-- /spine-wrap -->
+
+<footer class="portal-footer">
+  <div class="container">
+    <p>&copy; <span data-year>2026</span> Rho Chi Omega Chapter, Alpha Kappa Alpha Sorority, Incorporated&reg; &mdash; Member Portal.</p>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script src="js/gallery-admin.js"></script>
+
+</body>
+</html>
