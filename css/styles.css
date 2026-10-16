@@ -1058,3 +1058,19 @@ p { margin: 0 0 1.1em; }
 @media (max-width: 640px) { .help-link span.txt { display: inline; } .help-link { padding: .6em 1em; } }
 @media (max-width: 440px) { .help-link span.txt { display: none; } .help-link { padding: .6em; } }
 @media (max-width: 640px) { .brand { font-size: 1.1rem; gap: .6rem; } .brand .aka-emblem { height: 64px; } .site-header.is-solid .brand .aka-emblem { height: 54px; } .header-actions { gap: .5rem; } }
+
+/* Phones: a shorter, simpler hero (the full version stays on tablets and computers) */
+@media (max-width: 640px) {
+  .hero { min-height: 0; padding-top: 6.6rem; }
+  .hero-inner { grid-template-columns: 1fr; gap: 1.2rem; padding-bottom: 2.2rem; align-items: start; }
+  .hero .eyebrow { display: none; }
+  .hero h1 { font-size: clamp(2rem, 9.5vw, 2.6rem); line-height: 1.15; max-width: none; }
+  .hero-subtitle { margin: .35em 0 1em; font-size: 1.2rem; }
+  .hero-lede { display: none; }
+  .hero-actions { gap: .6rem; }
+  .hero-actions .btn { padding: .85em 1.3em; font-size: .78rem; }
+  .hero-meta { flex-direction: row; align-items: center; justify-content: space-between; text-align: left; gap: .8rem; flex-wrap: wrap; }
+  .pearl-strand, .scroll-cue { display: none; }
+}
+/* very narrow phones: the crest alone in the header, so Help, Login and Menu all fit */
+@media (max-width: 440px) { .brand { font-size: 0; gap: 0; } }
