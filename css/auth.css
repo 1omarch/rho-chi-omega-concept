@@ -89,3 +89,6 @@ html.auth-locked body { visibility: visible; }
 .auth-avatar-wrap { position: relative; display: inline-flex; flex: none; }
 .auth-badge { position: absolute; top: -5px; right: -6px; min-width: 18px; height: 18px; padding: 0 .35em; border-radius: 999px; background: #d93025; color: #fff; font: 800 .66rem var(--font-body); display: grid; place-items: center; box-shadow: 0 0 0 2px var(--ivy-black, #081912); }
 .auth-badge[hidden] { display: none; }
+
+.auth-helplink { margin: 1.1rem 0 0; text-align: center; font-size: .95rem; }
+.auth-helplink a { color: var(--ivy, #123524); font-weight: 700; text-decoration-color: rgba(193,79,61,.55); text-underline-offset: 3px; }

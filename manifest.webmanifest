@@ -1,0 +1,14 @@
+{
+  "name": "Rho Chi Omega Chapter",
+  "short_name": "RCO Portal",
+  "description": "Rho Chi Omega Chapter of Alpha Kappa Alpha Sorority, Incorporated. Member portal and chapter news.",
+  "start_url": "portal.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#faf6ee",
+  "theme_color": "#123524",
+  "icons": [
+    { "src": "images/app-icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "images/app-icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

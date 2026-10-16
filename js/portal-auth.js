@@ -86,7 +86,8 @@
     showGate([
       el('h1', { id: 'auth-title', text: 'Sign in' }),
       el('p', { id: 'auth-help', class: 'auth-help', text: 'Enter the email address the chapter has on file for you. We’ll send you a secure link to sign in. No password needed.' }),
-      form
+      form,
+      el('p', { class: 'auth-helplink' }, el('a', { href: 'help.html', text: 'Need help signing in?' }))
     ]);
   }
 
