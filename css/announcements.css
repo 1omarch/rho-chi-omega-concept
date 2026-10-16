@@ -175,7 +175,10 @@
 .ann-facts .bd-li::before { display: none; }
 
 /* Birthday slide: roses and pink sparkles */
-.ann-slide[data-birthdays] .ann-copy { background: radial-gradient(90% 70% at 0% 0%, #f7fbee 0%, transparent 60%), linear-gradient(160deg, #eaf5d6 0%, #dcedc0 100%); }
+.ann-slide[data-birthdays] .ann-copy { position: relative; background: #fff; padding: clamp(2.1rem, 4.2vw, 3.1rem); }
+@media (max-width: 900px) { .ann-slide[data-birthdays] .ann-copy { padding: 2.2rem 2rem; } }
+.ann-slide[data-birthdays] .ann-copy::before { content: ""; position: absolute; inset: 14px; border-radius: 14px; border: 1px solid #c9e0a2; background: radial-gradient(90% 70% at 0% 0%, #f7fbee 0%, transparent 60%), linear-gradient(160deg, #eaf5d6 0%, #dcedc0 100%); z-index: 0; pointer-events: none; }
+.ann-slide[data-birthdays] .ann-copy > * { position: relative; z-index: 1; }
 .ann-slide[data-birthdays] .ann-tag { background: #fff; box-shadow: 0 6px 14px -8px rgba(80,120,36,.45); }
 .ann-slide[data-birthdays] .bd-li .bd-face.is-sm { box-shadow: 0 0 0 2px #fff, 0 0 0 3px #b9d98c; }
 .ann-slide[data-birthdays] .ann-tag { color: #b03a58; }
