@@ -1074,3 +1074,12 @@ p { margin: 0 0 1.1em; }
 }
 /* very narrow phones: the crest alone in the header, so Help, Login and Menu all fit */
 @media (max-width: 440px) { .brand { font-size: 0; gap: 0; } }
+
+/* Phones: the stat numbers sit in a compact two-by-two grid */
+@media (max-width: 640px) {
+  .stat-band { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem .5rem; padding: 1.2rem 1rem; }
+  .stat { padding: 0; }
+  .stat-sep { display: none; }
+  .stat .num { font-size: 1.75rem; line-height: 1.1; }
+  .stat .label { font-size: .6rem; letter-spacing: .1em; margin-top: .25em; }
+}
