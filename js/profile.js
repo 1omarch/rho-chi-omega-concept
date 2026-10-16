@@ -112,7 +112,7 @@ document.addEventListener('rco-auth-ready', async e => {
 
     const form = el('form', { class: 'pf-card pf-form', novalidate: true },
       el('h3', { text: 'Edit my profile' }),
-      el('div', { class: 'pf-photo-row' }, av, el('div', {}, el('label', { for: 'pf-photo', class: 'btn btn-ghost btn-sm', text: 'Change picture' }), photoInput, el('p', { class: 'pf-note', text: 'A clear, front-facing picture works best.' }))),
+      el('div', { class: 'pf-photo-row' }, av, el('div', {}, el('label', { for: 'pf-photo', class: 'btn btn-ghost btn-sm', text: 'Change picture' }), photoInput, el('p', { class: 'pf-note', text: 'This is your personal picture, shown on your profile page. The directory keeps your official chapter photo.' }))),
       el('div', { class: 'pf-field' }, el('label', { text: 'Title or position' }),
         isOfficer ? el('input', { id: 'f-title', class: 'pf-input', type: 'text', maxlength: '80', value: profile.title || '' })
                   : el('p', { class: 'pf-readonly', text: profile.title || 'Titles are set by a chapter officer.' })),

@@ -32,17 +32,11 @@ document.addEventListener('rco-auth-ready', async () => {
     if (p.full_name) profiles[p.full_name.trim().toLowerCase()] = p;
   });
   const isComplete = p => !!(p && p.phone && p.address && p.school && p.initiation_year && p.initiated_chapter);
-  const ownPics = (plist || []).filter(p => p.photo_file).map(p => p.photo_file);
-  const ownUrls = {};
-  if (ownPics.length) {
-    const { data: signed } = await sb.storage.from('portal-files').createSignedUrls(ownPics, 3600);
-    (signed || []).forEach(s => { if (s.signedUrl) ownUrls[s.path] = s.signedUrl; });
-  }
-
   const DIRECTORY = data.map(r => {
     // exact link first; the name match only fills in for cards an officer hasn't linked yet
     const profile = (r.member_id && profilesById[r.member_id]) || (!r.member_id && profiles[r.display_name.trim().toLowerCase()]) || null;
-    const photo = (profile && profile.photo_file && ownUrls[profile.photo_file]) || (r.photo_file && urls['directory/' + r.photo_file]);
+    // the directory always shows the official chapter photo; a soror's personal picture lives on her profile page
+    const photo = r.photo_file && urls['directory/' + r.photo_file];
     const search = [r.display_name, profile && profile.title, profile && profile.school, profile && profile.initiated_chapter,
                     profile && profile.initiation_year].filter(Boolean).join(' ').toLowerCase();
     return { display: r.display_name, photo: photo || placeholder, hasPhoto: !!photo, profile, search,
