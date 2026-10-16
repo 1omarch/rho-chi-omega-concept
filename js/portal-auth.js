@@ -152,7 +152,10 @@
     if (header && !header.querySelector('.auth-who')) {
       const out = el('button', { type: 'button', class: 'auth-out', text: 'Sign out' });
       out.addEventListener('click', signOut);
-      header.append(el('div', { class: 'auth-who' }, el('a', { class: 'auth-name', href: 'portal-profile.html', title: 'My profile', text: m.name }), out));
+      const initials = m.name.split(/\s+/).filter(Boolean).slice(0, 2).map(w => w[0]).join('').toUpperCase() || '?';
+      const avatar = el('a', { class: 'auth-avatar', href: 'portal-profile.html', title: 'My profile', 'aria-label': 'My profile', text: initials });
+      header.append(el('div', { class: 'auth-who' }, avatar, el('a', { class: 'auth-name', href: 'portal-profile.html', title: 'My profile', text: m.name }), out));
+      loadAvatar(avatar, m);
     }
     const tabBar = document.querySelector('.portal-tabs .container');
     if (tabBar && !tabBar.querySelector('[href="portal-profile.html"]')) {
@@ -171,7 +174,43 @@
     document.dispatchEvent(new CustomEvent('rco-auth-ready', { detail: m }));
   }
 
+  // small picture beside the name: her personal picture, else her directory photo, else her initials
+  function showAvatar(node, url) {
+    const im = new Image();
+    im.onload = () => { node.style.backgroundImage = `url("${url}")`; node.textContent = ''; node.classList.add('has-photo'); };
+    im.src = url;
+  }
+  async function loadAvatar(node, m) {
+    document.addEventListener('rco-avatar-changed', e => { if (e.detail && e.detail.url) showAvatar(node, e.detail.url); });
+    try {
+      const c = JSON.parse(sessionStorage.getItem('rco-avatar') || 'null');
+      if (c && c.email === m.email && c.exp > Date.now()) { showAvatar(node, c.url); return; }
+    } catch (e) { /* storage unavailable */ }
+    try {
+      const sb = state.client;
+      const { data: id } = await sb.rpc('my_member_id');
+      if (!id) return;
+      let path = null;
+      const { data: p } = await sb.from('profiles').select('photo_file').eq('member_id', id).maybeSingle();
+      if (p && p.photo_file) path = p.photo_file;
+      if (!path) {
+        const { data: d } = await sb.from('directory').select('photo_file').eq('member_id', id).not('photo_file', 'is', null).limit(1);
+        if (d && d[0]) path = 'directory/' + d[0].photo_file;
+      }
+      if (!path) {
+        const { data: d } = await sb.from('directory').select('photo_file').ilike('display_name', m.name).not('photo_file', 'is', null).limit(1);
+        if (d && d[0]) path = 'directory/' + d[0].photo_file;
+      }
+      if (!path) return;
+      const { data: s } = await sb.storage.from('portal-files').createSignedUrl(path, 3600);
+      if (!s || !s.signedUrl) return;
+      showAvatar(node, s.signedUrl);
+      try { sessionStorage.setItem('rco-avatar', JSON.stringify({ email: m.email, url: s.signedUrl, exp: Date.now() + 50 * 60 * 1000 })); } catch (e) { /* ignore */ }
+    } catch (e) { /* initials stay */ }
+  }
+
   async function signOut() {
+    try { sessionStorage.removeItem('rco-avatar'); } catch (e) { /* ignore */ }
     await state.client.auth.signOut();
     state.member = null;
     location.href = 'portal.html';

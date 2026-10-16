@@ -81,3 +81,7 @@ html.auth-locked body { visibility: visible; }
 .rost-name { min-width: 170px; }
 .rost-card-sel { max-width: 200px; }
 .rost-file { display: flex; }
+
+.auth-avatar { flex: none; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--salmon, #f2917e) center / cover no-repeat; color: var(--ivy-black, #081912); font: 800 .72rem var(--font-body); letter-spacing: .04em; text-decoration: none; box-shadow: 0 0 0 2px rgba(250,246,238,.9); overflow: hidden; }
+.auth-avatar.has-photo { font-size: 0; }
+.auth-avatar:hover { box-shadow: 0 0 0 2px var(--gold, #c9a24d); }

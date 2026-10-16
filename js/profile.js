@@ -103,7 +103,11 @@ document.addEventListener('rco-auth-ready', async e => {
         const { error } = await sb.from('profiles').upsert({ member_id: myId, photo_file: path }, { onConflict: 'member_id' });
         if (error) throw error;
         const { data: s } = await sb.storage.from('portal-files').createSignedUrl(path, 3600);
-        if (s && s.signedUrl) { pic.src = s.signedUrl; av.classList.remove('no-photo'); avatarUrl = s.signedUrl; hasPhoto = true; profile.photo_file = path; }
+        if (s && s.signedUrl) {
+          pic.src = s.signedUrl; av.classList.remove('no-photo'); avatarUrl = s.signedUrl; hasPhoto = true; profile.photo_file = path;
+          try { sessionStorage.setItem('rco-avatar', JSON.stringify({ email: me.email, url: s.signedUrl, exp: Date.now() + 50 * 60 * 1000 })); } catch (e) { /* ignore */ }
+          document.dispatchEvent(new CustomEvent('rco-avatar-changed', { detail: { url: s.signedUrl } }));
+        }
         msg.textContent = 'Picture updated.'; msg.className = 'pf-msg is-ok';
       } catch (err) {
         msg.textContent = 'The picture could not be uploaded. Please try a different image.'; msg.className = 'pf-msg is-bad';
