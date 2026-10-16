@@ -1052,3 +1052,9 @@ p { margin: 0 0 1.1em; }
 /* gallery pop-out: wide enough for landscape photos, and never cropped */
 #modal-gallery .modal { max-width: min(920px, 94vw); }
 #modal-gallery .modal .modal-figure { width: 100%; border-radius: 8px; overflow: hidden; }
+
+/* header: room for the larger crest and the Help button */
+@media (max-width: 1000px) { .brand small { display: none; } .brand { white-space: nowrap; } }
+@media (max-width: 640px) { .help-link span.txt { display: inline; } .help-link { padding: .6em 1em; } }
+@media (max-width: 440px) { .help-link span.txt { display: none; } .help-link { padding: .6em; } }
+@media (max-width: 640px) { .brand { font-size: 1.1rem; gap: .6rem; } .brand .aka-emblem { height: 64px; } .site-header.is-solid .brand .aka-emblem { height: 54px; } .header-actions { gap: .5rem; } }
