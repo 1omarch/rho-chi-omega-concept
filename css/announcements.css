@@ -173,3 +173,20 @@
 .bd-faces { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-bottom: .9rem; }
 .ann-facts .bd-li { align-items: center; gap: .6rem; }
 .ann-facts .bd-li::before { display: none; }
+
+/* Birthday slide: roses and pink sparkles */
+.ann-slide[data-birthdays] .ann-copy { background: linear-gradient(180deg, #fff 0%, #fff7f6 100%); }
+.ann-slide[data-birthdays] .ann-tag { background: linear-gradient(120deg, #ffd9d4, #ffc2cf); color: #b03a58; }
+.ann-slide[data-birthdays] h3 { background: linear-gradient(105deg, #8a4340 0%, #b86b64 20%, #e08a97 38%, #c2415f 55%, #8a4340 75%, #c27a6e 100%); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: rg-shine 8s ease-in-out infinite; }
+.ann-visual.v-bday { position: relative; overflow: hidden; background: radial-gradient(70% 60% at 30% 20%, #fff0f0 0%, transparent 60%), radial-gradient(80% 70% at 85% 90%, #ffc7d1 0%, transparent 60%), linear-gradient(150deg, #ffe3dd, #ffcfd8); }
+.v-bday .bd-center { position: relative; z-index: 2; text-align: center; }
+.v-bday .script { background: linear-gradient(105deg, #8a4340, #d08a8f 40%, #b0466a 60%, #8a4340); background-size: 220% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 2px 1px rgba(110,55,50,.2)); animation: rg-shine 7s ease-in-out infinite; }
+.bd-decor { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.bd-rose { position: absolute; width: 190px; height: 190px; right: -48px; bottom: -52px; transform: rotate(-12deg); filter: drop-shadow(0 12px 14px rgba(150,40,70,.3)); }
+.bd-rose.is-b { width: 120px; height: 120px; left: -34px; top: -30px; right: auto; bottom: auto; transform: rotate(24deg); opacity: .95; }
+.bd-spark { position: absolute; display: block; color: #fff; opacity: 0; animation: bd-twinkle 3.6s ease-in-out infinite; }
+.bd-spark svg { width: 100%; height: 100%; fill: currentColor; stroke: #e58aa2; stroke-width: .6; filter: drop-shadow(0 0 5px rgba(255,160,185,.9)); }
+.bd-spark:nth-child(3n) { color: #fff3c9; }
+@keyframes bd-twinkle { 0%, 100% { opacity: 0; transform: scale(.4) rotate(0deg); } 35% { opacity: 1; transform: scale(1) rotate(30deg); } 70% { opacity: .15; transform: scale(.6) rotate(60deg); } }
+.v-bday .bd-face { box-shadow: 0 0 0 3px #fff, 0 0 0 6px #e4a6a0, 0 14px 24px -10px rgba(150,40,70,.45); }
+@media (prefers-reduced-motion: reduce) { .ann-slide[data-birthdays] h3, .v-bday .script { animation: none; } .bd-spark { animation: none; opacity: .85; transform: none; } }

@@ -39,6 +39,22 @@ document.addEventListener('rco-auth-ready', async () => {
     return n;
   };
 
+
+  // decoration: roses and pink sparkles (static artwork)
+  const ROSE = '<svg class="bd-rose" viewBox="0 0 200 200" aria-hidden="true"><defs><radialGradient id="bdPetal" cx="50%" cy="38%" r="68%"><stop offset="0" stop-color="#ffd9d4"/><stop offset=".55" stop-color="#f08aa0"/><stop offset="1" stop-color="#c2415f"/></radialGradient><radialGradient id="bdPetal2" cx="50%" cy="40%" r="65%"><stop offset="0" stop-color="#ffe6e0"/><stop offset=".6" stop-color="#f4a0b0"/><stop offset="1" stop-color="#d4506c"/></radialGradient></defs><g transform="translate(100 100)"><g fill="url(#bdPetal)" stroke="#b03a58" stroke-opacity=".35" stroke-width="1">' +
+    [0, 72, 144, 216, 288].map(a => `<ellipse rx="44" ry="66" cy="-34" transform="rotate(${a})"/>`).join('') +
+    '</g><g fill="url(#bdPetal2)" stroke="#b03a58" stroke-opacity=".4" stroke-width="1">' +
+    [36, 108, 180, 252, 324].map(a => `<ellipse rx="30" ry="46" cy="-22" transform="rotate(${a})"/>`).join('') +
+    '</g><circle r="24" fill="url(#bdPetal)" stroke="#b03a58" stroke-opacity=".5"/><path d="M-9 -2c0-9 18-9 18 0 0 9-12 11-14 4" fill="none" stroke="#a8324f" stroke-width="2.4" stroke-linecap="round"/></g></svg>';
+  const STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0l2.1 8.9L23 12l-8.9 2.1L12 24l-2.1-8.9L1 12l8.9-2.1L12 0z"/></svg>';
+  const sparkle = (x, y, size, delay) => { const n = el('span', { class: 'bd-spark' }); n.style.cssText = `left:${x}%;top:${y}%;width:${size}px;height:${size}px;animation-delay:${delay}s`; n.insertAdjacentHTML('beforeend', STAR); return n; };
+  const decor = () => {
+    const d = el('div', { class: 'bd-decor' });
+    d.insertAdjacentHTML('beforeend', ROSE + ROSE.replace('class="bd-rose"', 'class="bd-rose is-b"').replace(/bdPetal2?/g, m => m + 'B'));
+    [[12, 14, 18, 0], [82, 10, 24, .6], [90, 46, 14, 1.2], [8, 58, 20, 1.8], [70, 72, 16, .3], [30, 8, 12, 2.2], [52, 90, 18, 1.5], [18, 84, 14, 2.6]].forEach(a => d.append(sparkle(...a)));
+    return d;
+  };
+
   const today = data.filter(b => b.days_away === 0);
   const soon = data.filter(b => b.days_away > 0);
   const when = b => b.days_away === 0 ? 'Today' : b.days_away === 1 ? 'Tomorrow' : `${MONTHS[b.birth_month - 1]} ${b.birth_day}`;
@@ -54,8 +70,9 @@ document.addEventListener('rco-auth-ready', async () => {
       el('p', { text: today.length ? 'Send some love today, and celebrate the sorors with birthdays coming up.' : 'Birthdays coming up in the chapter this week.' }),
       facts,
       more > 0 ? el('p', { class: 'ann-more', text: `and ${more} more this week` }) : ''),
-    el('div', { class: 'ann-visual v-save', 'aria-hidden': 'true' },
-      el('div', {},
+    el('div', { class: 'ann-visual v-save v-bday', 'aria-hidden': 'true' },
+      decor(),
+      el('div', { class: 'bd-center' },
         today.length
           ? el('div', { class: 'bd-faces' }, today.slice(0, 4).map(b => face(b, today.length > 2 ? 'is-md' : 'is-lg')))
           : el('img', { src: 'images/single-ivy-leaf-tight.png', alt: '' }),
