@@ -1,0 +1,68 @@
+/* Portal color themes. Pick one with ?theme=pink, ?theme=garden, ?theme=gold (or classic for the original colors).
+   Everything below only applies when a theme is on, so the original look is untouched until one is chosen. */
+
+html[data-theme] body.portal-body:not(.profile-page) { background: var(--pt-bg); }
+html[data-theme] .portal-header { background: var(--pt-header); }
+html[data-theme] .portal-brand .tag { background: var(--pt-tag-bg); color: var(--pt-tag-fg); }
+html[data-theme] .portal-tabs { background: var(--pt-tabs); border-bottom: 3px solid var(--pt-accent); }
+html[data-theme] .portal-tabs a { color: var(--pt-tab-ink); font-weight: 700; }
+html[data-theme] .portal-tabs a:hover { color: var(--pt-accent-deep); }
+html[data-theme] .portal-tabs a.is-active { color: var(--pt-accent-deep); border-color: var(--pt-accent-deep); background: rgba(255,255,255,.6); border-radius: 10px 10px 0 0; }
+html[data-theme] .portal-hero, html[data-theme] .rs-hero { background: var(--pt-hero); }
+html[data-theme] .portal-hero .eyebrow, html[data-theme] .rs-hero .eyebrow { color: var(--pt-accent-deep); }
+html[data-theme] .portal-hero h1, html[data-theme] .rs-hero h1 { color: var(--pt-heading); }
+html[data-theme] .rs-section.rs-alt { background: var(--pt-alt); }
+html[data-theme] .portal-section { border-top-color: transparent; }
+
+/* tiles and cards: a colored top edge, alternating between the two accent colors */
+html[data-theme] .portal-tile, html[data-theme] .rs-card, html[data-theme] .rs-quick-card, html[data-theme] .cm-card, html[data-theme] .pf-card:not(.pf-dues):not(.pf-top) {
+  border-top: 4px solid var(--pt-accent);
+}
+html[data-theme] .portal-tile:nth-child(even), html[data-theme] .rs-card:nth-child(even), html[data-theme] .rs-quick-card:nth-child(even), html[data-theme] .cm-card:nth-child(even) { border-top-color: var(--pt-accent2); }
+html[data-theme] .portal-tile .pt-icon { background: var(--pt-icon-bg); color: var(--pt-accent-deep); }
+html[data-theme] .portal-tile:nth-child(even) .pt-icon { background: var(--pt-icon-bg2); color: var(--pt-accent2-deep); }
+html[data-theme] .portal-tile .pt-go { color: var(--pt-accent-deep); }
+html[data-theme] .portal-tile:hover { border-color: var(--pt-accent-deep); }
+html[data-theme] .rs-quick-card .ic { background: var(--pt-icon-bg); color: var(--pt-accent-deep); }
+html[data-theme] .ann-head .eyebrow, html[data-theme] .ann .eyebrow { color: var(--pt-accent-deep); }
+html[data-theme] .portal-footer { background: var(--pt-footer); }
+
+/* ---- Pink & Green: the classic AKA pairing, bright and cheerful ---- */
+html[data-theme="pink"] {
+  --pt-bg: #fff1f6;
+  --pt-header: linear-gradient(100deg, #0e5230, #1d7c48);
+  --pt-tag-bg: #fff; --pt-tag-fg: #c2185b;
+  --pt-tabs: #ffd9e7; --pt-tab-ink: #5b2640;
+  --pt-accent: #ee6a9b; --pt-accent-deep: #c2185b; --pt-accent2: #7cc24f; --pt-accent2-deep: #2f7d1d;
+  --pt-hero: radial-gradient(70% 130% at 92% 0%, #ffc5da 0%, transparent 62%), linear-gradient(180deg, #ffe6ef, #fff1f6);
+  --pt-heading: #0e5230; --pt-alt: #ffe5ef;
+  --pt-icon-bg: #ffd9e7; --pt-icon-bg2: #dff2cd;
+  --pt-footer: #0e5230;
+}
+/* ---- Garden: fresh apple greens with a pink accent ---- */
+html[data-theme="garden"] {
+  --pt-bg: #f2f9e8;
+  --pt-header: linear-gradient(100deg, #123524, #24633b);
+  --pt-tag-bg: #b7e08a; --pt-tag-fg: #123524;
+  --pt-tabs: #dcf0c2; --pt-tab-ink: #1f4a2c;
+  --pt-accent: #7cc24f; --pt-accent-deep: #3d7d1a; --pt-accent2: #f2917e; --pt-accent2-deep: #c14f3d;
+  --pt-hero: radial-gradient(70% 130% at 92% 0%, #cfeaaa 0%, transparent 62%), linear-gradient(180deg, #e6f4d2, #f2f9e8);
+  --pt-heading: #123524; --pt-alt: #e6f4d2;
+  --pt-icon-bg: #dff2cd; --pt-icon-bg2: #ffe0d9;
+  --pt-footer: #123524;
+}
+/* ---- Blush & Gold: warm and elegant ---- */
+html[data-theme="gold"] {
+  --pt-bg: #fff6f1;
+  --pt-header: linear-gradient(100deg, #123524, #2a5b3d);
+  --pt-tag-bg: #f3e2ae; --pt-tag-fg: #5d4513;
+  --pt-tabs: #f8e5c4; --pt-tab-ink: #4d3a14;
+  --pt-accent: #c9a24d; --pt-accent-deep: #8a6a1f; --pt-accent2: #e59a92; --pt-accent2-deep: #b3473c;
+  --pt-hero: radial-gradient(70% 130% at 92% 0%, #ffd9cf 0%, transparent 62%), linear-gradient(180deg, #fdebe2, #fff6f1);
+  --pt-heading: #123524; --pt-alt: #fdebe2;
+  --pt-icon-bg: #f8e5c4; --pt-icon-bg2: #ffe0d9;
+  --pt-footer: #123524;
+}
+
+/* keep the rose-gold Welcome readable on the colored hero */
+html[data-theme] .rg-word { background-image: linear-gradient(105deg, #74293a 0%, #a24a5a 24%, #cf7885 40%, #8c3647 60%, #b05a68 80%, #74293a 100%); }
