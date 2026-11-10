@@ -14,6 +14,7 @@
   }
 
   doc.classList.add('auth-pending');
+  if ('serviceWorker' in navigator) window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });
 
   const state = { client: null, member: null, session: null, checking: false };
   window.rcoAuth = state;
@@ -134,8 +135,8 @@
     const retry = el('button', { type: 'button', class: 'btn btn-primary auth-btn', text: 'Try again' });
     retry.addEventListener('click', () => location.reload());
     showGate([
-      el('h1', { id: 'auth-title', text: 'Sign-in is unavailable' }),
-      el('p', { class: 'auth-help', text: msg || 'We couldn’t reach the sign-in service. Please try again in a moment.' }),
+      el('h1', { id: 'auth-title', text: navigator.onLine === false ? 'You’re offline' : 'Sign-in is unavailable' }),
+      el('p', { class: 'auth-help', text: navigator.onLine === false ? 'Please check your Wi-Fi or mobile data, then try again.' : (msg || 'We couldn’t reach the sign-in service. Please try again in a moment.') }),
       retry
     ]);
   }

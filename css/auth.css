@@ -95,3 +95,9 @@ html.auth-locked body { visibility: visible; }
 .rt-grid { margin-top: 1.2rem; }
 .rt-form { display: flex; flex-direction: column; gap: .7rem; }
 @media (max-width: 560px) { .auth-name { display: none; } .auth-out { white-space: nowrap; } }
+
+/* a branded launch screen while the portal opens (instead of a blank page) */
+html.auth-pending::before { content: ""; position: fixed; inset: 0; z-index: 3000; background: radial-gradient(60% 45% at 50% 38%, #fff 0%, rgba(255,255,255,0) 70%), linear-gradient(180deg, #ffe3ed, #ffd2e1); }
+html.auth-pending::after { content: ""; position: fixed; z-index: 3001; left: 50%; top: 40%; width: 112px; height: 112px; transform: translate(-50%, -50%); background: url('../images/app-icon-192.png') center / contain no-repeat; border-radius: 26px; box-shadow: 0 20px 36px -18px rgba(8,25,18,.5); animation: rco-splash 1.6s ease-in-out infinite; }
+@keyframes rco-splash { 0%, 100% { transform: translate(-50%, -50%) scale(1); } 50% { transform: translate(-50%, -50%) scale(1.07); } }
+@media (prefers-reduced-motion: reduce) { html.auth-pending::after { animation: none; } }
