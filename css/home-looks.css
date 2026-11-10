@@ -75,6 +75,20 @@ html[data-look="blend"] .hero-overlay {
     linear-gradient(180deg, rgba(31,90,61,.7) 0%, rgba(25,74,50,.82) 48%, rgba(15,47,32,.92) 100%);
 }
 
+/* Get Involved: a soft pink gradient with deep emerald buttons (Emerald Spring) */
+html[data-look="blend"] .section-green { background: linear-gradient(120deg, #fff0f4 0%, #ffdde6 38%, #ffc9d8 68%, #ffe6ed 100%); color: var(--ink); }
+html[data-look="blend"] .section-green h2, html[data-look="blend"] .section-green h3 { color: var(--ivy); }
+html[data-look="blend"] .section-green .eyebrow { color: var(--salmon-deep); }
+html[data-look="blend"] .section-green .eyebrow::before { background: linear-gradient(90deg, var(--salmon-deep), transparent); }
+html[data-look="blend"] .section-green .contact-grid > div > p:not(.eyebrow) { color: var(--ink-soft) !important; }
+html[data-look="blend"] .section-green .btn-primary { background: linear-gradient(160deg, var(--ivy-light), var(--ivy) 65%, var(--ivy-black)); color: #fff; box-shadow: 0 1px 0 rgba(255,255,255,.18) inset, 0 12px 24px -12px rgba(15,47,32,.6); }
+html[data-look="blend"] .section-green .btn-primary:hover { box-shadow: 0 1px 0 rgba(255,255,255,.22) inset, 0 16px 30px -12px rgba(15,47,32,.65); }
+html[data-look="blend"] .section-green .btn-outline { border-color: var(--ivy); color: var(--ivy); background: rgba(255,255,255,.55); }
+html[data-look="blend"] .section-green .btn-outline:hover { background: #fff; border-color: var(--ivy-light); }
+html[data-look="blend"] .section-green .contact-list a { border-bottom-color: rgba(31,90,61,.2); color: var(--ink); }
+html[data-look="blend"] .section-green .contact-list a:hover { color: var(--ivy); }
+html[data-look="blend"] .section-green .contact-list .ic { border-color: rgba(31,90,61,.4); color: var(--ivy); background: rgba(255,255,255,.6); }
+
 /* ---- the little "Colors" picker (only shown while previewing) ---- */
 #rco-lookbar { position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 2500; display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; justify-content: center; background: rgba(255,255,255,.97); border: 1.5px solid rgba(18,53,36,.2); border-radius: 18px; padding: .55rem .7rem; box-shadow: 0 10px 30px rgba(0,0,0,.22); font: 600 .84rem var(--font-body); color: #123524; max-width: 640px; margin: 0 auto; }
 #rco-lookbar button { font: inherit; border: 1.5px solid rgba(18,53,36,.25); background: #fff; color: #123524; border-radius: 999px; padding: .42em .9em; cursor: pointer; }
