@@ -17,6 +17,7 @@
 
   const state = { client: null, member: null, session: null, checking: false };
   window.rcoAuth = state;
+  state.buildAppBar = m => buildAppBar(m);
 
   const cfg = window.RCO_SUPABASE;
   const lib = window.supabase;
@@ -201,6 +202,7 @@
         tabs.append(a);
       }
     }
+    try { buildAppBar(m); } catch (err) { /* the app bar is a nicety; never block the page */ }
     document.dispatchEvent(new CustomEvent('rco-auth-ready', { detail: m }));
   }
 
@@ -249,6 +251,7 @@
       badge.hidden = n === 0;
       badge.textContent = n > 9 ? '9+' : String(n);
       document.dispatchEvent(new CustomEvent('rco-unread', { detail: n }));
+      try { if (n && navigator.setAppBadge) navigator.setAppBadge(n); else if (navigator.clearAppBadge) navigator.clearAppBadge(); } catch (e) { /* not supported */ }
       avatar.href = n ? 'portal-profile.html#messages' : 'portal-profile.html';
       avatar.title = n ? `My profile (${n} unread message${n === 1 ? '' : 's'})` : 'My profile';
       const tab = document.getElementById('pf-badge');
@@ -276,6 +279,55 @@
       await sb.storage.from('message-files').remove(paths);
       await sb.from('storage_purge_queue').delete().in('path', paths);
     } catch (e) { /* try again next time */ }
+  }
+
+  /* ---------- phone app bar: the bottom tabs a real app has ---------- */
+  function buildAppBar(m) {
+    if (document.getElementById('rco-appbar')) return;
+    const svg = d => { const n = document.createElementNS('http://www.w3.org/2000/svg', 'svg'); n.setAttribute('viewBox', '0 0 24 24'); n.setAttribute('width', '24'); n.setAttribute('height', '24'); n.setAttribute('fill', 'none'); n.setAttribute('stroke', 'currentColor'); n.setAttribute('stroke-width', '1.9'); n.setAttribute('stroke-linecap', 'round'); n.setAttribute('stroke-linejoin', 'round'); n.setAttribute('aria-hidden', 'true'); d.forEach(p => { const e = document.createElementNS('http://www.w3.org/2000/svg', 'path'); e.setAttribute('d', p); n.append(e); }); return n; };
+    const ICON = {
+      home: ['M3 11l9-8 9 8', 'M5 10v10h14V10', 'M10 20v-6h4v6'],
+      events: ['M7 3v4M17 3v4', 'M4 8h16v12H4z', 'M4 12h16', 'M8 16h3'],
+      chat: ['M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z'],
+      files: ['M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'],
+      more: ['M5 12h.01M12 12h.01M19 12h.01']
+    };
+    const here = location.pathname.split('/').pop() || 'portal.html';
+    const onMessages = here === 'portal-profile.html' && location.hash === '#messages';
+    const items = [
+      ['Home', 'portal.html', ICON.home, here === 'portal.html'],
+      ['Events', 'portal-events.html', ICON.events, here === 'portal-events.html'],
+      ['Messages', 'portal-profile.html#messages', ICON.chat, onMessages, 'msg'],
+      ['Resources', 'portal-resources.html', ICON.files, here === 'portal-resources.html']
+    ];
+    const bar = el('nav', { id: 'rco-appbar', 'aria-label': 'App navigation' });
+    items.forEach(([label, href, icon, active, key]) => {
+      const a = el('a', { href, class: 'ab-item' + (active ? ' is-active' : ''), 'data-ab': key || '' }, svg(icon), el('span', { text: label }));
+      if (key === 'msg') a.append(el('i', { class: 'ab-dot', hidden: true }));
+      bar.append(a);
+    });
+    const more = el('button', { type: 'button', class: 'ab-item', 'aria-haspopup': 'dialog' }, svg(ICON.more), el('span', { text: 'More' }));
+    bar.append(more);
+
+    const links = [['My profile', 'portal-profile.html'], ['Chapter calendar', 'portal-calendar.html'], ['Committees', 'portal-committees.html'], ['Directory', 'portal-directory.html'], ['Officer nominations', 'portal-nominations.html']];
+    if (m.role === 'officer' || m.role === 'admin') links.push(['Roster', 'portal-roster.html'], ['Gallery', 'portal-gallery.html']);
+    if (m.role === 'admin') links.push(['Message review', 'portal-message-review.html']);
+    links.push(['Help', 'help.html'], ['Public website', 'index.html']);
+    const out = el('button', { type: 'button', class: 'ab-signout', text: 'Sign out' });
+    out.addEventListener('click', signOut);
+    const close = el('button', { type: 'button', class: 'ab-close', 'aria-label': 'Close', text: '×' });
+    const sheet = el('div', { class: 'ab-sheet', role: 'dialog', 'aria-label': 'More' }, close, el('p', { class: 'ab-name', text: m.name }),
+      el('ul', {}, links.map(([t, h]) => el('li', {}, el('a', { href: h, class: here === h.split('#')[0] ? 'is-active' : '', text: t })))), out);
+    const shade = el('div', { class: 'ab-shade', hidden: true }, sheet);
+    const toggle = open => { shade.hidden = !open; document.body.classList.toggle('ab-open', open); };
+    more.addEventListener('click', () => toggle(true));
+    close.addEventListener('click', () => toggle(false));
+    shade.addEventListener('click', e => { if (e.target === shade) toggle(false); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') toggle(false); });
+
+    document.body.append(bar, shade);
+    document.body.classList.add('has-appbar');
+    document.addEventListener('rco-unread', ev => { const d = bar.querySelector('.ab-dot'); const n = Number(ev.detail) || 0; if (d) { d.hidden = n === 0; d.textContent = n > 9 ? '9+' : String(n); } });
   }
 
   async function signOut() {
