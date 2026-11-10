@@ -230,3 +230,27 @@ table.price-table td:not(:first-child), table.price-table th:not(:first-child) {
 .cal-sub-btns .btn { justify-content: center; text-align: center; }
 .cal-sub-note { margin: .2rem 0 0; font-size: .84rem; }
 @media (max-width: 760px) { .cal-sub { grid-template-columns: 1fr; } }
+
+/* Phones: a tidier portal top (one short notice line, a single header row, a calmer hero) */
+@media (max-width: 640px) {
+  .portal-ribbon .rb-long { display: none; }
+  .portal-ribbon { font-size: .74rem; padding: .5em .8em; }
+  .portal-header { padding: .6rem 0; }
+  .portal-header .container { flex-wrap: nowrap; gap: .5rem; }
+  .portal-brand { font-size: .95rem; gap: .5rem; min-width: 0; }
+  .portal-brand img { height: 30px; }
+  .portal-brand .tag { display: none; }
+  .portal-back { display: none; }
+  .portal-help { margin-left: auto; padding: .35em .9em; font-size: .8rem; }
+  .auth-who { gap: .5rem; margin-left: 0; }
+  .auth-out { padding: .35em .8em; font-size: .74rem; }
+  .portal-tabs a { padding: .8em .85em; font-size: .8rem; }
+  .portal-hero { padding: 1.8rem 0 1.4rem; }
+  .portal-hero--home { padding: 1.8rem 0 1.4rem; }
+  .portal-hero h1, .portal-hero--home h1 { font-size: clamp(1.8rem, 8vw, 2.2rem); line-height: 1.12; margin: .25rem 0 .5rem; }
+  .portal-hero p { font-size: .95rem; line-height: 1.5; }
+  .portal-hero .eyebrow, .rs-hero .eyebrow { font-size: .66rem; }
+  .rs-hero { padding-block: 1.8rem 1.2rem; }
+}
+@media (max-width: 640px) { .portal-brand { white-space: nowrap; } }
+@media (max-width: 420px) { .portal-brand { font-size: .86rem; gap: .4rem; } .portal-help { padding: .3em .75em; } }

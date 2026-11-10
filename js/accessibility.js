@@ -23,6 +23,7 @@
       #rco-textsize:focus-visible { outline: 3px solid #f2917e; outline-offset: 3px; }
       #rco-textsize .big { font-size: 20px; font-family: 'Fraunces', Georgia, serif; line-height: .8; }
       #rco-textsize .lvl { font-weight: 600; opacity: .85; font-size: 13px; }
+      @media (max-width: 480px) { #rco-textsize { right: 10px; bottom: 50px; padding: .5rem .8rem; } #rco-textsize span:not(.big) { display: none; } }
       @media print { #rco-textsize { display: none; } }`;
     document.head.append(style);
     const b = document.createElement('button');

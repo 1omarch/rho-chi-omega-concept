@@ -94,3 +94,4 @@ html.auth-locked body { visibility: visible; }
 .auth-helplink a { color: var(--ivy, #123524); font-weight: 700; text-decoration-color: rgba(193,79,61,.55); text-underline-offset: 3px; }
 .rt-grid { margin-top: 1.2rem; }
 .rt-form { display: flex; flex-direction: column; gap: .7rem; }
+@media (max-width: 560px) { .auth-name { display: none; } .auth-out { white-space: nowrap; } }
