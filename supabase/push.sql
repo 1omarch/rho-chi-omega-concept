@@ -96,3 +96,10 @@ create table if not exists public.reminder_log (
 );
 alter table public.reminder_log enable row level security;
 revoke all on public.reminder_log from anon, authenticated;
+
+-- 6. Let the server-side sender (the "service role") read and write these tables --------------------
+grant usage on schema public to service_role;
+grant all on all tables in schema public to service_role;
+grant all on all sequences in schema public to service_role;
+grant execute on all functions in schema public to service_role;
+alter default privileges in schema public grant all on tables to service_role;
