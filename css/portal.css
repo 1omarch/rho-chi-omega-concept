@@ -211,3 +211,7 @@ table.price-table td:not(:first-child), table.price-table th:not(:first-child) {
 .portal-help { margin-left: auto; font-size: .86rem; font-weight: 700; color: var(--pearl); border: 1px solid rgba(250,246,238,.5); border-radius: 999px; padding: .4em 1.1em; }
 .portal-help:hover { background: rgba(250,246,238,.14); border-color: var(--pearl); }
 .portal-help + .portal-back { margin-left: 0; }
+
+.reg-card .rc-photo.is-flyer.is-tall { aspect-ratio: 2/3; background: #111; }
+.reg-card .rc-photo.is-flyer.is-tall img { object-fit: contain; }
+.reg-card a.rc-photo { display: block; }
