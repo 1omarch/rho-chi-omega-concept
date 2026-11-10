@@ -115,3 +115,5 @@ body.portal-body.profile-page { background: linear-gradient(180deg, #ffeeed 0%, 
 
 .iv-remind { display: inline-flex; align-items: center; gap: .45rem; margin-top: .4rem; font-size: .84rem; color: var(--ink-soft); cursor: pointer; }
 .iv-remind input { width: 1.1rem; height: 1.1rem; accent-color: var(--ivy); }
+
+.iv-check { margin: .8rem 0 0; font-size: .74rem; line-height: 1.5; color: var(--ink-soft); word-break: break-word; }

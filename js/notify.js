@@ -46,11 +46,16 @@ document.addEventListener('rco-auth-ready', async () => {
       on.addEventListener('click', async () => {
         on.disabled = true;
         const r = await window.rcoPush.enable(sb, myId);
-        if (r.ok) draw('Notifications are on.'); else { on.disabled = false; msg.textContent = r.reason === 'denied' ? 'You chose not to allow notifications. You can change that in your settings.' : 'Notifications could not be turned on. Please try again.'; }
+        if (r.ok) draw('Notifications are on.'); else { on.disabled = false; msg.textContent = r.reason === 'denied' ? 'You chose not to allow notifications. You can change that in your settings.' : `Notifications could not be turned on (${r.reason}${r.detail ? ': ' + r.detail : ''}). Please try again.`; }
       });
       kids.push(el('p', { class: 'iv-sub', text: 'Get a pop-up on your phone, like an app, when an event or committee meeting is coming up. Free, and you can turn it off any time.' }), on);
     }
     kids.push(msg);
+    // a plain-language setup check, so problems are easy to read out
+    const d = await window.rcoPush.detail();
+    const saved = await sb.from('push_subscriptions').select('id', { count: 'exact', head: true }).eq('member_id', myId);
+    const yn = v => (v ? 'yes' : 'no');
+    kids.push(el('p', { class: 'iv-check', text: `Setup check: opened from the Home Screen: ${yn(d.standalone)} · iPhone: ${yn(d.ios)} · permission: ${d.permission} · notification service ready: ${yn(d.worker)} · this device registered here: ${yn(d.subscription)} · devices saved for you: ${saved.error ? 'unknown' : saved.count}` }));
     host.replaceChildren(el('div', { class: 'pf-card iv-card' }, ...kids));
   }
   draw();

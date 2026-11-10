@@ -17,16 +17,17 @@ window.rcoPush = (function () {
   }
   async function enable(sb, memberId) {
     if (!supported) return { ok: false, reason: 'unsupported' };
-    const reg = await navigator.serviceWorker.register('sw.js');
-    await navigator.serviceWorker.ready;
+    // ask for permission first, straight from the tap (iPhone requires this), then set up the rest
     const perm = await Notification.requestPermission();
     if (perm !== 'granted') return { ok: false, reason: 'denied' };
+    const reg = await navigator.serviceWorker.register('sw.js');
+    await navigator.serviceWorker.ready;
     let sub = await reg.pushManager.getSubscription();
     if (!sub) sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: toBytes(PUBLIC_KEY) });
     const j = sub.toJSON();
     await sb.from('push_subscriptions').delete().eq('endpoint', j.endpoint);
     const { error } = await sb.from('push_subscriptions').insert({ member_id: memberId, endpoint: j.endpoint, p256dh: j.keys.p256dh, auth: j.keys.auth, user_agent: navigator.userAgent.slice(0, 200) });
-    if (error) return { ok: false, reason: 'save' };
+    if (error) return { ok: false, reason: 'save', detail: error.message };
     return { ok: true };
   }
   async function disable(sb) {
@@ -34,5 +35,10 @@ window.rcoPush = (function () {
     if (sub) { await sb.from('push_subscriptions').delete().eq('endpoint', sub.endpoint); await sub.unsubscribe(); }
     return { ok: true };
   }
-  return { state, enable, disable };
+  async function detail() {
+    const reg = supported ? (await navigator.serviceWorker.getRegistration('sw.js') || await navigator.serviceWorker.getRegistration()) : null;
+    const sub = reg ? await reg.pushManager.getSubscription() : null;
+    return { supported, ios, standalone, permission: supported ? Notification.permission : 'unsupported', worker: !!reg, subscription: !!sub };
+  }
+  return { state, enable, disable, detail };
 })();
