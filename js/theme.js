@@ -1,17 +1,16 @@
-// Portal color themes. Open any portal page with ?theme=pink, ?theme=garden, ?theme=gold or ?theme=classic to try them.
-// The choice sticks on this device, with a small "Colors" bar so leadership can compare. Press Done to hide the bar.
+// Portal colors: Pink & Green is the chapter's chosen look, for everyone.
+// (Other options are still on file. Add ?theme=garden, ?theme=gold or ?theme=classic to a portal address to compare;
+// that only affects the page you are looking at and shows a small Colors bar.)
 (function () {
   const THEMES = [['classic', 'Classic'], ['pink', 'Pink & Green'], ['garden', 'Garden'], ['gold', 'Blush & Gold']];
-  const DEFAULT = '';              // the theme everyone sees once leadership has chosen (empty = the original colors)
-  const KEY = 'rco-theme-preview';
+  const DEFAULT = 'pink';
   const valid = n => THEMES.some(t => t[0] === n);
   let current = DEFAULT, previewing = false;
+  try { localStorage.removeItem('rco-theme-preview'); } catch (e) { /* storage unavailable */ }
   try {
     const q = new URLSearchParams(location.search).get('theme');
-    if (q && valid(q)) localStorage.setItem(KEY, q);
-    const s = localStorage.getItem(KEY);
-    if (s && valid(s)) { current = s === 'classic' ? '' : s; previewing = true; }
-  } catch (e) { /* storage unavailable */ }
+    if (q && valid(q)) { current = q === 'classic' ? '' : q; previewing = true; }
+  } catch (e) { /* ignore */ }
   const apply = n => { if (n) document.documentElement.setAttribute('data-theme', n); else document.documentElement.removeAttribute('data-theme'); };
   apply(current);
 
@@ -30,13 +29,12 @@
       btn.setAttribute('aria-pressed', String((id === 'classic' ? '' : id) === current));
       btn.addEventListener('click', () => {
         current = id === 'classic' ? '' : id; apply(current);
-        try { localStorage.setItem(KEY, id); } catch (e) { /* ignore */ }
         b.querySelectorAll('button[aria-pressed]').forEach(x => x.setAttribute('aria-pressed', String(x === btn)));
       });
       b.append(btn);
     });
     const done = document.createElement('button'); done.type = 'button'; done.className = 'done'; done.textContent = 'Done';
-    done.addEventListener('click', () => { try { localStorage.removeItem(KEY); } catch (e) { /* ignore */ } apply(DEFAULT); b.remove(); });
+    done.addEventListener('click', () => { apply(DEFAULT); b.remove(); });
     b.append(done);
     document.body.append(b);
   }
