@@ -29,8 +29,9 @@ document.addEventListener('rco-auth-ready', async () => {
       if (mine.has(title)) {
         box.append(el('span', { class: 'rc-on', text: '✓ On my list' }));
         if (date && window.rcoCal) {
-          box.append(el('a', { class: 'rc-cal', href: window.rcoCal.google(title, date), target: '_blank', rel: 'noopener', text: 'Add to Google Calendar' }),
-                     el('a', { class: 'rc-cal', href: window.rcoCal.icsHref(title, date), download: 'event.ics', text: 'Apple / Outlook' }));
+          const ev = { title: title.startsWith('Chapter Cardigan') ? 'Chapter Cardigan order deadline' : title, start: card.dataset.calStart || date, end: card.dataset.calEnd || undefined, where: card.dataset.calWhere || undefined };
+          box.append(el('a', { class: 'rc-cal', href: window.rcoCal.googleEvent(ev), target: '_blank', rel: 'noopener', text: 'Add to Google Calendar' }),
+                     el('a', { class: 'rc-cal', href: window.rcoCal.icsEvent(ev), download: 'event.ics', text: 'Apple / Outlook' }));
         }
         const rm = el('button', { type: 'button', class: 'rc-rm', text: 'Remove' });
         rm.addEventListener('click', async () => { const id = mine.get(title); const { error } = await sb.from('member_activity').delete().eq('id', id); if (!error) { mine.delete(title); draw(); } });

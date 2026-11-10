@@ -93,6 +93,22 @@
     go(index + 1);
   }, 7000);
 
+  // dated slides get "Add to calendar" links (with reminders)
+  function addCalendarLinks() {
+    if (!window.rcoCal) return;
+    track.querySelectorAll('.ann-slide[data-cal-start]').forEach(sl => {
+      if (sl.querySelector('.ann-cal')) return;
+      const ev = { title: sl.dataset.calTitle, start: sl.dataset.calStart, end: sl.dataset.calEnd || undefined, where: sl.dataset.calWhere || undefined, note: sl.dataset.calNote || undefined };
+      const row = document.createElement('p'); row.className = 'ann-cal';
+      row.append('Add to calendar: ');
+      const g = document.createElement('a'); g.href = window.rcoCal.googleEvent(ev); g.target = '_blank'; g.rel = 'noopener'; g.textContent = 'Google';
+      const i = document.createElement('a'); i.href = window.rcoCal.icsEvent(ev); i.download = 'event.ics'; i.textContent = 'Apple / Outlook';
+      row.append(g, ' · ', i);
+      const copy = sl.querySelector('.ann-copy'); if (copy) copy.append(row);
+    });
+  }
+  addCalendarLinks();
+
   buildSlides();
   setActive(0);
   renderToggle();

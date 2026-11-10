@@ -222,3 +222,11 @@ table.price-table td:not(:first-child), table.price-table th:not(:first-child) {
 .rc-on { font-weight: 800; font-size: .84rem; color: var(--apple-deep, #4f7a24); }
 .rc-cal { font-size: .8rem; font-weight: 700; color: var(--ivy); text-decoration-color: rgba(193,79,61,.5); }
 .rc-rm { background: none; border: 0; font: 600 .76rem var(--font-body); color: var(--ink-soft); text-decoration: underline; cursor: pointer; margin-left: auto; }
+
+.cal-sub { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, .7fr); gap: 1.6rem 2.4rem; align-items: center; background: #fff; border: 1px solid rgba(18,53,36,.1); border-top: 4px solid var(--pt-accent, var(--salmon)); border-radius: 18px; padding: clamp(1.3rem, 3vw, 2rem); box-shadow: 0 22px 46px -30px rgba(8,25,18,.38); }
+.cal-sub h2 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); margin: .2em 0 .4em; }
+.cal-sub p { color: var(--ink-soft); }
+.cal-sub-btns { display: flex; flex-direction: column; gap: .7rem; align-items: stretch; }
+.cal-sub-btns .btn { justify-content: center; text-align: center; }
+.cal-sub-note { margin: .2rem 0 0; font-size: .84rem; }
+@media (max-width: 760px) { .cal-sub { grid-template-columns: 1fr; } }

@@ -190,3 +190,6 @@
 @keyframes bd-twinkle { 0%, 100% { opacity: 0; transform: scale(.4) rotate(0deg); } 35% { opacity: 1; transform: scale(1) rotate(30deg); } 70% { opacity: .15; transform: scale(.6) rotate(60deg); } }
 .v-bday .bd-face { box-shadow: 0 0 0 3px #fff, 0 0 0 6px #e4a6a0, 0 14px 24px -10px rgba(150,40,70,.45); }
 @media (prefers-reduced-motion: reduce) { .ann-slide[data-birthdays] h3, .v-bday .script { animation: none; } .bd-spark { animation: none; opacity: .85; transform: none; } }
+
+.ann-cal { margin: .2rem 0 0; font-size: .82rem; color: var(--ink-soft); }
+.ann-cal a { color: var(--ivy); font-weight: 700; text-decoration-color: rgba(193,79,61,.5); }
