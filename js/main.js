@@ -210,3 +210,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
+
+// the public home page uses the same always-fresh helper as the portal
+if ('serviceWorker' in navigator) window.addEventListener('load', () => { navigator.serviceWorker.register('sw.js').catch(() => {}); });

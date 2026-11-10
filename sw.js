@@ -14,7 +14,9 @@ self.addEventListener('fetch', event => {
   if (req.method !== 'GET' || req.headers.has('range')) return;
   const url = new URL(req.url);
   if (url.origin !== self.location.origin || url.pathname.endsWith('/sw.js')) return;   // our own files only (never the database)
-  event.respondWith(fetch(req).then(res => {
+  // pages are re-checked with the server every time (GitHub Pages lets phones keep them 10 minutes)
+  const net = req.mode === 'navigate' ? new Request(req.url, { cache: 'no-cache', credentials: 'same-origin' }) : req;
+  event.respondWith(fetch(net).then(res => {
     if (res && res.ok && res.type === 'basic') { const copy = res.clone(); caches.open(CACHE).then(c => c.put(req, copy)); }
     return res;
   }).catch(() => caches.match(req).then(hit => hit || (req.mode === 'navigate' ? caches.match('offline.html') : Response.error()))));
