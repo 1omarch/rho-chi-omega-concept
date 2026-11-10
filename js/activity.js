@@ -28,7 +28,7 @@ document.addEventListener('rco-auth-ready', async e => {
     host.replaceChildren(el('div', { class: 'pf-card' }, el('h3', { text: 'My involvement' }), el('p', { class: 'iv-empty', text: 'Your involvement list is being set up. Please check back soon.' })));
     return;
   }
-  const profile = pr.data || {};
+  let profile = pr.data || {};
   const lead = (ld.data && ld.data.data) || { officers: { rows: [] }, groups: [] };
   let committees = cm.data || [];
   let acts = ac.data || [];
@@ -50,10 +50,15 @@ document.addEventListener('rco-auth-ready', async e => {
     pearl_soror: ['Pearl Soror', '65 years of membership'],
     diamond_soror: ['Diamond Soror', '75 or more years of membership and service (Diamond Star / Diamond Diva)']
   };
-  const years = profile.initiation_year ? new Date().getFullYear() - profile.initiation_year : null;
-  let honorKey = null;
-  if (profile.honor && profile.honor !== 'none') honorKey = profile.honor;
-  else if (!profile.honor && years !== null) honorKey = years >= 75 ? 'diamond_soror' : years >= 65 ? 'pearl_soror' : years >= 50 ? 'golden_soror' : years >= 25 ? 'silver_star' : null;
+  const MILESTONES = [[25, 'silver_star'], [50, 'golden_soror'], [65, 'pearl_soror'], [75, 'diamond_soror']];
+  let years = null, honorKey = null;
+  function derive() {
+    years = profile.initiation_year ? new Date().getFullYear() - profile.initiation_year : null;
+    honorKey = null;
+    if (profile.honor && profile.honor !== 'none') honorKey = profile.honor;
+    else if (!profile.honor && years !== null) { MILESTONES.forEach(([n, k]) => { if (years >= n) honorKey = k; }); }
+  }
+  derive();
 
   /* ---------- small building blocks ---------- */
   const section = (title, sub, ...kids) => el('section', { class: 'iv-sec' }, el('h4', { text: title }), sub ? el('p', { class: 'iv-sub', text: sub }) : '', kids);
@@ -84,7 +89,17 @@ document.addEventListener('rco-auth-ready', async e => {
     chairing.forEach(c => items.push(el('li', { class: 'iv-row' }, el('div', {}, el('strong', { text: `${c.role}: ${c.committee}` }), el('span', { class: 'iv-note', text: c.label })))));
     const kids = [];
     if (honorKey) kids.push(el('div', { class: 'iv-honor' }, el('span', { class: 'iv-star', 'aria-hidden': 'true', text: '★' }), el('div', {}, el('strong', { text: HONORS[honorKey][0] }), el('span', { class: 'iv-note', text: HONORS[honorKey][1] }))));
-    if (years !== null && years >= 0) kids.push(el('p', { class: 'iv-sub', text: `Years of membership: ${years}` }));
+    if (years !== null && years >= 0) {
+      kids.push(el('p', { class: 'iv-years', text: `Years of membership: ${years === 0 ? 'less than 1 (initiated this year)' : years}` }));
+      const next = MILESTONES.find(([n]) => years < n);
+      if (next) kids.push(el('p', { class: 'iv-sub', text: `Next honor: ${HONORS[next[1]][0]} in ${next[0] - years} year${next[0] - years === 1 ? '' : 's'} (${profile.initiation_year + next[0]}).` }));
+    }
+
+    if (years === null) {
+      const go = el('button', { type: 'button', class: 'btn btn-ghost btn-sm', text: 'Add my year initiated' });
+      go.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); const edit = document.getElementById('pf-edit'); if (edit) edit.click(); });
+      kids.push(el('p', { class: 'iv-sub', text: 'Add the year you were initiated in your profile details, and we will work out your years of membership and honor.' }), go);
+    }
     kids.push(items.length ? el('ul', { class: 'iv-list' }, items) : empty('No positions to show right now. Offices and chair roles appear here automatically.'));
     return section('Positions & honors', 'Worked out from the chapter’s officer and committee lists and your initiation year.', kids);
   }

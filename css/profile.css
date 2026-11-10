@@ -107,3 +107,8 @@ body.portal-body.profile-page { background: linear-gradient(180deg, #ffeeed 0%, 
 .iv-field > span { font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--ivy, #123524); }
 .iv-actions { display: flex; gap: .7rem; }
 .iv-msg { margin: 0; min-height: 1.1em; font-size: .86rem; font-weight: 600; color: var(--salmon-deep, #c14f3d); }
+
+.iv-years { margin: .2rem 0 .3rem; font-size: 1.02rem; font-weight: 700; color: var(--ivy-black); }
+.iv-yearform { margin-top: .8rem; padding: .9rem 1rem; background: var(--pearl, #faf6ee); border-radius: 12px; }
+.iv-yearrow { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
+.iv-yearrow .pf-input { max-width: 190px; }
