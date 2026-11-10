@@ -4,7 +4,7 @@
 .pf-tabs [role="tab"][aria-selected="true"] { color: var(--ivy-black, #081912); border-bottom-color: var(--salmon-deep, #c14f3d); }
 .pf-tabs [role="tab"]:focus-visible { outline: 3px solid rgba(193,79,61,.5); outline-offset: -3px; }
 .pf-badge { min-width: 20px; height: 20px; padding: 0 .4em; border-radius: 999px; background: #d93025; color: #fff; font-size: .7rem; font-weight: 800; display: inline-grid; place-items: center; }
-.pf-badge[hidden], .mg-app[hidden], #pf-view[hidden] { display: none !important; }
+.pf-badge[hidden], .mg-app[hidden], #pf-main[hidden] { display: none !important; }
 
 .mg-app { max-width: 1100px; }
 .mg-shell { display: grid; grid-template-columns: minmax(250px, 340px) 1fr; background: #fff; border: 1px solid rgba(18,53,36,.1); border-radius: 18px; box-shadow: 0 22px 46px -30px rgba(8,25,18,.38); overflow: hidden; min-height: 560px; }

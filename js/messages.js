@@ -19,7 +19,7 @@ document.addEventListener('rco-auth-ready', async e => {
 
   // tabs: Profile | Messages
   const tabProfile = document.getElementById('tab-profile'), tabMessages = document.getElementById('tab-messages');
-  const profileView = document.getElementById('pf-view');
+  const profileView = document.getElementById('pf-main');
   function showTab(name) {
     const msgs = name === 'messages';
     root.hidden = !msgs; profileView.hidden = msgs;

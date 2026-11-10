@@ -215,3 +215,10 @@ table.price-table td:not(:first-child), table.price-table th:not(:first-child) {
 .reg-card .rc-photo.is-flyer.is-tall { aspect-ratio: 2/3; background: #111; }
 .reg-card .rc-photo.is-flyer.is-tall img { object-fit: contain; }
 .reg-card a.rc-photo { display: block; }
+
+.rc-track { display: flex; align-items: center; gap: .6rem 1rem; flex-wrap: wrap; margin-top: .8rem; padding-top: .8rem; border-top: 1px dashed rgba(18,53,36,.18); }
+.rc-add { background: none; border: 1.5px solid var(--ivy); color: var(--ivy); border-radius: 999px; padding: .5em 1.1em; font: 700 .8rem var(--font-body); cursor: pointer; }
+.rc-add:hover { background: var(--ivy); color: var(--pearl); }
+.rc-on { font-weight: 800; font-size: .84rem; color: var(--apple-deep, #4f7a24); }
+.rc-cal { font-size: .8rem; font-weight: 700; color: var(--ivy); text-decoration-color: rgba(193,79,61,.5); }
+.rc-rm { background: none; border: 0; font: 600 .76rem var(--font-body); color: var(--ink-soft); text-decoration: underline; cursor: pointer; margin-left: auto; }

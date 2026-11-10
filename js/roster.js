@@ -22,15 +22,16 @@ document.addEventListener('rco-auth-ready', e => {
 
   let rows = [];
   let titles = {};
+  let honors = {};
   let cards = [];
 
   async function load() {
     const { data, error } = await sb.from('members').select('id,email,full_name,role,active').order('full_name', { ascending: true, nullsFirst: false });
     if (error) { say($('#rost-status'), 'Could not load the roster. Please refresh.', false); return; }
     rows = data;
-    const { data: ts } = await sb.from('profiles').select('member_id,title');
+    const { data: ts } = await sb.from('profiles').select('member_id,title,honor');
     titles = {};
-    (ts || []).forEach(t => { titles[t.member_id] = t.title || ''; });
+    (ts || []).forEach(t => { titles[t.member_id] = t.title || ''; honors[t.member_id] = t.honor || ''; });
     const { data: cs } = await sb.from('directory').select('id,display_name,member_id').order('display_name', { ascending: true });
     cards = cs || [];
     render();
@@ -45,7 +46,7 @@ document.addEventListener('rco-auth-ready', e => {
     const body = $('#rost-body');
     body.replaceChildren();
     if (!list.length) {
-      body.append(el('tr', {}, el('td', { colspan: '6', class: 'rost-empty', text: rows.length ? 'No one matches that search.' : 'No one has been added yet.' })));
+      body.append(el('tr', {}, el('td', { colspan: '7', class: 'rost-empty', text: rows.length ? 'No one matches that search.' : 'No one has been added yet.' })));
       return;
     }
     list.forEach(r => {
@@ -103,10 +104,19 @@ document.addEventListener('rco-auth-ready', e => {
         await load();
       });
 
+      const honorSel = el('select', { class: 'rost-role', 'aria-label': 'Honor for ' + (r.full_name || r.email) },
+        ...[['', 'Automatic'], ['none', 'None'], ['silver_star', 'Silver Star'], ['golden_soror', 'Golden Soror'], ['pearl_soror', 'Pearl Soror'], ['diamond_soror', 'Diamond Soror']].map(([v, t]) => el('option', { value: v, text: t })));
+      honorSel.value = honors[r.id] || '';
+      honorSel.addEventListener('change', async () => {
+        const { error } = await sb.from('profiles').upsert({ member_id: r.id, honor: honorSel.value || null }, { onConflict: 'member_id' });
+        if (error) say($('#rost-status'), 'The honor wasn’t saved.', false); else { honors[r.id] = honorSel.value; say($('#rost-status'), 'Honor saved.', true); }
+      });
+
       body.append(el('tr', { class: r.active ? '' : 'is-off' },
         el('td', {}, nameIn),
         el('td', { class: 'rost-email', text: r.email }),
         el('td', {}, titleIn),
+        el('td', {}, honorSel),
         el('td', {}, cardSel),
         el('td', {}, roleCell),
         el('td', {}, toggle)));
