@@ -21,7 +21,7 @@ document.addEventListener('rco-auth-ready', async e => {
   const [pr, ld, cm, ac] = await Promise.all([
     sb.from('profiles').select('initiation_year,honor,title').eq('member_id', myId).maybeSingle(),
     sb.from('portal_content').select('data').eq('key', 'leadership').maybeSingle(),
-    sb.from('member_committees').select('id,committee,role').eq('member_id', myId).order('committee'),
+    sb.from('member_committees').select('id,committee,role,remind').eq('member_id', myId).order('committee'),
     sb.from('member_activity').select('*').eq('member_id', myId).order('event_date', { ascending: false, nullsFirst: false }).order('created_at', { ascending: false })
   ]);
   if (cm.error || ac.error) {
@@ -65,6 +65,12 @@ document.addEventListener('rco-auth-ready', async e => {
   const empty = t => el('p', { class: 'iv-empty', text: t });
   const field = (label, input) => el('label', { class: 'iv-field' }, el('span', { text: label }), input);
   const input = (attrs) => el('input', Object.assign({ class: 'pf-input' }, attrs));
+  function remindToggle(on, label, onChange) {
+    const box = el('input', { type: 'checkbox' });
+    box.checked = on;
+    box.addEventListener('change', () => onChange(box.checked));
+    return el('label', { class: 'iv-remind' }, box, ' ' + label);
+  }
   function removeBtn(onRemove) {
     const b = el('button', { type: 'button', class: 'iv-x', text: 'Remove' });
     let armed = false;
@@ -108,9 +114,10 @@ document.addEventListener('rco-auth-ready', async e => {
   function committeesSection() {
     const names = Array.from(new Set((lead.groups || []).flatMap(g => (g.rows || []).map(r => r[0])))).sort((a, b) => a.localeCompare(b));
     const rows = [];
-    chairing.forEach(c => rows.push(el('li', { class: 'iv-row' }, el('div', {}, el('strong', { text: c.committee }), el('span', { class: 'iv-note', text: `${c.role} (${c.label})` })))));
-    committees.forEach(c => rows.push(el('li', { class: 'iv-row' }, el('div', {}, el('strong', { text: c.committee }), el('span', { class: 'iv-note', text: c.role })),
+    committees.forEach(c => rows.push(el('li', { class: 'iv-row' }, el('div', {}, el('strong', { text: c.committee }), el('span', { class: 'iv-note', text: c.role }),
+      remindToggle(c.remind !== false, 'Remind me before meetings', async on => { await sb.from('member_committees').update({ remind: on }).eq('id', c.id); c.remind = on; })),
       removeBtn(async () => { await sb.from('member_committees').delete().eq('id', c.id); await reload(); }))));
+    chairing.filter(c => !committees.some(m => m.committee === c.committee)).forEach(c => rows.push(el('li', { class: 'iv-row' }, el('div', {}, el('strong', { text: c.committee }), el('span', { class: 'iv-note', text: `${c.role} (${c.label})` })))));
     const add = toggleForm('Add a committee', done => {
       const sel = el('select', { class: 'pf-input' }, el('option', { value: '', text: 'Choose a committee' }), ...names.map(n => el('option', { value: n, text: n })), el('option', { value: '__other', text: 'Other (type it below)' }));
       const other = input({ type: 'text', maxlength: '80', placeholder: 'Committee name' });
@@ -141,7 +148,8 @@ document.addEventListener('rco-auth-ready', async e => {
         links.push(el('a', { class: 'iv-link', href: window.rcoCal.google(a.title, a.event_date, a.note), target: '_blank', rel: 'noopener', text: 'Add to Google Calendar' }));
         links.push(el('a', { class: 'iv-link', href: window.rcoCal.icsHref(a.title, a.event_date, a.note), download: 'event.ics', text: 'Apple / Outlook (.ics)' }));
       }
-      return el('li', { class: 'iv-row' }, el('div', {}, el('strong', { text: a.title }), el('span', { class: 'iv-note', text: fmtDate(a.event_date) + (a.note ? ' · ' + a.note : '') }), links.length ? el('div', { class: 'iv-links' }, links) : ''),
+      return el('li', { class: 'iv-row' }, el('div', {}, el('strong', { text: a.title }), el('span', { class: 'iv-note', text: fmtDate(a.event_date) + (a.note ? ' · ' + a.note : '') }), links.length ? el('div', { class: 'iv-links' }, links) : '',
+        upcoming && a.event_date ? remindToggle(a.remind !== false, 'Remind me (evening before and morning of)', async on => { await sb.from('member_activity').update({ remind: on }).eq('id', a.id); a.remind = on; }) : ''),
         removeBtn(async () => { await sb.from('member_activity').delete().eq('id', a.id); await reload(); }));
     };
     const add = toggleForm('Add an RSVP', () => {
@@ -200,7 +208,7 @@ document.addEventListener('rco-auth-ready', async e => {
   }
   async function reload() {
     const [c, a] = await Promise.all([
-      sb.from('member_committees').select('id,committee,role').eq('member_id', myId).order('committee'),
+      sb.from('member_committees').select('id,committee,role,remind').eq('member_id', myId).order('committee'),
       sb.from('member_activity').select('*').eq('member_id', myId).order('event_date', { ascending: false, nullsFirst: false }).order('created_at', { ascending: false })
     ]);
     committees = c.data || []; acts = a.data || [];

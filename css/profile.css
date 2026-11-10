@@ -112,3 +112,6 @@ body.portal-body.profile-page { background: linear-gradient(180deg, #ffeeed 0%, 
 .iv-yearform { margin-top: .8rem; padding: .9rem 1rem; background: var(--pearl, #faf6ee); border-radius: 12px; }
 .iv-yearrow { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
 .iv-yearrow .pf-input { max-width: 190px; }
+
+.iv-remind { display: inline-flex; align-items: center; gap: .45rem; margin-top: .4rem; font-size: .84rem; color: var(--ink-soft); cursor: pointer; }
+.iv-remind input { width: 1.1rem; height: 1.1rem; accent-color: var(--ivy); }
