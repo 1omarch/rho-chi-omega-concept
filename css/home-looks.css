@@ -1,0 +1,70 @@
+/* ============================================================
+   Home page color looks — PREVIEW ONLY.
+   Nothing here applies unless the address has ?look=bright (or pinkgreen, blush, spring).
+   Every look uses true white instead of the cream/ivory ground.
+   ============================================================ */
+
+/* ---- shared: brighter whites everywhere ---- */
+html[data-look] { --pearl: #ffffff; }
+html[data-look] .site-header.is-solid { background: rgba(255,255,255,.96); }
+html[data-look] .section-photo-bg .sec-bg-wash { background: linear-gradient(180deg, rgba(255,255,255,.62) 0%, rgba(255,255,255,.8) 100%); }
+html[data-look] .section-bright { background: linear-gradient(115deg, #fff 0%, #fff 18%, var(--salmon-light) 42%, var(--salmon) 58%, #fff 78%, var(--apple-light) 100%); }
+html[data-look] .section-bright .sec-bg-wash { background: linear-gradient(115deg, rgba(255,255,255,.8) 0%, rgba(255,255,255,.45) 18%, color-mix(in srgb, var(--salmon-light) 55%, transparent) 42%, color-mix(in srgb, var(--salmon) 60%, transparent) 58%, rgba(255,255,255,.55) 78%, color-mix(in srgb, var(--apple-light) 55%, transparent) 100%); }
+/* the hero title stays light and easy to read on the colored photo wash */
+html[data-look] .sparkle-text { background: linear-gradient(100deg, var(--salmon) 0%, var(--salmon-light) 20%, #fff 34%, var(--salmon-light) 52%, var(--salmon) 66%, var(--salmon-light) 82%, #fff 100%); background-size: 260% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; }
+html[data-look] .quote-portrait, html[data-look] .officer-photo, html[data-look] .gallery-grid .tile, html[data-look] .modal .modal-figure { background: linear-gradient(150deg, var(--sage), #fff); }
+
+/* ---- 1. Brighter whites (today's emerald, salmon and gold) ---- */
+html[data-look="bright"] { --pearl-dim: #f4f6f3; --sage: #eaf0e4; }
+
+/* ---- 2. Fresh Pink & Green ---- */
+html[data-look="pinkgreen"] {
+  --ivy: #0f6b3f; --ivy-light: #168650; --ivy-black: #0a3d25;
+  --apple: #7ac943; --apple-light: #a6e07a; --apple-deep: #2e8b3d;
+  --salmon: #f2709c; --salmon-light: #ffa9c6; --salmon-deep: #c2185b; --rose: #f2709c; --rose-deep: #c2185b;
+  --gold: #e2b25a; --gold-soft: #f4dfae;
+  --pearl-dim: #f3faf6; --sage: #e3f4ea;
+}
+html[data-look="pinkgreen"] .hero-overlay {
+  background:
+    radial-gradient(ellipse 60% 55% at 100% 0%, rgba(255,169,198,.34), transparent 62%),
+    linear-gradient(180deg, rgba(15,107,63,.66) 0%, rgba(12,86,51,.8) 48%, rgba(8,55,34,.92) 100%);
+}
+
+/* ---- 3. Raspberry & Blush (pink leads, green as the accent) ---- */
+html[data-look="blush"] {
+  --ivy: #8f2452; --ivy-light: #b03267; --ivy-black: #4a1029;
+  --apple: #6cc08a; --apple-light: #a6e0b8; --apple-deep: #2f7d4f;
+  --salmon: #f58fb0; --salmon-light: #ffc2d6; --salmon-deep: #c2336f; --rose: #f58fb0; --rose-deep: #c2336f;
+  --gold: #d9b36a; --gold-soft: #f1dcae;
+  --ink: #2a1620; --ink-soft: #5d4a54;
+  --pearl-dim: #fff4f8; --sage: #fde7ef;
+}
+html[data-look="blush"] .hero-overlay {
+  background:
+    radial-gradient(ellipse 60% 55% at 100% 0%, rgba(255,194,214,.3), transparent 62%),
+    linear-gradient(180deg, rgba(143,36,82,.66) 0%, rgba(112,26,64,.82) 48%, rgba(74,16,41,.93) 100%);
+}
+html[data-look="blush"] .section-bright .eyebrow { color: var(--salmon-deep); }
+
+/* ---- 4. Soft Spring (gentler greens, pastel pink) ---- */
+html[data-look="spring"] {
+  --ivy: #2a6a49; --ivy-light: #3b8a61; --ivy-black: #17402c;
+  --apple: #8fd16a; --apple-light: #bfe8a3; --apple-deep: #3f8a3a;
+  --salmon: #f48fb1; --salmon-light: #ffc4d8; --salmon-deep: #c2417a; --rose: #f48fb1; --rose-deep: #c2417a;
+  --gold: #dcb866; --gold-soft: #f4e2b4;
+  --pearl-dim: #f6fbf4; --sage: #eaf6e6;
+}
+html[data-look="spring"] .hero-overlay {
+  background:
+    radial-gradient(ellipse 60% 55% at 100% 0%, rgba(255,196,216,.36), transparent 62%),
+    linear-gradient(180deg, rgba(42,106,73,.56) 0%, rgba(34,90,62,.72) 48%, rgba(23,64,44,.88) 100%);
+}
+
+/* ---- the little "Colors" picker (only shown while previewing) ---- */
+#rco-lookbar { position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 2500; display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; justify-content: center; background: rgba(255,255,255,.97); border: 1.5px solid rgba(18,53,36,.2); border-radius: 18px; padding: .55rem .7rem; box-shadow: 0 10px 30px rgba(0,0,0,.22); font: 600 .84rem var(--font-body); color: #123524; max-width: 640px; margin: 0 auto; }
+#rco-lookbar button { font: inherit; border: 1.5px solid rgba(18,53,36,.25); background: #fff; color: #123524; border-radius: 999px; padding: .42em .9em; cursor: pointer; }
+#rco-lookbar button[aria-pressed="true"] { background: #123524; color: #fff; border-color: #123524; }
+#rco-lookbar .done { border: 0; background: none; text-decoration: underline; color: #6b5a5a; }
+#rco-lookbar .lb-label { width: 100%; text-align: center; font-weight: 700; }
+body.has-lookbar #rco-textsize { bottom: 120px !important; }
