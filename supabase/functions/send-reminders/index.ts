@@ -11,6 +11,8 @@ const TZ = "America/Chicago";
 const cors = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-cron-secret" };
 
 type Payload = { title: string; body: string; url: string };
+// what happened during this run, returned to the caller so problems are visible
+let stats = { devices: 0, sent: 0, errors: [] as string[] };
 
 // today's date and hour in Central Time
 function central(d = new Date()) {
@@ -39,13 +41,16 @@ async function pushTo(memberIds: string[], payload: Payload) {
   const ids = (members ?? []).map((m) => m.id);
   if (!ids.length) return 0;
   const { data: subs } = await sb.from("push_subscriptions").select("id,endpoint,p256dh,auth").in("member_id", ids);
+  stats.devices += (subs ?? []).length;
   let sent = 0;
   await Promise.all((subs ?? []).map(async (s) => {
     try {
       await webpush.sendNotification({ endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } }, JSON.stringify(payload), { TTL: 60 * 60 * 12 });
-      sent++;
+      sent++; stats.sent++;
     } catch (e) {
       const code = (e as { statusCode?: number }).statusCode;
+      const host = (() => { try { return new URL(s.endpoint).host; } catch { return "?"; } })();
+      stats.errors.push(`${host} answered ${code ?? "?"}: ${String((e as { body?: string; message?: string }).body ?? (e as Error).message ?? e).slice(0, 160)}`);
       if (code === 404 || code === 410) await sb.from("push_subscriptions").delete().eq("id", s.id);   // that device turned notifications off
     }
   }));
@@ -132,8 +137,10 @@ Deno.serve(async (req) => {
   try { setup(); } catch (e) { return new Response(JSON.stringify({ error: String((e as Error).message ?? e) }), { status: 500, headers: { ...cors, "Content-Type": "application/json" } }); }
   const isCron = CRON_SECRET !== "" && req.headers.get("x-cron-secret") === CRON_SECRET;
   try {
-    const out: Record<string, number> = { announcements: await sendPendingNotifications() };
+    stats = { devices: 0, sent: 0, errors: [] };
+    const out: Record<string, unknown> = { announcements: await sendPendingNotifications() };
     if (isCron) { out.activity = await activityReminders(); out.meetings = await meetingReminders(); }   // the schedule also does reminders
+    out.stats = stats;
     return new Response(JSON.stringify(out), { headers: { ...cors, "Content-Type": "application/json" } });
   } catch (e) {
     return new Response(JSON.stringify({ error: String(e) }), { status: 500, headers: { ...cors, "Content-Type": "application/json" } });

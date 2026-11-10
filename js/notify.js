@@ -31,8 +31,13 @@ document.addEventListener('rco-auth-ready', async () => {
         test.disabled = true;
         const ins = await sb.from('notifications').insert({ title: 'Test from Rho Chi Omega', body: 'It works! You will get reminders like this one.', url: 'portal-profile.html', audience: 'member:' + myId, created_by: myId });
         if (ins.error) { msg.textContent = 'The test could not be sent.'; test.disabled = false; return; }
+        const mineSubs = await sb.from('push_subscriptions').select('id', { count: 'exact', head: true }).eq('member_id', myId);
         const run = await sb.functions.invoke('send-reminders', { body: {} });
-        msg.textContent = run.error ? 'The test is queued. Notifications are not switched on at the chapter yet.' : 'Test sent. It should arrive in a few seconds.';
+        const st = run.data && run.data.stats;
+        if (run.error) msg.textContent = 'The test is queued, but the sender could not be reached. (' + (run.error.message || 'error') + ')';
+        else if (st && st.sent > 0) msg.textContent = `Sent to ${st.sent} device${st.sent === 1 ? '' : 's'}. It should arrive in a few seconds.`;
+        else if (st && st.errors && st.errors.length) msg.textContent = 'Delivery failed: ' + st.errors.join(' | ');
+        else msg.textContent = `No device was found to send to (devices saved for you: ${mineSubs.count ?? '?'}). Turn notifications off and on again.`;
         test.disabled = false;
       });
       kids.push(el('p', { class: 'iv-sub', text: '✓ Notifications are on for this device. You will be reminded the evening before and the morning of events on your list, and before your committee meetings.' }), el('div', { class: 'iv-actions' }, test, off));
