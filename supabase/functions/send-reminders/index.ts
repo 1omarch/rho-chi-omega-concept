@@ -12,7 +12,7 @@ const cors = { "Access-Control-Allow-Origin": "*", "Access-Control-Allow-Headers
 
 type Payload = { title: string; body: string; url: string };
 // what happened during this run, returned to the caller so problems are visible
-let stats = { devices: 0, sent: 0, errors: [] as string[] };
+let stats = { pending: 0, recipients: 0, active: 0, devices: 0, sent: 0, errors: [] as string[] };
 
 // today's date and hour in Central Time
 function central(d = new Date()) {
@@ -36,11 +36,15 @@ async function markSent(key: string) { await sb.from("reminder_log").upsert({ ke
 
 // send one payload to every device of the given members
 async function pushTo(memberIds: string[], payload: Payload) {
+  stats.recipients += memberIds.length;
   if (!memberIds.length) return 0;
-  const { data: members } = await sb.from("members").select("id").in("id", memberIds).eq("active", true);
+  const { data: members, error: mErr } = await sb.from("members").select("id").in("id", memberIds).eq("active", true);
+  if (mErr) stats.errors.push("members lookup: " + mErr.message);
   const ids = (members ?? []).map((m) => m.id);
+  stats.active += ids.length;
   if (!ids.length) return 0;
-  const { data: subs } = await sb.from("push_subscriptions").select("id,endpoint,p256dh,auth").in("member_id", ids);
+  const { data: subs, error: sErr } = await sb.from("push_subscriptions").select("id,endpoint,p256dh,auth").in("member_id", ids);
+  if (sErr) stats.errors.push("device lookup: " + sErr.message);
   stats.devices += (subs ?? []).length;
   let sent = 0;
   await Promise.all((subs ?? []).map(async (s) => {
@@ -68,7 +72,9 @@ async function membersFor(audience: string): Promise<string[]> {
 }
 
 async function sendPendingNotifications() {
-  const { data } = await sb.from("notifications").select("*").is("sent_at", null).order("created_at").limit(50);
+  const { data, error: nErr } = await sb.from("notifications").select("*").is("sent_at", null).order("created_at").limit(50);
+  if (nErr) stats.errors.push("notifications lookup: " + nErr.message);
+  stats.pending = (data ?? []).length;
   let n = 0;
   for (const note of data ?? []) {
     n += await pushTo(await membersFor(note.audience), { title: note.title, body: note.body, url: note.url || "portal.html" });
@@ -137,7 +143,7 @@ Deno.serve(async (req) => {
   try { setup(); } catch (e) { return new Response(JSON.stringify({ error: String((e as Error).message ?? e) }), { status: 500, headers: { ...cors, "Content-Type": "application/json" } }); }
   const isCron = CRON_SECRET !== "" && req.headers.get("x-cron-secret") === CRON_SECRET;
   try {
-    stats = { devices: 0, sent: 0, errors: [] };
+    stats = { pending: 0, recipients: 0, active: 0, devices: 0, sent: 0, errors: [] };
     const out: Record<string, unknown> = { announcements: await sendPendingNotifications() };
     if (isCron) { out.activity = await activityReminders(); out.meetings = await meetingReminders(); }   // the schedule also does reminders
     out.stats = stats;

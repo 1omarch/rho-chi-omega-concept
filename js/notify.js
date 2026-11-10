@@ -37,7 +37,7 @@ document.addEventListener('rco-auth-ready', async () => {
         if (run.error) msg.textContent = 'The test is queued, but the sender could not be reached. (' + (run.error.message || 'error') + ')';
         else if (st && st.sent > 0) msg.textContent = `Sent to ${st.sent} device${st.sent === 1 ? '' : 's'}. It should arrive in a few seconds.`;
         else if (st && st.errors && st.errors.length) msg.textContent = 'Delivery failed: ' + st.errors.join(' | ');
-        else msg.textContent = `No device was found to send to (devices saved for you: ${mineSubs.count ?? '?'}). Turn notifications off and on again.`;
+        else msg.textContent = `Nothing was delivered. The sender saw ${st ? st.pending : '?'} waiting notification(s), ${st ? st.recipients : '?'} recipient(s), ${st ? st.active : '?'} active member(s) and ${st ? st.devices : '?'} device(s). Devices saved for you: ${mineSubs.count ?? '?'}.`;
         test.disabled = false;
       });
       kids.push(el('p', { class: 'iv-sub', text: '✓ Notifications are on for this device. You will be reminded the evening before and the morning of events on your list, and before your committee meetings.' }), el('div', { class: 'iv-actions' }, test, off));
