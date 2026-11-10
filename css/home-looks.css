@@ -61,6 +61,20 @@ html[data-look="spring"] .hero-overlay {
     linear-gradient(180deg, rgba(42,106,73,.56) 0%, rgba(34,90,62,.72) 48%, rgba(23,64,44,.88) 100%);
 }
 
+/* ---- 5. Emerald Spring: the blend of Soft Spring and Brighter whites ---- */
+html[data-look="blend"] {
+  --ivy: #1f5a3d; --ivy-light: #2f7a55; --ivy-black: #0f2f20;
+  --apple: #86c95f; --apple-light: #b4e394; --apple-deep: #467f35;
+  --salmon: #f3909a; --salmon-light: #ffc0c6; --salmon-deep: #c14760; --rose: #f3909a; --rose-deep: #c14760;
+  --gold: #d4ad58; --gold-soft: #f2dfae;
+  --pearl-dim: #f5f8f3; --sage: #e9f2e4;
+}
+html[data-look="blend"] .hero-overlay {
+  background:
+    radial-gradient(ellipse 60% 55% at 100% 0%, rgba(255,192,198,.32), transparent 62%),
+    linear-gradient(180deg, rgba(31,90,61,.7) 0%, rgba(25,74,50,.82) 48%, rgba(15,47,32,.92) 100%);
+}
+
 /* ---- the little "Colors" picker (only shown while previewing) ---- */
 #rco-lookbar { position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 2500; display: flex; gap: .4rem; align-items: center; flex-wrap: wrap; justify-content: center; background: rgba(255,255,255,.97); border: 1.5px solid rgba(18,53,36,.2); border-radius: 18px; padding: .55rem .7rem; box-shadow: 0 10px 30px rgba(0,0,0,.22); font: 600 .84rem var(--font-body); color: #123524; max-width: 640px; margin: 0 auto; }
 #rco-lookbar button { font: inherit; border: 1.5px solid rgba(18,53,36,.25); background: #fff; color: #123524; border-radius: 999px; padding: .42em .9em; cursor: pointer; }
