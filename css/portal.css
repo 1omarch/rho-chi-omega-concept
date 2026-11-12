@@ -295,3 +295,9 @@ body.ab-open #rco-textsize { display: none; }
 /* Officer pages: link back to the Officer Tools hub */
 .officer-back { display: inline-block; margin: 0 0 .8rem; font-weight: 700; font-size: .95rem; color: var(--ivy, #1f5a3d); text-decoration: none; border-bottom: 2px solid rgba(193,79,61,.4); }
 .officer-back:hover { color: var(--ivy-black, #123524); }
+
+/* Events an admin added (chapter-events.js) */
+.rc-where, .rc-price { margin: .3rem 0 0; font-size: .92rem; }
+.rc-price { font-weight: 700; color: var(--salmon-deep, #c14760); }
+.rc-rsvp { display: flex; flex-direction: column; align-items: flex-start; gap: .4rem; margin: .6rem 0; padding: .7rem .9rem; background: var(--pearl-dim, #f5f8f3); border-radius: 12px; border-left: 4px solid var(--salmon-deep, #c14760); font-size: .92rem; line-height: 1.45; }
+.rc-rsvp strong { font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--ivy, #1f5a3d); }

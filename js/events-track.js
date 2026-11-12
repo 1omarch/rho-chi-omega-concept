@@ -1,5 +1,6 @@
 // Events Registration: "Add to my list" records an RSVP on the soror's profile and offers add-to-calendar links.
 document.addEventListener('rco-auth-ready', async () => {
+  if (window.rcoEventsLoaded) await window.rcoEventsLoaded;       // cards an admin added (chapter-events.js) are on the page by now
   const cards = Array.from(document.querySelectorAll('.reg-card'));
   if (!cards.length) return;
   const sb = window.rcoAuth.client;

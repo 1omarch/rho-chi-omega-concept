@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Events &amp; Flyers | Rho Chi Omega Member Portal</title>
+<meta name="description" content="Admins add events and flyers.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="favicon-32.png">
+<link rel="stylesheet" href="css/styles.css?v=202611121508">
+<link rel="stylesheet" href="css/portal.css?v=202611121508">
+<link rel="stylesheet" href="css/auth.css?v=202611121508">
+<link rel="stylesheet" href="css/profile.css?v=202611121508">
+<link rel="stylesheet" href="css/events-admin.css?v=202611121508">
+<script src="js/vendor/supabase.js?v=202611121508"></script>
+<script src="js/supabase-config.js?v=202611121508"></script>
+<script src="js/portal-auth.js?v=202611121508"></script>
+<link rel="stylesheet" href="css/portal-theme.css?v=202611121508">
+<script src="js/theme.js?v=202611121508"></script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="RCO Portal">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<meta name="theme-color" content="#123524">
+<script src="js/accessibility.js?v=202611121508"></script>
+</head>
+<body class="portal-body">
+
+<div class="portal-ribbon">🌿 <strong>Concept preview</strong><span class="rb-long"> — sign-in is live for rostered sorors, but the content below is sample data while the portal is being built. Please don’t enter private information yet.</span></div>
+
+<header class="portal-header">
+  <div class="container">
+    <a class="portal-brand" href="index.html#top">
+      <img src="images/aka-emblem.png" alt="Alpha Kappa Alpha Sorority, Incorporated crest">
+      Rho Chi Omega <span class="tag">Member Portal</span>
+    </a>
+    <a class="portal-help" href="help.html">Help</a>
+    <a class="portal-back" href="index.html#top">&larr; Back to Public Site</a>
+  </div>
+</header>
+
+<nav class="portal-tabs" aria-label="Portal sections">
+  <div class="container">
+    <a href="portal.html">Portal Home</a>
+    <a href="portal-calendar.html">Chapter Calendar</a>
+    <a href="portal-events.html">Events Registration</a>
+    <a href="portal-resources.html">Resources</a>
+    <a href="portal-committees.html">Committees</a>
+    <a href="portal-directory.html">Directory</a>
+    <a href="portal-rewards.html">RCO Rewards</a>
+  </div>
+</nav>
+
+<div class="spine-wrap">
+<div class="ivy-spine" aria-hidden="true">
+  <div class="ivy-img"></div>
+</div>
+
+<section class="portal-hero has-spine">
+  <div class="container">
+    <p class="eyebrow">Admins</p>
+    <h1>Events &amp; flyers.</h1>
+    <p>Add an event once. It appears on the <strong>Events Registration</strong> page and on the <strong>Portal Home announcement board</strong> right away, and disappears the day after the event.</p>
+  </div>
+</section>
+
+<section class="portal-section has-spine">
+  <div class="container">
+    <p class="rost-denied" id="ev-denied" hidden>This page is for chapter admins only.</p>
+    <div id="ev-app" hidden>
+      <form class="rost-card ev-form" id="ev-form" novalidate>
+        <h2 id="ev-form-h">Add an event</h2>
+        <div class="ev-grid">
+          <div class="pf-field ev-wide"><label for="ev-title">Event name</label><input type="text" id="ev-title" class="pf-input" maxlength="100" autocomplete="off" placeholder="Founders&rsquo; Day Brunch"></div>
+          <div class="pf-field"><label for="ev-date">Date</label><input type="date" id="ev-date" class="pf-input"></div>
+          <div class="pf-field"><label for="ev-start">Starts (optional)</label><input type="time" id="ev-start" class="pf-input"></div>
+          <div class="pf-field"><label for="ev-end">Ends (optional)</label><input type="time" id="ev-end" class="pf-input"></div>
+          <div class="pf-field ev-wide"><label for="ev-where">Place (optional)</label><input type="text" id="ev-where" class="pf-input" maxlength="200" autocomplete="off" placeholder="Name and street address"></div>
+          <div class="pf-field ev-wide"><label for="ev-desc">About the event (optional)</label><textarea id="ev-desc" class="pf-input" rows="3" maxlength="600" placeholder="A sentence or two"></textarea></div>
+          <div class="pf-field"><label for="ev-price">Cost (optional)</label><input type="text" id="ev-price" class="pf-input" maxlength="100" autocomplete="off" placeholder="$25 per person"></div>
+          <div class="pf-field"><label for="ev-rsvp-url">RSVP / payment link (optional)</label><input type="url" id="ev-rsvp-url" class="pf-input" maxlength="400" autocomplete="off" placeholder="https://&hellip;"></div>
+          <div class="pf-field ev-wide"><label for="ev-rsvp">How to RSVP (optional)</label><input type="text" id="ev-rsvp" class="pf-input" maxlength="300" autocomplete="off" placeholder="Reply to Soror Smith by Nov 10. Pay at the door."></div>
+          <div class="pf-field ev-wide"><label for="ev-file">Flyer picture (optional)</label><input type="file" id="ev-file" class="pf-input" accept="image/jpeg,image/png,image/webp,image/heic,image/*"><div id="ev-flyer-now" class="ev-now"></div></div>
+        </div>
+        <label class="ev-check"><input type="checkbox" id="ev-notify"> <span>Also send a notification to sorors&rsquo; phones</span></label>
+        <div class="ev-actions"><button type="submit" class="btn btn-ivy" id="ev-save">Add event</button><button type="button" class="mg-link" id="ev-cancel" hidden>Cancel editing</button><span class="rost-msg" id="ev-msg" role="status"></span></div>
+      </form>
+      <h2 class="ev-h">Events on the site now</h2>
+      <p class="ev-note">Each one is hidden the day after its date and permanently deleted 7 days later, flyer picture included.</p>
+      <div class="ev-list" id="ev-list"></div>
+    </div>
+  </div>
+</section>
+</div><!-- /spine-wrap -->
+
+<footer class="portal-footer">
+  <div class="container">
+    <p>&copy; <span data-year>2026</span> Rho Chi Omega Chapter, Alpha Kappa Alpha Sorority, Incorporated&reg; &mdash; Member Portal.</p>
+  </div>
+</footer>
+
+<script src="js/main.js?v=202611121508"></script>
+<script src="js/events-admin.js?v=202611121508"></script>
+
+</body>
+</html>

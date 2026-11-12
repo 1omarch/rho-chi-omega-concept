@@ -182,7 +182,7 @@
       tabBar.append(mine);
     }
     // officers and admins get ONE extra tab, "Officer Tools"; roster, gallery, suggestions and message review live behind it
-    const OFFICER_PAGES = ['portal-officer.html', 'portal-roster.html', 'portal-gallery.html', 'portal-feedback.html', 'portal-message-review.html'];
+    const OFFICER_PAGES = ['portal-officer.html', 'portal-roster.html', 'portal-gallery.html', 'portal-feedback.html', 'portal-message-review.html', 'portal-events-admin.html'];
     if (m.role === 'officer' || m.role === 'admin') {
       if (tabBar && !tabBar.querySelector('[href="portal-officer.html"]')) {
         const t = el('a', { href: 'portal-officer.html', text: 'Officer Tools' });

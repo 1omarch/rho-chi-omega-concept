@@ -1,0 +1,25 @@
+/* Events & flyers (admin) */
+.ev-form { margin-bottom: 2rem; }
+.ev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .9rem; }
+.ev-wide { grid-column: 1 / -1; }
+.ev-check { display: flex; align-items: center; gap: .55rem; margin: .9rem 0 0; font-size: 1rem; font-weight: 600; text-transform: none; letter-spacing: 0; }
+.rost-card .ev-check { text-transform: none; letter-spacing: 0; font-size: 1rem; }
+.ev-check input { width: 1.2rem; height: 1.2rem; accent-color: var(--ivy, #1f5a3d); }
+.ev-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: .9rem; }
+.ev-now { margin-top: .5rem; display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; font-size: .9rem; }
+.ev-now img { width: 90px; height: 90px; object-fit: cover; border-radius: 10px; border: 1px solid rgba(18,53,36,.2); }
+.ev-h { font-family: var(--font-display); font-size: 1.5rem; color: var(--ivy-black, #123524); margin: 0 0 .3rem; }
+.ev-note { margin: 0 0 .9rem; color: var(--ink-soft, #3f5548); font-size: .95rem; }
+.ev-list { display: grid; gap: .8rem; }
+.ev-item { display: flex; gap: 1rem; align-items: center; background: #fff; border: 1px solid rgba(18,53,36,.1); border-radius: 14px; padding: .8rem 1rem; }
+.ev-item img { width: 72px; height: 72px; object-fit: cover; border-radius: 10px; flex: none; border: 1px solid rgba(18,53,36,.15); }
+.ev-item .ev-ph { width: 72px; height: 72px; border-radius: 10px; flex: none; background: var(--pearl-dim, #f5f8f3); display: grid; place-items: center; font-size: 1.6rem; }
+.ev-info { flex: 1; min-width: 0; }
+.ev-info strong { display: block; font-size: 1.05rem; color: var(--ivy-black, #123524); }
+.ev-info span { display: block; font-size: .88rem; color: var(--ink-soft, #3f5548); }
+.ev-past { font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #b3261e; }
+.ev-btns { display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+.ev-del { background: none; border: 0; padding: .3rem .4rem; font-weight: 700; font-size: .92rem; font-family: inherit; color: #b3261e; text-decoration: underline; cursor: pointer; }
+.ev-empty { padding: 1.4rem; text-align: center; color: var(--ink-soft, #3f5548); background: #fff; border: 1px dashed rgba(18,53,36,.25); border-radius: 14px; }
+@media (max-width: 720px) { .ev-grid { grid-template-columns: 1fr 1fr; } .ev-item { flex-wrap: wrap; } .ev-btns { justify-content: flex-start; width: 100%; } }
+@media (max-width: 480px) { .ev-grid { grid-template-columns: 1fr; } }

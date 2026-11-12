@@ -115,6 +115,19 @@
 
   // other scripts (like birthdays) can put a slide first once their data arrives
   window.rcoAnnouncements = {
+    // a dated slide goes in date order (before the first slide with a later date), keeping the one on screen in place
+    add(slide) {
+      const keep = slides[index];
+      const mine = slide.dataset.expires || '';
+      const later = mine ? Array.from(track.querySelectorAll('.ann-slide[data-expires]')).find(s => s.dataset.expires > mine) : null;
+      if (later) track.insertBefore(slide, later); else track.append(slide);
+      root.hidden = false;
+      addCalendarLinks();
+      buildSlides();
+      const at = Math.max(0, slides.indexOf(keep));
+      track.scrollLeft = at * track.clientWidth;
+      setActive(at);
+    },
     addFirst(slide) {
       track.prepend(slide);
       root.hidden = false;
