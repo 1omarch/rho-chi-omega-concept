@@ -63,6 +63,7 @@
 .mg-chip { display: inline-flex; align-items: center; gap: .3rem; background: #e8f2d6; color: var(--apple-deep, #4f7a24); border-radius: 999px; padding: .3em .8em; font-size: .78rem; font-weight: 700; }
 .mg-chip small { font-weight: 400; }
 .mg-x { background: none; border: 0; cursor: pointer; font-size: 1rem; line-height: 1; color: inherit; padding: 0 .1em; }
+.mg-status.is-ok { color: var(--apple-deep, #4f7a24); }
 .mg-status { margin: 0; min-height: 1.1em; font-size: .82rem; font-weight: 600; color: var(--salmon-deep, #c14f3d); }
 .mg-banner { margin: 0 0 .9rem; padding: .75rem 1rem; border-radius: 12px; background: #fff3d6; border: 1px solid #e8c46a; color: #4a3a0c; font-size: .92rem; line-height: 1.5; }
 .mg-banner strong { color: #3a2c05; }
@@ -98,3 +99,18 @@
 .mr-sub { margin: 0 0 .6rem; font-family: var(--font-display); color: var(--ivy-black, #081912); }
 .mr-msgs { max-height: 480px; padding: .4rem 0; }
 .mr-thread[hidden], .mg-results[hidden] { display: none !important; }
+
+/* voice notes */
+.mg-mic { font-size: .86rem; }
+.mg-rec { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; padding: .55rem .8rem; border-radius: 12px; background: #fdeef0; border: 1px solid #f0b6c0; color: #5a1730; }
+.mg-rec[hidden] { display: none; }
+.mg-rec-dot { width: .8rem; height: .8rem; border-radius: 50%; background: #d1203f; animation: mg-pulse 1.1s ease-in-out infinite; }
+.mg-rec-time { font-variant-numeric: tabular-nums; font-weight: 700; }
+.mg-rec .btn { margin-left: auto; }
+@keyframes mg-pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: .35; transform: scale(.8); } }
+@media (prefers-reduced-motion: reduce) { .mg-rec-dot { animation: none; } }
+.mg-chip-voice { display: flex; flex-wrap: wrap; border-radius: 14px; padding: .45em .8em; gap: .5rem; max-width: 100%; }
+.mg-chip-voice audio { height: 34px; max-width: 100%; }
+.mg-voice { display: flex; flex-direction: column; gap: .3rem; min-width: min(260px, 100%); }
+.mg-voice-label { font-size: .8rem; font-weight: 700; }
+.mg-voice audio { width: 100%; height: 38px; }

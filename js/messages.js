@@ -6,7 +6,7 @@ document.addEventListener('rco-auth-ready', async e => {
   const sb = window.rcoAuth.client;
   const RETENTION_DAYS = 30;
   const MAX_FILES = 5, MAX_BYTES = 10 * 1024 * 1024;
-  const OK_TYPES = /^(image\/(jpeg|png|webp|gif|heic)|application\/(pdf|msword|vnd\.ms-excel|vnd\.ms-powerpoint|vnd\.openxmlformats-officedocument\.(wordprocessingml\.document|spreadsheetml\.sheet|presentationml\.presentation))|text\/(plain|csv))$/;
+  const OK_TYPES = /^(image\/(jpeg|png|webp|gif|heic)|audio\/(wav|x-wav)|application\/(pdf|msword|vnd\.ms-excel|vnd\.ms-powerpoint|vnd\.openxmlformats-officedocument\.(wordprocessingml\.document|spreadsheetml\.sheet|presentationml\.presentation))|text\/(plain|csv))$/;
 
   const el = (tag, attrs = {}, ...kids) => {
     const n = document.createElement(tag);
@@ -41,6 +41,11 @@ document.addEventListener('rco-auth-ready', async e => {
   let current = null;       // the open conversation
   let showTrash = false;
   let pendingFiles = [];
+  let composerNode = null, composerCid = null;   // the writing box is kept while a conversation stays open (so typed text and a voice note are not lost)
+  let activeRec = null;                          // a voice note being recorded right now
+  const clock = secs => { const t = Math.max(0, Math.round(secs)); return Math.floor(t / 60) + ':' + String(t % 60).padStart(2, '0'); };
+  function dropPending() { pendingFiles.forEach(f => { if (f.rcoUrl) URL.revokeObjectURL(f.rcoUrl); }); pendingFiles = []; }
+  function resetComposer() { if (activeRec) { activeRec.cancel(); activeRec = null; } dropPending(); composerNode = null; composerCid = null; }
   let threadMsgs = [];      // messages shown in the open thread (with sender names)
 
   async function loadRoster() {
@@ -97,6 +102,7 @@ document.addEventListener('rco-auth-ready', async e => {
 
   /* ---------- thread ---------- */
   function emptyThread() {
+    resetComposer();
     threadEl.classList.remove('is-open');
     threadEl.replaceChildren(el('div', { class: 'mg-empty' }, el('h3', { text: 'Your messages' }), el('p', { text: 'Choose a conversation, or start a new one. You can message one soror or a whole group, and attach flyers and documents.' })));
   }
@@ -105,7 +111,7 @@ document.addEventListener('rco-auth-ready', async e => {
     showTrash = false;
     current = convos.find(c => c.id === id) || null;
     if (!current) { emptyThread(); return; }
-    pendingFiles = [];
+    resetComposer();
     renderList();
     await loadThread();
     await sb.rpc('mark_read', { cid: id });
@@ -169,6 +175,10 @@ document.addEventListener('rco-auth-ready', async e => {
       m.files.forEach(f => {
         const url = urls[f.path];
         if (!url) { bubble.append(el('span', { class: 'mg-file is-gone', text: f.file_name + ' (unavailable)' })); return; }
+        if ((f.mime_type || '').startsWith('audio/')) {
+          bubble.append(el('div', { class: 'mg-voice' }, el('span', { class: 'mg-voice-label', text: '🎤 ' + f.file_name.replace(/\.wav$/i, '') }), el('audio', { controls: true, preload: 'metadata', src: url })));
+          return;
+        }
         if ((f.mime_type || '').startsWith('image/') && f.mime_type !== 'image/heic') {
           bubble.append(el('a', { class: 'mg-img', href: url, target: '_blank', rel: 'noopener' }, el('img', { src: url, alt: f.file_name, loading: 'lazy' })));
         } else {
@@ -195,7 +205,7 @@ document.addEventListener('rco-auth-ready', async e => {
       el('header', { class: 'mg-head' }, back,
         el('div', { class: 'mg-head-txt' }, el('h3', { text: nameOf(c) }), c.is_group ? el('p', { text: `${(c.participants || []).length} sorors: ${people}` }) : ''),
         el('div', { class: 'mg-tools' }, tools)),
-      list, composer());
+      list, thisComposer(c));
     list.scrollTop = list.scrollHeight;
   }
 
@@ -216,27 +226,75 @@ document.addEventListener('rco-auth-ready', async e => {
   }
 
   /* ---------- composer ---------- */
+  function thisComposer(c) {
+    if (!composerNode || composerCid !== c.id) { composerNode = composer(); composerCid = c.id; }
+    return composerNode;
+  }
+  function micMessage(err) {
+    const n = err && err.name;
+    if (n === 'NotAllowedError' || n === 'SecurityError') return 'The microphone is turned off for this app. In your phone\'s settings, allow the microphone for it, then try again.';
+    if (n === 'NotFoundError' || n === 'OverconstrainedError') return 'No microphone was found on this device.';
+    return 'Voice notes are not available on this device. You can still type a message.';
+  }
   function composer() {
     const ta = el('textarea', { class: 'mg-input mg-ta', rows: '2', maxlength: '4000', placeholder: 'Write a message…', 'aria-label': 'Message' });
     const fileIn = el('input', { type: 'file', multiple: true, class: 'pf-file', id: 'mg-files', accept: 'image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv' });
     const attach = el('label', { class: 'mg-link', for: 'mg-files', text: '📎 Attach' });
     const chips = el('div', { class: 'mg-chips' });
     const status = el('p', { class: 'mg-status', role: 'status' });
+    const say = (text, ok) => { status.textContent = text; status.classList.toggle('is-ok', !!ok); };   // ok = a friendly note, not an error
     const send = el('button', { type: 'button', class: 'btn btn-ivy btn-sm', text: 'Send' });
+
+    /* voice notes */
+    const mic = el('button', { type: 'button', class: 'mg-link mg-mic', text: '🎤 Voice note' });
+    const timeEl = el('span', { class: 'mg-rec-time', text: '0:00' });
+    const stopBtn = el('button', { type: 'button', class: 'btn btn-ivy btn-sm', text: 'Stop' });
+    const cancelRec = el('button', { type: 'button', class: 'mg-link', text: 'Cancel' });
+    const recBar = el('div', { class: 'mg-rec', role: 'group', 'aria-label': 'Recording a voice note' },
+      el('span', { class: 'mg-rec-dot', 'aria-hidden': 'true' }), el('strong', { text: 'Recording' }), timeEl,
+      el('small', { text: ' of ' + clock(window.rcoVoice ? window.rcoVoice.MAX_SECONDS : 120) }), stopBtn, cancelRec);
+    recBar.hidden = true;
+    if (!window.rcoVoice || !window.rcoVoice.supported) mic.hidden = true;
+    function recUi(on) { recBar.hidden = !on; mic.hidden = on || !(window.rcoVoice && window.rcoVoice.supported); send.disabled = on; }
+    function takeVoice(res) {
+      activeRec = null; recUi(false);
+      if (!res || res.seconds < 1) { say('That voice note was too short. Tap Voice note and try again.'); return; }
+      if (res.peak < 0.01) { say('We could not hear anything. Make sure your microphone is not covered or muted, then try again.'); return; }
+      const f = new File([res.blob], `Voice note (${clock(res.seconds)}).wav`, { type: 'audio/wav' });
+      f.rcoVoice = true;
+      pendingFiles.push(f); drawChips();
+      say('Voice note ready. Listen to it above, then tap Send.', true);
+    }
+    mic.addEventListener('click', async () => {
+      say('');
+      if (activeRec) return;
+      if (pendingFiles.length >= MAX_FILES) { say(`You can attach up to ${MAX_FILES} files.`); return; }
+      try {
+        timeEl.textContent = '0:00';
+        activeRec = await window.rcoVoice.start(secs => { timeEl.textContent = clock(secs); }, res => { say('You reached the 2-minute limit, so the recording stopped.'); takeVoice(res); });
+        recUi(true);
+      } catch (err) { activeRec = null; recUi(false); say(micMessage(err)); }
+    });
+    stopBtn.addEventListener('click', () => { if (activeRec) takeVoice(activeRec.stop()); });
+    cancelRec.addEventListener('click', () => { if (activeRec) { activeRec.cancel(); activeRec = null; } recUi(false); say(''); });
 
     function drawChips() {
       chips.replaceChildren(...pendingFiles.map((f, i) => {
         const x = el('button', { type: 'button', class: 'mg-x', 'aria-label': 'Remove ' + f.name, text: '×' });
-        x.addEventListener('click', () => { pendingFiles.splice(i, 1); drawChips(); });
+        x.addEventListener('click', () => { const [gone] = pendingFiles.splice(i, 1); if (gone && gone.rcoUrl) URL.revokeObjectURL(gone.rcoUrl); drawChips(); });
+        if (f.rcoVoice) {
+          if (!f.rcoUrl) f.rcoUrl = URL.createObjectURL(f);
+          return el('span', { class: 'mg-chip mg-chip-voice' }, '🎤 ' + f.name.replace(/\.wav$/i, ''), el('audio', { controls: true, preload: 'metadata', src: f.rcoUrl, 'aria-label': 'Listen to your voice note before sending' }), x);
+        }
         return el('span', { class: 'mg-chip' }, f.name, el('small', { text: ' ' + bytes(f.size) }), x);
       }));
     }
     fileIn.addEventListener('change', () => {
-      status.textContent = '';
+      say('');
       Array.from(fileIn.files).forEach(f => {
-        if (pendingFiles.length >= MAX_FILES) { status.textContent = `You can attach up to ${MAX_FILES} files.`; return; }
-        if (f.size > MAX_BYTES) { status.textContent = `${f.name} is larger than 10 MB.`; return; }
-        if (f.type && !OK_TYPES.test(f.type)) { status.textContent = `${f.name} is not a supported file type.`; return; }
+        if (pendingFiles.length >= MAX_FILES) { say(`You can attach up to ${MAX_FILES} files.`); return; }
+        if (f.size > MAX_BYTES) { say(`${f.name} is larger than 10 MB.`); return; }
+        if (f.type && !OK_TYPES.test(f.type)) { say(`${f.name} is not a supported file type.`); return; }
         pendingFiles.push(f);
       });
       fileIn.value = ''; drawChips();
@@ -245,10 +303,10 @@ document.addEventListener('rco-auth-ready', async e => {
     async function doSend() {
       const text = ta.value.trim();
       if (!text && !pendingFiles.length) return;
-      send.disabled = true; status.textContent = pendingFiles.length ? 'Sending…' : '';
+      send.disabled = true; say(pendingFiles.length ? 'Sending…' : '');
       const cid = current.id;
       const { data: msg, error } = await sb.from('messages').insert({ conversation_id: cid, sender_id: myId, body: text }).select('id').single();
-      if (error) { status.textContent = /quickly/i.test(error.message) ? 'You are sending messages too quickly. Please wait a moment.' : 'Your message could not be sent.'; send.disabled = false; return; }
+      if (error) { say(/quickly/i.test(error.message) ? 'You are sending messages too quickly. Please wait a moment.' : 'Your message could not be sent.'); send.disabled = false; return; }
       let failed = 0;
       for (const f of pendingFiles) {
         const safe = f.name.replace(/[^\w.\- ]+/g, '_').slice(0, 80);
@@ -258,8 +316,9 @@ document.addEventListener('rco-auth-ready', async e => {
         const ins = await sb.from('message_attachments').insert({ message_id: msg.id, path, file_name: f.name.slice(0, 200), mime_type: f.type || null, size_bytes: f.size });
         if (ins.error) failed++;
       }
-      pendingFiles = [];
+      dropPending(); drawChips();
       ta.value = '';
+      send.disabled = false;
       await loadThread();
       await reloadList();
       const s = threadEl.querySelector('.mg-status'); if (s && failed) s.textContent = `${failed} attachment${failed > 1 ? 's' : ''} could not be uploaded.`;
@@ -267,7 +326,7 @@ document.addEventListener('rco-auth-ready', async e => {
     send.addEventListener('click', doSend);
     ta.addEventListener('keydown', ev => { if (ev.key === 'Enter' && (ev.metaKey || ev.ctrlKey)) { ev.preventDefault(); doSend(); } });
 
-    return el('div', { class: 'mg-compose' }, chips, ta, el('div', { class: 'mg-compose-row' }, attach, fileIn, el('span', { class: 'mg-hint', text: 'Ctrl/⌘ + Enter to send' }), send), status);
+    return el('div', { class: 'mg-compose' }, chips, recBar, ta, el('div', { class: 'mg-compose-row' }, attach, fileIn, mic, el('span', { class: 'mg-hint', text: 'Ctrl/⌘ + Enter to send' }), send), status);
   }
 
   /* ---------- keep a copy ---------- */
