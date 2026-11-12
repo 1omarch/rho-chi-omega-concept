@@ -82,8 +82,10 @@ document.addEventListener('rco-auth-ready', async e => {
   /* ---------- conversation list ---------- */
   function renderList() {
     listEl.replaceChildren();
-    if (!convos.length) { listEl.append(el('li', { class: 'mg-none', text: 'No messages yet. Start one with New message.' })); return; }
-    convos.forEach(c => {
+    // a chat with nothing in it (no message sent yet, or all deleted) stays out of the list, unless it is the one open right now
+    const shown = convos.filter(c => c.preview != null || (current && current.id === c.id && !showTrash));
+    if (!shown.length) { listEl.append(el('li', { class: 'mg-none', text: 'No messages yet. Start one with New message.' })); return; }
+    shown.forEach(c => {
       const b = el('button', { type: 'button', class: 'mg-convo' + (current && current.id === c.id && !showTrash ? ' is-open' : '') + (c.unread ? ' is-unread' : '') },
         el('span', { class: 'mg-convo-top' }, el('strong', { text: nameOf(c) }), el('time', { text: fmt(c.last_message_at) })),
         el('span', { class: 'mg-convo-prev' }, c.is_group ? el('em', { text: 'Group · ' }) : '', c.preview || ''),
@@ -155,6 +157,19 @@ document.addEventListener('rco-auth-ready', async e => {
     copyBtn.addEventListener('click', emailCopy);
     dlBtn.addEventListener('click', downloadCopy);
     const tools = [copyBtn, dlBtn];
+    const delBtn = el('button', { type: 'button', class: 'mg-link', text: 'Delete conversation' });
+    delBtn.addEventListener('click', async () => {
+      const ids = threadMsgs.map(m => m.id);
+      if (ids.length) {
+        if (!window.confirm('Delete this conversation from your list?\n\nIts messages move to your Trash for ' + RETENTION_DAYS + ' days and are then permanently deleted. Other sorors in the chat keep their own copies until then.')) return;
+        const { error } = await sb.from('message_deletions').insert(ids.map(id => ({ message_id: id, member_id: myId })));
+        if (error) { window.alert('The conversation could not be deleted. Please try again.'); return; }
+      }
+      current = null;
+      await reloadList();
+      emptyThread();
+    });
+    tools.push(delBtn);
     if (c.is_group && c.created_by === myId) {
       const add = el('button', { type: 'button', class: 'mg-link', text: 'Add sorors' });
       add.addEventListener('click', () => pickSorors({ title: 'Add sorors to this group', exclude: (c.participants || []).map(p => p.id), onDone: async ids => {
