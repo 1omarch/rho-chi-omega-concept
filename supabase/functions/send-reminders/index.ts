@@ -123,6 +123,24 @@ async function meetingReminders() {
   return n;
 }
 
+// Housekeeping: remove message attachment files from storage.
+//  1. files queued when their message was destroyed (30 days after it was sent), and
+//  2. files that no message points to any more (for example a failed send). Needs supabase/retention.sql.
+async function purgeFiles() {
+  const { data: queued, error: qErr } = await sb.from("storage_purge_queue").select("path").limit(200);
+  if (qErr) { stats.errors.push("file queue: " + qErr.message); return { removed: 0 }; }
+  const paths = (queued ?? []).map((r: { path: string }) => r.path);
+  const { data: orphans, error: oErr } = await sb.rpc("orphan_message_files");
+  if (oErr) stats.errors.push("orphan files: " + oErr.message);
+  const extra = ((orphans ?? []) as { name: string }[]).map((r) => r.name);
+  const all = [...new Set([...paths, ...extra])];
+  if (!all.length) return { removed: 0 };
+  const { error: rErr } = await sb.storage.from("message-files").remove(all);
+  if (rErr) { stats.errors.push("removing files: " + rErr.message); return { removed: 0 }; }
+  if (paths.length) await sb.from("storage_purge_queue").delete().in("path", paths);
+  return { removed: all.length };
+}
+
 let ready = false;
 // secrets can arrive with a stray space, line break or quote marks: clean them up
 const secret = (k: string) => (Deno.env.get(k) ?? "").trim().replace(/^["']+|["']+$/g, "").trim();
@@ -145,7 +163,7 @@ Deno.serve(async (req) => {
   try {
     stats = { pending: 0, recipients: 0, active: 0, devices: 0, sent: 0, errors: [] };
     const out: Record<string, unknown> = { announcements: await sendPendingNotifications() };
-    if (isCron) { out.activity = await activityReminders(); out.meetings = await meetingReminders(); }   // the schedule also does reminders
+    if (isCron) { out.activity = await activityReminders(); out.meetings = await meetingReminders(); out.files = await purgeFiles(); }   // the schedule also does reminders
     out.stats = stats;
     return new Response(JSON.stringify(out), { headers: { ...cors, "Content-Type": "application/json" } });
   } catch (e) {

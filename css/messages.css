@@ -64,6 +64,8 @@
 .mg-chip small { font-weight: 400; }
 .mg-x { background: none; border: 0; cursor: pointer; font-size: 1rem; line-height: 1; color: inherit; padding: 0 .1em; }
 .mg-status { margin: 0; min-height: 1.1em; font-size: .82rem; font-weight: 600; color: var(--salmon-deep, #c14f3d); }
+.mg-banner { margin: 0 0 .9rem; padding: .75rem 1rem; border-radius: 12px; background: #fff3d6; border: 1px solid #e8c46a; color: #4a3a0c; font-size: .92rem; line-height: 1.5; }
+.mg-banner strong { color: #3a2c05; }
 .mg-notice { margin: .9rem .2rem 0; font-size: .8rem; color: var(--ink-soft, #3f5548); }
 .mg-modal { position: fixed; inset: 0; z-index: 1500; background: rgba(8,25,18,.55); display: grid; place-items: center; padding: 1rem; }
 .mg-modal-card { width: 100%; max-width: 460px; max-height: 88vh; overflow-y: auto; background: #fff; border-radius: 16px; border-top: 3px solid var(--gold, #c9a24d); padding: 1.4rem; display: flex; flex-direction: column; gap: .8rem; box-shadow: 0 40px 80px -20px rgba(8,25,18,.5); }

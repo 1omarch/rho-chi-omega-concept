@@ -65,8 +65,12 @@ document.addEventListener('rco-auth-ready', async e => {
   const shell = el('div', { class: 'mg-shell' },
     el('aside', { class: 'mg-side' }, el('div', { class: 'mg-side-head' }, newBtn, trashBtn), listEl),
     threadEl);
-  root.replaceChildren(shell,
-    el('p', { class: 'mg-notice', text: `Messages are permanently deleted ${RETENTION_DAYS} days after they are sent. Use “Email me a copy” to keep one. Chapter administrators can review messages in an emergency.` }));
+  root.replaceChildren(
+    el('div', { class: 'mg-banner', role: 'note' },
+      el('strong', { text: `Everything here is permanently deleted ${RETENTION_DAYS} days after it is sent.` }),
+      el('span', { text: ' That includes messages, photos and attached files, and it cannot be undone. Use “Email me a copy” or save a file to your phone if you want to keep it.' })),
+    shell,
+    el('p', { class: 'mg-notice', text: 'Chapter administrators can review a reported message in an emergency; every review is logged.' }));
 
   function refreshBadge() { document.dispatchEvent(new CustomEvent('rco-inbox-refresh')); }
 
