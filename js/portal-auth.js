@@ -196,6 +196,11 @@
         if (location.pathname.endsWith('portal-gallery.html')) g.classList.add('is-active');
         galleryBar.append(g);
       }
+      if (galleryBar && !galleryBar.querySelector('[href="portal-feedback.html"]')) {
+        const f = el('a', { href: 'portal-feedback.html', text: m.role === 'admin' ? 'Suggestions & tech' : 'Suggestions' });
+        if (location.pathname.endsWith('portal-feedback.html')) f.classList.add('is-active');
+        galleryBar.append(f);
+      }
       const tabs = document.querySelector('.portal-tabs .container');
       if (tabs && !tabs.querySelector('[href="portal-roster.html"]')) {
         const a = el('a', { href: 'portal-roster.html', text: 'Roster' });
@@ -274,7 +279,7 @@
     } catch (e) { /* storage unavailable */ }
     try {
       const sb = state.client;
-      const { data, error } = await sb.from('storage_purge_queue').select('path').limit(25);
+      const { data, error } = await sb.from('storage_purge_queue').select('path').eq('bucket', 'message-files').limit(25);
       if (error || !data || !data.length) return;
       const paths = data.map(r => r.path);
       await sb.storage.from('message-files').remove(paths);
@@ -311,7 +316,7 @@
     bar.append(more);
 
     const links = [['My profile', 'portal-profile.html'], ['Chapter calendar', 'portal-calendar.html'], ['Committees', 'portal-committees.html'], ['Directory', 'portal-directory.html'], ['Officer nominations', 'portal-nominations.html']];
-    if (m.role === 'officer' || m.role === 'admin') links.push(['Roster', 'portal-roster.html'], ['Gallery', 'portal-gallery.html']);
+    if (m.role === 'officer' || m.role === 'admin') links.push(['Roster', 'portal-roster.html'], ['Gallery', 'portal-gallery.html'], [m.role === 'admin' ? 'Suggestions & tech' : 'Suggestions', 'portal-feedback.html']);
     if (m.role === 'admin') links.push(['Message review', 'portal-message-review.html']);
     links.push(['Help', 'help.html'], ['Public website', 'index.html']);
     const out = el('button', { type: 'button', class: 'ab-signout', text: 'Sign out' });

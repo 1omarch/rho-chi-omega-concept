@@ -127,18 +127,30 @@ async function meetingReminders() {
 //  1. files queued when their message was destroyed (30 days after it was sent), and
 //  2. files that no message points to any more (for example a failed send). Needs supabase/retention.sql.
 async function purgeFiles() {
-  const { data: queued, error: qErr } = await sb.from("storage_purge_queue").select("path").limit(200);
+  // 1. queued files, each remembering which storage bucket it lives in (message-files or feedback-voice)
+  const { data: queued, error: qErr } = await sb.from("storage_purge_queue").select("path,bucket").limit(200);
   if (qErr) { stats.errors.push("file queue: " + qErr.message); return { removed: 0 }; }
-  const paths = (queued ?? []).map((r: { path: string }) => r.path);
+  const byBucket: Record<string, string[]> = {};
+  for (const r of (queued ?? []) as { path: string; bucket?: string }[]) {
+    (byBucket[r.bucket || "message-files"] ??= []).push(r.path);
+  }
+  // 2. message files that no message points to any more (for example a failed send)
   const { data: orphans, error: oErr } = await sb.rpc("orphan_message_files");
   if (oErr) stats.errors.push("orphan files: " + oErr.message);
   const extra = ((orphans ?? []) as { name: string }[]).map((r) => r.name);
-  const all = [...new Set([...paths, ...extra])];
-  if (!all.length) return { removed: 0 };
-  const { error: rErr } = await sb.storage.from("message-files").remove(all);
-  if (rErr) { stats.errors.push("removing files: " + rErr.message); return { removed: 0 }; }
-  if (paths.length) await sb.from("storage_purge_queue").delete().in("path", paths);
-  return { removed: all.length };
+  byBucket["message-files"] = [...new Set([...(byBucket["message-files"] ?? []), ...extra])];
+
+  let removed = 0;
+  for (const [bucket, all] of Object.entries(byBucket)) {
+    if (!all.length) continue;
+    const { error: rErr } = await sb.storage.from(bucket).remove(all);
+    if (rErr) { stats.errors.push("removing files (" + bucket + "): " + rErr.message); continue; }
+    const queuedHere = ((queued ?? []) as { path: string; bucket?: string }[])
+      .filter((r) => (r.bucket || "message-files") === bucket).map((r) => r.path);
+    if (queuedHere.length) await sb.from("storage_purge_queue").delete().eq("bucket", bucket).in("path", queuedHere);
+    removed += all.length;
+  }
+  return { removed };
 }
 
 let ready = false;

@@ -1,0 +1,24 @@
+/* Suggestions and tech issues (officer page) */
+.fa-filters { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 .8rem; }
+.fa-chip { display: inline-flex; align-items: center; gap: .5rem; border: 1.5px solid rgba(18,53,36,.25); background: #fff; color: var(--ivy-black, #123524); border-radius: 999px; padding: .5rem 1rem; font-weight: 700; font-size: .95rem; cursor: pointer; }
+.fa-chip.is-on { background: var(--ivy, #1f5a3d); border-color: var(--ivy, #1f5a3d); color: #fff; }
+.fa-n { min-width: 1.4rem; height: 1.4rem; padding: 0 .35rem; border-radius: 999px; background: rgba(18,53,36,.12); font-size: .78rem; display: inline-grid; place-items: center; }
+.fa-chip.is-on .fa-n { background: rgba(255,255,255,.25); }
+.fa-list { display: grid; gap: .9rem; margin-top: .6rem; }
+.fa-card { background: #fff; border: 1px solid rgba(18,53,36,.1); border-left: 5px solid rgba(18,53,36,.18); border-radius: 14px; padding: 1rem 1.2rem; box-shadow: 0 18px 36px -28px rgba(8,25,18,.4); }
+.fa-card.is-new { border-left-color: var(--salmon-deep, #c14760); }
+.fa-head { display: flex; flex-wrap: wrap; gap: .3rem .9rem; align-items: baseline; }
+.fa-head a { font-size: .9rem; }
+.fa-date { color: var(--ink-soft, #3f5548); font-size: .88rem; margin-left: auto; }
+.fa-done { background: #e2f1e6; color: #1f5a3d; border-radius: 999px; padding: .1rem .6rem; font-size: .75rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
+.fa-body { margin: .6rem 0 0; white-space: pre-wrap; line-height: 1.6; font-size: 1.02rem; }
+.fa-voice { margin-top: .6rem; }
+.fa-voice audio { width: 100%; max-width: 460px; height: 40px; }
+.fa-device { margin-top: .6rem; font-size: .85rem; color: var(--ink-soft, #3f5548); }
+.fa-device p { margin: .3rem 0 0; word-break: break-word; }
+.fa-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; margin-top: .8rem; }
+.fa-del { background: none; border: 0; padding: .3rem .4rem; font-weight: 700; font-size: .92rem; font-family: inherit; color: #b3261e; text-decoration: underline; cursor: pointer; }
+.fa-ask { font-weight: 700; }
+.fa-empty { padding: 1.4rem; text-align: center; color: var(--ink-soft, #3f5548); background: #fff; border: 1px dashed rgba(18,53,36,.25); border-radius: 14px; }
+.fa-err { color: #b3261e; margin: 0; }
+.fa-loading { margin: 0; color: var(--ink-soft, #3f5548); font-size: .9rem; }
