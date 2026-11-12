@@ -256,7 +256,7 @@ document.addEventListener('rco-auth-ready', async e => {
     return 'Voice notes are not available on this device. You can still type a message.';
   }
   function composer() {
-    const ta = el('textarea', { class: 'mg-input mg-ta', rows: '2', maxlength: '4000', placeholder: 'Write a message…', 'aria-label': 'Message' });
+    const ta = el('textarea', { class: 'mg-input mg-ta', rows: '2', maxlength: '4000', placeholder: 'Write a message, or tap the 🎤 on your keyboard to speak', 'aria-label': 'Message' });
     const fileIn = el('input', { type: 'file', multiple: true, class: 'pf-file', id: 'mg-files', accept: 'image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.csv' });
     const attach = el('label', { class: 'mg-link', for: 'mg-files', text: '📎 Attach' });
     const chips = el('div', { class: 'mg-chips' });

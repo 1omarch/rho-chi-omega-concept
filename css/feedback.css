@@ -9,7 +9,7 @@
 .fb-label { display: block; font-size: .8rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--ivy); margin-bottom: .35rem; }
 .fb-card textarea { width: 100%; box-sizing: border-box; font: 500 1.05rem/1.5 var(--font-body, inherit); padding: .8rem .9rem; border: 1.5px solid rgba(18,53,36,.25); border-radius: 12px; resize: vertical; min-height: 7.5rem; background: #fff; color: var(--ink); }
 .fb-card textarea:focus { outline: 3px solid rgba(31,90,61,.25); border-color: var(--ivy); }
-.fb-row { display: flex; justify-content: flex-end; margin: .2rem 0 .6rem; }
+.fb-row { display: flex; justify-content: space-between; gap: .8rem; align-items: baseline; margin: .2rem 0 .6rem; }
 .fb-count { font-size: .8rem; color: var(--ink-soft); }
 .fb-voice { margin: 0 0 .8rem; }
 .fb-mic { display: inline-flex; align-items: center; gap: .5rem; font-weight: 700; font-size: 1.05rem; line-height: 1; font-family: inherit; padding: .85rem 1.3rem; border-radius: 999px; background: #fff; color: var(--ivy, #1f5a3d); border: 2px solid var(--ivy, #1f5a3d); cursor: pointer; }
@@ -36,3 +36,4 @@
 .fb-small { margin: .6rem 0 0; font-size: .85rem; color: var(--ink-soft); }
 .fb-plain { margin: 0 0 .8rem; line-height: 1.55; }
 @media (max-width: 760px) { .fb-grid { grid-template-columns: 1fr; } }
+.fb-tip { margin: 0; }

@@ -66,13 +66,42 @@
     yes.focus();
   }
 
+  // meeting check-in prompt: "Are you at the meeting?"
+  function showCheckin(c) {
+    const key = 'ci-' + c.session_id;
+    if (showing === key) return;
+    showing = key;
+    const card = document.createElement('div'); card.className = 'pp-card';
+    const eyebrow = Object.assign(document.createElement('p'), { className: 'pp-eyebrow', textContent: 'Meeting check-in' });
+    const q = Object.assign(document.createElement('p'), { className: 'pp-q', textContent: 'Are you at the meeting?' });
+    const here = Object.assign(document.createElement('button'), { type: 'button', className: 'pp-btn yes', textContent: 'I\u2019m here' });
+    here.style.width = '100%';
+    const later = Object.assign(document.createElement('button'), { type: 'button', className: 'pp-later', textContent: 'Not at the meeting' });
+    const msg = document.createElement('p');
+    here.addEventListener('click', async () => {
+      busy = true; here.disabled = true;
+      const { error } = await sb.rpc('check_in', { p_session: c.session_id });
+      busy = false;
+      if (error) { here.disabled = false; msg.className = 'pp-err'; msg.textContent = 'Could not check you in. Please try again.'; return; }
+      here.hidden = true; later.hidden = true; msg.className = 'pp-note'; msg.textContent = '\u2713 You are checked in.';
+      setTimeout(() => { hide(); check(); }, 1400);
+    });
+    later.addEventListener('click', () => { dismissed.add(key); remember(); hide(); });
+    card.append(eyebrow, q, here, msg, later);
+    shade.replaceChildren(card); shade.hidden = false; here.focus();
+  }
+
   async function check() {
     const tab = document.getElementById('vote-app');
     if (busy || onPollsPage || (tab && !tab.hidden)) return;
     try {
       const { data, error } = await sb.rpc('my_polls');
       if (error || !data) return;
-      const p = data.find(x => x.is_open && !x.i_voted && !dismissed.has(x.id));
+      // check-in comes first (votes for checked-in sorors need it); this part is optional and ignored if the SQL is not installed yet
+      let ci = null;
+      try { const r = await sb.rpc('my_checkin'); ci = (!r.error && r.data && r.data[0]) || null; } catch (e) { /* ignore */ }
+      if (ci && !ci.i_checked_in && !dismissed.has('ci-' + ci.session_id)) { showCheckin(ci); return; }
+      const p = data.find(x => x.is_open && !x.i_voted && x.can_vote !== false && !dismissed.has(x.id));
       if (p) show(p); else if (showing && !busy) hide();
     } catch (e) { /* try again later */ }
   }

@@ -32,3 +32,27 @@
 .pl-empty { padding: 1.4rem; text-align: center; color: var(--ink-soft, #3f5548); background: #fff; border: 1px dashed rgba(18,53,36,.25); border-radius: 14px; }
 @media (max-width: 480px) { .pl-btn { font-size: 1.4rem; padding: 1.2rem .4rem; } }
 .pl-intro { margin: 0 0 1.2rem; font-size: 1.02rem; color: var(--ink-soft, #3f5548); max-width: 60ch; }
+
+/* meeting check-in */
+.pl-checkin { margin-bottom: 1.4rem; }
+.pl-checkin:empty { display: none; }
+.ci-card { border-left-color: #1f7a4d; }
+.ci-btn { width: 100%; }
+.ci-admin { margin-bottom: 0; }
+.ci-open { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; }
+.ci-open input { flex: 1 1 220px; }
+.ci-tally { grid-template-columns: minmax(0, 220px); justify-content: start; }
+.ci-actions { border-top: 0; margin-top: .4rem; padding-top: 0; }
+.ci-names { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .7rem; max-height: 220px; overflow: auto; }
+.ci-name { background: var(--pearl-dim, #f5f8f3); border: 1px solid rgba(18,53,36,.12); border-radius: 999px; padding: .25rem .7rem; font-size: .9rem; }
+.ci-none { color: var(--ink-soft, #3f5548); font-size: .95rem; }
+.pl-aud { margin: .8rem 0 0; display: grid; gap: .35rem; }
+.pl-aud:empty { display: none; }
+.pl-aud-h { font-size: .72rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--ivy, #1f5a3d); }
+.rost-card .pl-radio { display: flex; align-items: center; gap: .55rem; font-size: 1rem; font-weight: 600; text-transform: none; letter-spacing: 0; }
+.pl-radio input { width: 1.15rem; height: 1.15rem; accent-color: var(--ivy, #1f5a3d); }
+.pl-wait { color: #7a4b00; }
+.pl-hint { margin: .35rem 0 0; font-size: .85rem; color: var(--ink-soft, #3f5548); }
+
+/* the "hidden" attribute must win over the card's flex layout (otherwise sorors would see the admin form) */
+.pl-start[hidden], #pl-app[hidden], #vote-app[hidden], .pl-h[hidden], .pl-empty[hidden] { display: none !important; }

@@ -173,7 +173,7 @@
 
     slot.replaceChildren(...[
       el('label', { class: 'fb-label', for: 'fb-' + kind, text: isTech ? 'Describe the problem' : 'Your idea' }),
-      ta, el('div', { class: 'fb-row' }, count),
+      ta, el('div', { class: 'fb-row' }, el('span', { class: 'fb-small fb-tip', text: 'Tip: tap the \u{1F3A4} on your keyboard to speak instead of typing.' }), count),
       el('div', { class: 'fb-voice' }, micBtn, recBar, clip),
       isTech ? el('div', { class: 'fb-voice' }, shotBtn, shotBox, shotInput) : null,
       isTech ? el('p', { class: 'fb-small', text: 'A screenshot helps a lot. Please do not include anything private.' }) : null,

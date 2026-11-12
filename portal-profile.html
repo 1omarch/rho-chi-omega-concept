@@ -7,17 +7,17 @@
 <meta name="description" content="Your Rho Chi Omega member profile.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="favicon-32.png">
-<link rel="stylesheet" href="css/styles.css?v=202611121516">
-<link rel="stylesheet" href="css/portal.css?v=202611121516">
-<link rel="stylesheet" href="css/auth.css?v=202611121516">
-<link rel="stylesheet" href="css/polls.css?v=202611121516">
-<link rel="stylesheet" href="css/profile.css?v=202611121516">
-<link rel="stylesheet" href="css/messages.css?v=202611121516">
-<script src="js/vendor/supabase.js?v=202611121516"></script>
-<script src="js/supabase-config.js?v=202611121516"></script>
-<script src="js/portal-auth.js?v=202611121516"></script>
-<link rel="stylesheet" href="css/portal-theme.css?v=202611121516">
-<script src="js/theme.js?v=202611121516"></script>
+<link rel="stylesheet" href="css/styles.css?v=202611121535">
+<link rel="stylesheet" href="css/portal.css?v=202611121535">
+<link rel="stylesheet" href="css/auth.css?v=202611121535">
+<link rel="stylesheet" href="css/polls.css?v=202611121535">
+<link rel="stylesheet" href="css/profile.css?v=202611121535">
+<link rel="stylesheet" href="css/messages.css?v=202611121535">
+<script src="js/vendor/supabase.js?v=202611121535"></script>
+<script src="js/supabase-config.js?v=202611121535"></script>
+<script src="js/portal-auth.js?v=202611121535"></script>
+<link rel="stylesheet" href="css/portal-theme.css?v=202611121535">
+<script src="js/theme.js?v=202611121535"></script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="RCO Portal">
@@ -25,7 +25,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <meta name="theme-color" content="#123524">
-<script src="js/accessibility.js?v=202611121516"></script>
+<script src="js/accessibility.js?v=202611121535"></script>
 </head>
 <body class="portal-body profile-page">
 
@@ -80,12 +80,14 @@
     <div id="vote-app" hidden>
     <p class="pl-intro">Tap <strong>Yes</strong> or <strong>No</strong> and your vote is counted instantly. One vote per soror, and nobody can see how you voted. Results are deleted automatically after 30 days.</p>
     <div id="pl-app" hidden>
+      <div id="pl-checkin" class="pl-checkin"></div>
       <form class="rost-card pl-start" id="pl-form" hidden novalidate>
         <h2>Start a quick vote</h2>
         <label for="pl-q">Yes or No question</label>
-        <input type="text" id="pl-q" class="pf-input" maxlength="200" autocomplete="off" placeholder="Do we approve the minutes?">
+        <input type="text" id="pl-q" class="pf-input" maxlength="200" autocomplete="off" placeholder="Do we approve the minutes?"><p class="pl-hint">Tip: tap the microphone on your phone&rsquo;s keyboard and just say the question.</p>
         <div class="pl-presets" id="pl-presets" aria-label="Quick questions"></div>
-        <label class="pl-check"><input type="checkbox" id="pl-notify" checked> <span>Send a notification to sorors&rsquo; phones</span></label>
+        <div class="pl-aud" id="pl-aud-box"></div>
+        <label class="pl-check"><input type="checkbox" id="pl-notify" checked> <span>Send a phone notification to the sorors who can vote</span></label>
         <div class="pl-actions"><button type="submit" class="btn btn-ivy" id="pl-start">Start vote</button><span class="rost-msg" id="pl-msg" role="status"></span></div>
       </form>
       <h2 class="pl-h" id="pl-open-h" hidden>Open now</h2>
@@ -105,15 +107,15 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=202611121516"></script>
-<script src="js/calendar-links.js?v=202611121516"></script>
-<script src="js/profile.js?v=202611121516"></script>
-<script src="js/push.js?v=202611121516"></script>
-<script src="js/notify.js?v=202611121516"></script>
-<script src="js/activity.js?v=202611121516"></script>
-<script src="js/voice-note.js?v=202611121516"></script>
-<script src="js/polls.js?v=202611121516"></script>
-<script src="js/messages.js?v=202611121516"></script>
+<script src="js/main.js?v=202611121535"></script>
+<script src="js/calendar-links.js?v=202611121535"></script>
+<script src="js/profile.js?v=202611121535"></script>
+<script src="js/push.js?v=202611121535"></script>
+<script src="js/notify.js?v=202611121535"></script>
+<script src="js/activity.js?v=202611121535"></script>
+<script src="js/voice-note.js?v=202611121535"></script>
+<script src="js/polls.js?v=202611121535"></script>
+<script src="js/messages.js?v=202611121535"></script>
 
 </body>
 </html>
