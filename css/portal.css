@@ -286,3 +286,8 @@ html { -webkit-tap-highlight-color: transparent; }
   body.has-appbar #rco-textsize, body.has-appbar #rco-themebar { bottom: calc(76px + env(safe-area-inset-bottom)); }
 }
 body.ab-open #rco-textsize { display: none; }
+
+/* Computers: when there are many tabs (officers see extra ones), wrap onto a second row instead of cutting the last tab off */
+@media (min-width: 761px) {
+  .portal-tabs .container { flex-wrap: wrap; overflow-x: visible; row-gap: 0; }
+}
