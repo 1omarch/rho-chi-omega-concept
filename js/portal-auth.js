@@ -181,6 +181,11 @@
       if (location.pathname.endsWith('portal-profile.html')) mine.classList.add('is-active');
       tabBar.append(mine);
     }
+    if (tabBar && !tabBar.querySelector('[href="portal-polls.html"]')) {
+      const v = el('a', { href: 'portal-polls.html', text: 'Quick Votes' });
+      if (location.pathname.endsWith('portal-polls.html')) v.classList.add('is-active');
+      tabBar.append(v);
+    }
     if (m.role === 'admin') {
       const bar = document.querySelector('.portal-tabs .container');
       if (bar && !bar.querySelector('[href="portal-message-review.html"]')) {
@@ -209,6 +214,12 @@
       }
     }
     try { buildAppBar(m); } catch (err) { /* the app bar is a nicety; never block the page */ }
+    try {   // quick-vote pop-up on every portal page (same version stamp as this script, so updates are picked up)
+      const me = document.querySelector('script[src*="portal-auth.js"]');
+      const ver = me && (me.getAttribute('src').match(/\?v=(\d+)/) || [])[1];
+      const sc = document.createElement('script'); sc.src = 'js/poll-popup.js' + (ver ? '?v=' + ver : ''); sc.defer = true;
+      document.head.append(sc);
+    } catch (err) { /* the pop-up is optional */ }
     document.dispatchEvent(new CustomEvent('rco-auth-ready', { detail: m }));
   }
 
@@ -318,7 +329,7 @@
     const links = [['My profile', 'portal-profile.html'], ['Chapter calendar', 'portal-calendar.html'], ['Committees', 'portal-committees.html'], ['Directory', 'portal-directory.html'], ['Officer nominations', 'portal-nominations.html']];
     if (m.role === 'officer' || m.role === 'admin') links.push(['Roster', 'portal-roster.html'], ['Gallery', 'portal-gallery.html'], [m.role === 'admin' ? 'Suggestions & tech' : 'Suggestions', 'portal-feedback.html']);
     if (m.role === 'admin') links.push(['Message review', 'portal-message-review.html']);
-    links.push(['Help', 'help.html'], ['Public website', 'index.html']);
+    links.push(['Quick votes', 'portal-polls.html'], ['Help', 'help.html'], ['Public website', 'index.html']);
     const out = el('button', { type: 'button', class: 'ab-signout', text: 'Sign out' });
     out.addEventListener('click', signOut);
     const close = el('button', { type: 'button', class: 'ab-close', 'aria-label': 'Close', text: '×' });
