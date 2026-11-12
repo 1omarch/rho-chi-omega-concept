@@ -1,0 +1,46 @@
+# Retire expired flyers: runs by itself every night and keeps the website small and tidy.
+#
+# HOW TO TURN IT ON (once): on github.com open the repository > Add file > Create new file, type the file name
+#   .github/workflows/retire-expired.yml
+# paste all of this file in, and click Commit changes. (This copy in tools/ is only the master copy; GitHub runs the one in .github/workflows/.)
+#
+# What it does: runs tools/retire-expired.py, which removes announcement slides the day after their date, event cards
+# one year after their date, and flyer pictures nothing uses any more. If anything changed it saves the change and
+# asks GitHub Pages to rebuild the site. To run it right now: repository > Actions > "Retire expired flyers" > Run workflow.
+# Note: GitHub pauses scheduled jobs in a repository that has had no activity for 60 days. If that happens, open the
+# Actions tab and click "Enable workflow".
+name: Retire expired flyers
+
+on:
+  schedule:
+    - cron: '17 9 * * *'     # every day at about 3:17 AM Central (9:17 UTC)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+
+jobs:
+  retire:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get the website files
+        uses: actions/checkout@v4
+
+      - name: Remove expired slides, old event cards and unused flyers
+        run: python3 tools/retire-expired.py
+
+      - name: Save the change and refresh the website (only if something was removed)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -n "$(git status --porcelain)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add -A
+            git commit -m "Automatic clean-up: remove expired announcements and unused flyers"
+            git push
+            gh api -X POST "repos/${{ github.repository }}/pages/builds" || true
+          else
+            echo "Nothing to remove today."
+          fi
