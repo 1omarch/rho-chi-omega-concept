@@ -49,6 +49,12 @@ document.addEventListener('rco-auth-ready', async e => {
     slot.append(el('audio', { controls: true, preload: 'none', src: data.signedUrl }));
   }
 
+  async function addImage(slot, path) {
+    const { data, error } = await sb.storage.from('feedback-voice').createSignedUrl(path, 3600);
+    if (error || !data) { slot.append(el('p', { class: 'fa-err', text: 'The screenshot could not be loaded.' })); return; }
+    slot.append(el('a', { href: data.signedUrl, target: '_blank', rel: 'noopener', title: 'Open full size' }, el('img', { class: 'fa-shot', src: data.signedUrl, alt: 'Screenshot sent with this message' })));
+  }
+
   async function setStatus(r, status) {
     const { error } = await sb.from('feedback').update({ status }).eq('id', r.id);
     if (error) { say('That could not be saved. Please try again.', false); return; }
@@ -72,6 +78,7 @@ document.addEventListener('rco-auth-ready', async e => {
     ];
     if (r.body) kids.push(el('p', { class: 'fa-body', text: r.body }));
     if (r.voice_path) { kids.push(voiceSlot); addVoice(voiceSlot, r.voice_path); }
+    if (r.image_path) { const shotSlot = el('div', { class: 'fa-voice' }); kids.push(shotSlot); addImage(shotSlot, r.image_path); }
     if (r.device) kids.push(el('details', { class: 'fa-device' }, el('summary', { text: 'Phone / computer details' }), el('p', { text: r.device })));
 
     const act = el('div', { class: 'fa-actions' });
@@ -103,7 +110,7 @@ document.addEventListener('rco-auth-ready', async e => {
 
   async function load() {
     const { data, error } = await sb.from('feedback')
-      .select('id, kind, body, device, voice_path, status, created_at, members(full_name, email)')
+      .select('id, kind, body, device, voice_path, image_path, status, created_at, members(full_name, email)')
       .order('created_at', { ascending: false }).limit(300);
     if (error) { say('Messages could not be loaded. Has the feedback SQL been run (supabase/feedback.sql)?', false); return; }
     rows = data || [];

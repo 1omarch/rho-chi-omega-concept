@@ -100,6 +100,43 @@
     stopBtn.addEventListener('click', () => { if (rec) finished(rec.stop()); });
     cancelBtn.addEventListener('click', () => { if (rec) { rec.cancel(); rec = null; } recBar.hidden = true; micBtn.hidden = false; });
 
+    // one screenshot (tech issues only), shrunk on the phone before it is sent
+    let shot = null;
+    const shotInput = el('input', { type: 'file', accept: 'image/*', hidden: true, 'aria-label': 'Add a screenshot' });
+    const shotBtn = el('button', { type: 'button', class: 'fb-mic fb-shot' }, '\u{1F4F7} Add a screenshot');
+    const shotBox = el('div', { class: 'fb-clip', hidden: true });
+    function clearShot() {
+      if (shot && shot.url) URL.revokeObjectURL(shot.url);
+      shot = null; shotBox.hidden = true; shotBox.replaceChildren(); shotBtn.hidden = false; shotInput.value = '';
+    }
+    async function shrink(file) {
+      const url = URL.createObjectURL(file);
+      try {
+        const img = await new Promise((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = url; });
+        const k = Math.min(1, 1600 / Math.max(img.naturalWidth, img.naturalHeight));
+        const c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(img.naturalWidth * k)); c.height = Math.max(1, Math.round(img.naturalHeight * k));
+        const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height); g.drawImage(img, 0, 0, c.width, c.height);
+        return await new Promise((ok, no) => c.toBlob(b => (b ? ok(b) : no(new Error('encode'))), 'image/jpeg', 0.82));
+      } finally { URL.revokeObjectURL(url); }
+    }
+    shotBtn.addEventListener('click', () => shotInput.click());
+    shotInput.addEventListener('change', async () => {
+      const f = shotInput.files && shotInput.files[0];
+      if (!f) return;
+      if (!/^image\//.test(f.type) && !/\.(heic|heif|png|jpe?g|webp)$/i.test(f.name)) { say('Please choose a picture.'); return; }
+      say('Getting your picture ready\u2026', true);
+      try {
+        const blob = await shrink(f);
+        if (shot && shot.url) URL.revokeObjectURL(shot.url);
+        shot = { blob, url: URL.createObjectURL(blob) };
+        const drop = el('button', { type: 'button', class: 'fb-link', text: 'Remove' });
+        drop.addEventListener('click', clearShot);
+        shotBox.replaceChildren(el('img', { class: 'fb-thumb', src: shot.url, alt: 'Your screenshot' }), drop);
+        shotBox.hidden = false; shotBtn.hidden = true; say('');
+      } catch (err) { shotInput.value = ''; say('That picture could not be read. Try a different one, or send without it.'); }
+    });
+
     // tech issues share the device details by default
     const share = isTech
       ? el('label', { class: 'fb-check' }, el('input', { type: 'checkbox', checked: true }), el('span', { text: 'Include details about my phone or computer (helps the administrator fix it)' }))
@@ -108,20 +145,25 @@
     const send = el('button', { type: 'button', class: 'btn btn-ivy fb-send' }, isTech ? 'Send tech issue' : 'Send suggestion');
     send.addEventListener('click', async () => {
       const text = ta.value.trim();
-      if (!text && !voice) { say('Please type a message or record a voice note first.'); return; }
+      if (!text && !voice && !shot) { say('Please type a message, record a voice note' + (isTech ? ' or add a screenshot' : '') + ' first.'); return; }
       if (rec) { say('Tap Stop on the recording first.'); return; }
       send.disabled = true; say('Sending…', true);
-      let path = null;
+      let path = null, imgPath = null;
       try {
         if (voice) {
           path = me.id + '/' + kind + '/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.wav';
           const up = await sb.storage.from('feedback-voice').upload(path, voice.blob, { contentType: 'audio/wav', upsert: false });
           if (up.error) throw up.error;
         }
-        const row = { member_id: me.id, kind, body: text, voice_path: path, device: isTech && share && share.querySelector('input').checked ? deviceInfo() : null };
+        if (shot) {
+          imgPath = me.id + '/' + kind + '/' + Date.now() + '-' + Math.random().toString(36).slice(2, 8) + '.jpg';
+          const up2 = await sb.storage.from('feedback-voice').upload(imgPath, shot.blob, { contentType: 'image/jpeg', upsert: false });
+          if (up2.error) throw up2.error;
+        }
+        const row = { member_id: me.id, kind, body: text, voice_path: path, image_path: imgPath, device: isTech && share && share.querySelector('input').checked ? deviceInfo() : null };
         const { error } = await sb.from('feedback').insert(row);
-        if (error) { if (path) sb.storage.from('feedback-voice').remove([path]); throw error; }
-        ta.value = ''; count.textContent = '0 / ' + MAX; clearVoice();
+        if (error) { const gone = [path, imgPath].filter(Boolean); if (gone.length) sb.storage.from('feedback-voice').remove(gone); throw error; }
+        ta.value = ''; count.textContent = '0 / ' + MAX; clearVoice(); clearShot();
         say('Thank you! Your ' + (isTech ? 'tech issue' : 'suggestion') + ' was sent to ' + sentTo + '.', true);
       } catch (err) {
         const msg = String((err && err.message) || '');
@@ -133,6 +175,8 @@
       el('label', { class: 'fb-label', for: 'fb-' + kind, text: isTech ? 'Describe the problem' : 'Your idea' }),
       ta, el('div', { class: 'fb-row' }, count),
       el('div', { class: 'fb-voice' }, micBtn, recBar, clip),
+      isTech ? el('div', { class: 'fb-voice' }, shotBtn, shotBox, shotInput) : null,
+      isTech ? el('p', { class: 'fb-small', text: 'A screenshot helps a lot. Please do not include anything private.' }) : null,
       share, send, status,
       el('p', { class: 'fb-small', text: 'Sent as ' + me.full_name + '. Only ' + (isTech ? 'the website administrator' : 'chapter officers') + ' can read it.' })
     ].filter(Boolean));

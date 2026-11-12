@@ -1,4 +1,4 @@
--- Phase 10: Suggestion box and Tech issue box on the Help page (typed text or a recorded voice note).
+-- Phase 10: Suggestion box and Tech issue box on the Help page (typed text or a recorded voice note; tech issues can also attach one screenshot).
 -- Run once: Supabase dashboard > SQL Editor > New query > paste all of this > Run. Safe to re-run. Contains no member data.
 --
 -- WHO CAN SEE WHAT
@@ -16,16 +16,26 @@ create table if not exists public.feedback (
   body        text not null default '' check (char_length(body) <= 2000),
   device      text check (device is null or char_length(device) <= 400),   -- phone/browser details, tech issues only
   voice_path  text,                                                         -- the recorded voice note (bucket feedback-voice)
+  image_path  text,                                                         -- one screenshot, tech issues only (same bucket)
   status      text not null default 'new' check (status in ('new', 'done')),
   created_at  timestamptz not null default now(),
-  constraint feedback_not_empty check (char_length(btrim(body)) > 0 or voice_path is not null),
+  constraint feedback_not_empty check (char_length(btrim(body)) > 0 or voice_path is not null or image_path is not null),
   constraint feedback_voice_folder check (voice_path is null or voice_path like member_id::text || '/' || kind || '/%')
 );
+
+-- upgrade for installs that ran an earlier version of this file (safe to repeat)
+alter table public.feedback add column if not exists image_path text;
+alter table public.feedback drop constraint if exists feedback_not_empty;
+alter table public.feedback add constraint feedback_not_empty
+  check (char_length(btrim(body)) > 0 or voice_path is not null or image_path is not null);
+alter table public.feedback drop constraint if exists feedback_image_folder;
+alter table public.feedback add constraint feedback_image_folder
+  check (image_path is null or (kind = 'tech' and image_path like member_id::text || '/tech/%'));
 create index if not exists feedback_created_idx on public.feedback (created_at desc);
 alter table public.feedback enable row level security;
 
 revoke all on public.feedback from anon, authenticated;
-grant insert (member_id, kind, body, device, voice_path) on public.feedback to authenticated;
+grant insert (member_id, kind, body, device, voice_path, image_path) on public.feedback to authenticated;
 grant select, delete on public.feedback to authenticated;
 grant update (status) on public.feedback to authenticated;
 
@@ -59,10 +69,10 @@ drop trigger if exists feedback_before_insert on public.feedback;
 create trigger feedback_before_insert before insert on public.feedback
   for each row execute function public.feedback_limit();
 
--- 3. Voice notes: private bucket -----------------------------------------------------------------
--- File names look like  <soror id>/<suggestion or tech>/<file>.wav
+-- 3. Voice notes and screenshots: private bucket -----------------------------------------------------------------
+-- File names look like  <soror id>/<suggestion or tech>/<file>.wav  (or .jpg for a screenshot)
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
-values ('feedback-voice', 'feedback-voice', false, 10485760, array['audio/wav', 'audio/x-wav'])
+values ('feedback-voice', 'feedback-voice', false, 10485760, array['audio/wav', 'audio/x-wav', 'image/jpeg', 'image/png', 'image/webp'])
 on conflict (id) do update set file_size_limit = excluded.file_size_limit, allowed_mime_types = excluded.allowed_mime_types;
 
 drop policy if exists "feedback voice: send"   on storage.objects;
@@ -98,6 +108,9 @@ returns trigger language plpgsql security definer set search_path = public as $$
 begin
   if old.voice_path is not null then
     insert into public.storage_purge_queue (path, bucket) values (old.voice_path, 'feedback-voice') on conflict do nothing;
+  end if;
+  if old.image_path is not null then
+    insert into public.storage_purge_queue (path, bucket) values (old.image_path, 'feedback-voice') on conflict do nothing;
   end if;
   return old;
 end $$;
