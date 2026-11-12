@@ -4,7 +4,7 @@
   const sb = window.rcoAuth && window.rcoAuth.client;
   if (!sb || window.__rcoPollPopup) return;
   window.__rcoPollPopup = true;
-  const onPollsPage = /portal-polls\.html$/.test(location.pathname);
+  const onPollsPage = false;
 
   const css = document.createElement('style');
   css.textContent = `
@@ -67,7 +67,8 @@
   }
 
   async function check() {
-    if (busy || onPollsPage) return;
+    const tab = document.getElementById('vote-app');
+    if (busy || onPollsPage || (tab && !tab.hidden)) return;
     try {
       const { data, error } = await sb.rpc('my_polls');
       if (error || !data) return;

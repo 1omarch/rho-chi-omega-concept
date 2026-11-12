@@ -17,18 +17,22 @@ document.addEventListener('rco-auth-ready', async e => {
   const fmt = iso => new Date(iso).toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
   const bytes = n => n > 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(n / 1024)) + ' KB';
 
-  // tabs: Profile | Messages
-  const tabProfile = document.getElementById('tab-profile'), tabMessages = document.getElementById('tab-messages');
-  const profileView = document.getElementById('pf-main');
-  function showTab(name) {
-    const msgs = name === 'messages';
-    root.hidden = !msgs; profileView.hidden = msgs;
-    tabProfile.setAttribute('aria-selected', String(!msgs)); tabMessages.setAttribute('aria-selected', String(msgs));
-    history.replaceState(null, '', msgs ? '#messages' + location.search.replace(/^$/, '') : location.pathname);
+  // tabs: Profile | Messages | Quick votes
+  const tabProfile = document.getElementById('tab-profile'), tabMessages = document.getElementById('tab-messages'), tabVotes = document.getElementById('tab-votes');
+  const profileView = document.getElementById('pf-main'), voteRoot = document.getElementById('vote-app');
+  function showTab(name, keepHash) {
+    const msgs = name === 'messages', votes = name === 'votes';
+    root.hidden = !msgs; profileView.hidden = msgs || votes; if (voteRoot) voteRoot.hidden = !votes;
+    tabProfile.setAttribute('aria-selected', String(!msgs && !votes)); tabMessages.setAttribute('aria-selected', String(msgs));
+    if (tabVotes) tabVotes.setAttribute('aria-selected', String(votes));
+    if (!keepHash) history.replaceState(null, '', msgs ? '#messages' + location.search.replace(/^$/, '') : votes ? '#votes' : location.pathname);
+    document.dispatchEvent(new CustomEvent('rco-tab', { detail: name }));
   }
   tabProfile.addEventListener('click', () => showTab('profile'));
   tabMessages.addEventListener('click', () => showTab('messages'));
-  if (location.hash === '#messages' || new URLSearchParams(location.search).get('to')) { root.hidden = false; profileView.hidden = true; tabProfile.setAttribute('aria-selected', 'false'); tabMessages.setAttribute('aria-selected', 'true'); }
+  if (tabVotes) tabVotes.addEventListener('click', () => showTab('votes'));
+  if (location.hash === '#votes' && voteRoot) showTab('votes', true);
+  else if (location.hash === '#messages' || new URLSearchParams(location.search).get('to')) showTab('messages', true);
 
   const { data: myId } = await sb.rpc('my_member_id');
   const first = await sb.rpc('list_conversations');

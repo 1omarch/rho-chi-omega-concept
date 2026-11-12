@@ -38,7 +38,7 @@ document.addEventListener('rco-auth-ready', async e => {
       let note = 'Vote started. Sorors will see it now.';
       if ($('#pl-notify').checked) {
         try {
-          const ins = await sb.from('notifications').insert({ title: 'Vote now', body: text.slice(0, 240), audience: 'all', url: 'portal-polls.html', created_by: myId });
+          const ins = await sb.from('notifications').insert({ title: 'Vote now', body: text.slice(0, 240), audience: 'all', url: 'portal-profile.html#votes', created_by: myId });
           if (!ins.error) await sb.functions.invoke('send-reminders', { body: {} });
         } catch (err) { note = 'Vote started. (The phone notification could not be sent, but the vote shows on every open portal page.)'; }
       }
@@ -132,11 +132,20 @@ document.addEventListener('rco-auth-ready', async e => {
     const { data, error } = await sb.rpc('my_polls');
     if (error) { $('#pl-empty').hidden = false; $('#pl-empty').textContent = 'Votes could not be loaded. Has the polls SQL been run (supabase/polls.sql)?'; return; }
     polls = data || [];
+    const owed = polls.filter(p => p.is_open && !p.i_voted).length;      // red number on the Quick votes tab
+    const badge = document.getElementById('pf-votes-badge');
+    if (badge) { badge.hidden = owed === 0; badge.textContent = String(owed); }
     render();
   }
 
   await load();
   // live: admins see the count move every few seconds; everyone else checks for new questions
-  setInterval(() => { if (!document.hidden && !busy) load(); }, isAdmin ? 3000 : 8000);
+  // live: while the Quick votes tab is open, admins see the count move every 3 seconds (sorors every 8); otherwise just a slow check for the red number
+  const tabShown = () => { const r = document.getElementById('vote-app'); return !r || !r.hidden; };
+  (function tick() {
+    if (!document.hidden && !busy) load();
+    setTimeout(tick, tabShown() ? (isAdmin ? 3000 : 8000) : 30000);
+  })();
   document.addEventListener('visibilitychange', () => { if (!document.hidden && !busy) load(); });
+  document.addEventListener('rco-tab', ev => { if (ev.detail === 'votes') load(); });
 });

@@ -31,3 +31,4 @@
 .pl-del { background: none; border: 0; padding: .3rem .4rem; font-weight: 700; font-size: .92rem; font-family: inherit; color: #b3261e; text-decoration: underline; cursor: pointer; }
 .pl-empty { padding: 1.4rem; text-align: center; color: var(--ink-soft, #3f5548); background: #fff; border: 1px dashed rgba(18,53,36,.25); border-radius: 14px; }
 @media (max-width: 480px) { .pl-btn { font-size: 1.4rem; padding: 1.2rem .4rem; } }
+.pl-intro { margin: 0 0 1.2rem; font-size: 1.02rem; color: var(--ink-soft, #3f5548); max-width: 60ch; }

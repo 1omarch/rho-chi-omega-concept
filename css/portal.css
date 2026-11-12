@@ -291,3 +291,7 @@ body.ab-open #rco-textsize { display: none; }
 @media (min-width: 761px) {
   .portal-tabs .container { flex-wrap: wrap; overflow-x: visible; row-gap: 0; }
 }
+
+/* Officer pages: link back to the Officer Tools hub */
+.officer-back { display: inline-block; margin: 0 0 .8rem; font-weight: 700; font-size: .95rem; color: var(--ivy, #1f5a3d); text-decoration: none; border-bottom: 2px solid rgba(193,79,61,.4); }
+.officer-back:hover { color: var(--ivy-black, #123524); }

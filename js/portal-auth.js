@@ -181,36 +181,17 @@
       if (location.pathname.endsWith('portal-profile.html')) mine.classList.add('is-active');
       tabBar.append(mine);
     }
-    if (tabBar && !tabBar.querySelector('[href="portal-polls.html"]')) {
-      const v = el('a', { href: 'portal-polls.html', text: 'Quick Votes' });
-      if (location.pathname.endsWith('portal-polls.html')) v.classList.add('is-active');
-      tabBar.append(v);
-    }
-    if (m.role === 'admin') {
-      const bar = document.querySelector('.portal-tabs .container');
-      if (bar && !bar.querySelector('[href="portal-message-review.html"]')) {
-        const a = el('a', { href: 'portal-message-review.html', text: 'Message review' });
-        if (location.pathname.endsWith('portal-message-review.html')) a.classList.add('is-active');
-        bar.append(a);
-      }
-    }
+    // officers and admins get ONE extra tab, "Officer Tools"; roster, gallery, suggestions and message review live behind it
+    const OFFICER_PAGES = ['portal-officer.html', 'portal-roster.html', 'portal-gallery.html', 'portal-feedback.html', 'portal-message-review.html'];
     if (m.role === 'officer' || m.role === 'admin') {
-      const galleryBar = document.querySelector('.portal-tabs .container');
-      if (galleryBar && !galleryBar.querySelector('[href="portal-gallery.html"]')) {
-        const g = el('a', { href: 'portal-gallery.html', text: 'Gallery' });
-        if (location.pathname.endsWith('portal-gallery.html')) g.classList.add('is-active');
-        galleryBar.append(g);
+      if (tabBar && !tabBar.querySelector('[href="portal-officer.html"]')) {
+        const t = el('a', { href: 'portal-officer.html', text: 'Officer Tools' });
+        if (OFFICER_PAGES.some(pg => location.pathname.endsWith(pg))) t.classList.add('is-active');
+        tabBar.append(t);
       }
-      if (galleryBar && !galleryBar.querySelector('[href="portal-feedback.html"]')) {
-        const f = el('a', { href: 'portal-feedback.html', text: m.role === 'admin' ? 'Suggestions & tech' : 'Suggestions' });
-        if (location.pathname.endsWith('portal-feedback.html')) f.classList.add('is-active');
-        galleryBar.append(f);
-      }
-      const tabs = document.querySelector('.portal-tabs .container');
-      if (tabs && !tabs.querySelector('[href="portal-roster.html"]')) {
-        const a = el('a', { href: 'portal-roster.html', text: 'Roster' });
-        if (location.pathname.endsWith('portal-roster.html')) a.classList.add('is-active');
-        tabs.append(a);
+      if (OFFICER_PAGES.some(pg => location.pathname.endsWith(pg)) && !location.pathname.endsWith('portal-officer.html')) {
+        const hero = document.querySelector('.portal-hero .container');
+        if (hero && !hero.querySelector('.officer-back')) hero.prepend(el('a', { class: 'officer-back', href: 'portal-officer.html', text: '\u2190 Officer Tools' }));
       }
     }
     try { buildAppBar(m); } catch (err) { /* the app bar is a nicety; never block the page */ }
@@ -327,9 +308,8 @@
     bar.append(more);
 
     const links = [['My profile', 'portal-profile.html'], ['Chapter calendar', 'portal-calendar.html'], ['Committees', 'portal-committees.html'], ['Directory', 'portal-directory.html'], ['Officer nominations', 'portal-nominations.html']];
-    if (m.role === 'officer' || m.role === 'admin') links.push(['Roster', 'portal-roster.html'], ['Gallery', 'portal-gallery.html'], [m.role === 'admin' ? 'Suggestions & tech' : 'Suggestions', 'portal-feedback.html']);
-    if (m.role === 'admin') links.push(['Message review', 'portal-message-review.html']);
-    links.push(['Quick votes', 'portal-polls.html'], ['Help', 'help.html'], ['Public website', 'index.html']);
+    if (m.role === 'officer' || m.role === 'admin') links.push(['Officer tools', 'portal-officer.html']);
+    links.push(['Help', 'help.html'], ['Public website', 'index.html']);
     const out = el('button', { type: 'button', class: 'ab-signout', text: 'Sign out' });
     out.addEventListener('click', signOut);
     const close = el('button', { type: 'button', class: 'ab-close', 'aria-label': 'Close', text: '×' });
