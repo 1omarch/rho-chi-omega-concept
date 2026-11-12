@@ -6,7 +6,9 @@ document.addEventListener('rco-auth-ready', async e => {
   $('#of-app').hidden = false;
   const isAdmin = me.role === 'admin';
   if (isAdmin) {
-    $('#of-vote').hidden = false; $('#of-events').hidden = false; $('#of-review').hidden = false;
+    $('#of-vote').hidden = false;
+    $('#of-ev-title').textContent = 'Events & gallery';
+    $('#of-ev-text').textContent = 'Add an event with its flyer and RSVP info (it shows on the Events page and announcement board, then removes itself), and manage the home page photos.'; $('#of-review').hidden = false;
     $('#of-fb-title').textContent = 'Suggestions & tech issues';
     $('#of-fb-text').textContent = 'Ideas and problems sorors sent from the Help page. Tech issues are for admins only.';
   }

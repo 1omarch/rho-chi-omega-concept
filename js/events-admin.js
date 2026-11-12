@@ -20,6 +20,22 @@ document.addEventListener('rco-auth-ready', async e => {
   const todayIso = () => { const t = new Date(); return `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, '0')}-${String(t.getDate()).padStart(2, '0')}`; };
   const flyerUrl = p => sb.storage.from('event-flyers').getPublicUrl(p).data.publicUrl;
 
+  const CHAPTER_CAL = 'rhochiomega1908@gmail.com';
+  // a Google Calendar link with the event filled in and the chapter calendar pre-selected; the admin just taps Save
+  function calUrl(ev) {
+    if (!window.rcoCal) return null;
+    return window.rcoCal.googleEvent({ title: ev.title, start: ev.start_time ? `${ev.event_date}T${ev.start_time}` : ev.event_date,
+      end: ev.start_time && ev.end_time ? `${ev.event_date}T${ev.end_time}` : undefined, where: ev.location || undefined, note: ev.description || undefined, src: CHAPTER_CAL });
+  }
+  function showCalStep(ev) {
+    const box = $('#ev-cal'), href = calUrl(ev);
+    if (!href) { box.hidden = true; return; }
+    box.replaceChildren(el('strong', { text: 'One more step: put it on the chapter Google Calendar.' }),
+      el('div', { text: 'Google opens with everything filled in. Sign in as the chapter account if asked, then tap Save.' }),
+      el('a', { class: 'btn btn-ivy btn-sm', href, target: '_blank', rel: 'noopener', text: 'Add to chapter Google Calendar' }));
+    box.hidden = false;
+  }
+
   let events = [];
   let editing = null;          // the event being edited, or null when adding
   const f = { title: $('#ev-title'), date: $('#ev-date'), start: $('#ev-start'), end: $('#ev-end'), where: $('#ev-where'), desc: $('#ev-desc'),
@@ -81,6 +97,7 @@ document.addEventListener('rco-auth-ready', async e => {
       else res = await sb.from('chapter_events').insert({ ...row, created_by: myId });
       if (res.error) { if (newPath) sb.storage.from('event-flyers').remove([newPath]); throw res.error; }
       if (editing && newPath && editing.flyer_path) sb.storage.from('event-flyers').remove([editing.flyer_path]);   // the replaced picture
+      const editing_was = !!editing;
       let note = editing ? 'Saved.' : 'Added. It is on the Events Registration page and the announcement board now.';
       if (!editing && $('#ev-notify').checked) {
         try {
@@ -88,7 +105,7 @@ document.addEventListener('rco-auth-ready', async e => {
           if (!ins.error) await sb.functions.invoke('send-reminders', { body: {} });
         } catch (err) { note += ' (The phone notification could not be sent.)'; }
       }
-      resetForm(); msg(note, true); await load();
+      resetForm(); msg(note, true); $('#ev-cal').hidden = true; if (!editing_was) showCalStep(row); await load();
     } catch (err) {
       msg('That could not be saved. Has the events SQL been run (supabase/events.sql)? Please try again.');
     } finally { btn.disabled = false; }
@@ -101,7 +118,8 @@ document.addEventListener('rco-auth-ready', async e => {
       const past = ev.event_date < todayIso();
       const del = el('button', { type: 'button', class: 'ev-del', text: 'Delete' });
       const edit = el('button', { type: 'button', class: 'btn btn-ghost btn-sm', text: 'Change' });
-      const btns = el('div', { class: 'ev-btns' }, edit, del);
+      const calHref = calUrl(ev);
+      const btns = el('div', { class: 'ev-btns' }, calHref && !past ? el('a', { class: 'ev-del', style: 'text-decoration:underline;color:var(--ivy,#1f5a3d)', href: calHref, target: '_blank', rel: 'noopener', text: 'Add to chapter calendar' }) : null, edit, del);
       edit.addEventListener('click', () => startEdit(ev));
       del.addEventListener('click', () => {
         const yes = el('button', { type: 'button', class: 'btn btn-ivy btn-sm', text: 'Yes, delete' });

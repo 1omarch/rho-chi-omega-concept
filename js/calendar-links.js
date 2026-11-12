@@ -26,6 +26,7 @@ window.rcoCal = (function () {
     if (r.timed) u.searchParams.set('ctz', 'America/Chicago');
     if (ev.where) u.searchParams.set('location', ev.where);
     if (ev.note) u.searchParams.set('details', ev.note);
+    if (ev.src) u.searchParams.set('src', ev.src);       // pre-select this calendar (used by the admin's "Add to chapter calendar" link)
     return u.toString();
   }
   function icsEvent(ev) {

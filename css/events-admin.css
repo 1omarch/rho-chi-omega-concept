@@ -23,3 +23,12 @@
 .ev-empty { padding: 1.4rem; text-align: center; color: var(--ink-soft, #3f5548); background: #fff; border: 1px dashed rgba(18,53,36,.25); border-radius: 14px; }
 @media (max-width: 720px) { .ev-grid { grid-template-columns: 1fr 1fr; } .ev-item { flex-wrap: wrap; } .ev-btns { justify-content: flex-start; width: 100%; } }
 @media (max-width: 480px) { .ev-grid { grid-template-columns: 1fr; } }
+
+/* two tabs: Events & flyers | Gallery */
+.ct-tabs { display: flex; gap: .4rem; margin: 0 0 1.4rem; border-bottom: 1px solid rgba(18,53,36,.12); }
+.ct-tabs [role="tab"] { font-weight: 700; font-size: .95rem; font-family: inherit; background: none; border: 0; border-bottom: 3px solid transparent; padding: .8rem 1.2rem; color: var(--ink-soft, #3f5548); cursor: pointer; }
+.ct-tabs [role="tab"][aria-selected="true"] { color: var(--ivy-black, #123524); border-bottom-color: var(--salmon-deep, #c14760); }
+.ct-tabs [role="tab"][hidden], #ct-events[hidden], #ct-gallery[hidden] { display: none; }
+.ev-cal { margin-top: .9rem; padding: .9rem 1rem; border-radius: 12px; background: #fff8e6; border: 1px solid #ecd9a8; line-height: 1.5; }
+.ev-cal[hidden] { display: none; }
+.ev-cal .btn { margin-top: .5rem; }

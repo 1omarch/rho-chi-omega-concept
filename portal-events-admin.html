@@ -3,20 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Events &amp; Flyers | Rho Chi Omega Member Portal</title>
+<title>Events &amp; Gallery | Rho Chi Omega Member Portal</title>
 <meta name="description" content="Admins add events and flyers.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="favicon-32.png">
-<link rel="stylesheet" href="css/styles.css?v=202611121508">
-<link rel="stylesheet" href="css/portal.css?v=202611121508">
-<link rel="stylesheet" href="css/auth.css?v=202611121508">
-<link rel="stylesheet" href="css/profile.css?v=202611121508">
-<link rel="stylesheet" href="css/events-admin.css?v=202611121508">
-<script src="js/vendor/supabase.js?v=202611121508"></script>
-<script src="js/supabase-config.js?v=202611121508"></script>
-<script src="js/portal-auth.js?v=202611121508"></script>
-<link rel="stylesheet" href="css/portal-theme.css?v=202611121508">
-<script src="js/theme.js?v=202611121508"></script>
+<link rel="stylesheet" href="css/styles.css?v=202611121516">
+<link rel="stylesheet" href="css/portal.css?v=202611121516">
+<link rel="stylesheet" href="css/auth.css?v=202611121516">
+<link rel="stylesheet" href="css/profile.css?v=202611121516">
+<link rel="stylesheet" href="css/gallery-admin.css?v=202611121516">
+<link rel="stylesheet" href="css/events-admin.css?v=202611121516">
+<script src="js/vendor/supabase.js?v=202611121516"></script>
+<script src="js/supabase-config.js?v=202611121516"></script>
+<script src="js/portal-auth.js?v=202611121516"></script>
+<link rel="stylesheet" href="css/portal-theme.css?v=202611121516">
+<script src="js/theme.js?v=202611121516"></script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="RCO Portal">
@@ -24,7 +25,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <meta name="theme-color" content="#123524">
-<script src="js/accessibility.js?v=202611121508"></script>
+<script src="js/accessibility.js?v=202611121516"></script>
 </head>
 <body class="portal-body">
 
@@ -60,14 +61,19 @@
 
 <section class="portal-hero has-spine">
   <div class="container">
-    <p class="eyebrow">Admins</p>
-    <h1>Events &amp; flyers.</h1>
-    <p>Add an event once. It appears on the <strong>Events Registration</strong> page and on the <strong>Portal Home announcement board</strong> right away, and disappears the day after the event.</p>
+    <p class="eyebrow">Officers &amp; admins</p>
+    <h1>Events &amp; gallery.</h1>
+    <p>Use <strong>Events &amp; flyers</strong> to post an event once: it shows on the <strong>Events Registration</strong> page and the <strong>Portal Home announcement board</strong>, then removes itself. Use <strong>Gallery</strong> for the photos on the public home page.</p>
   </div>
 </section>
 
 <section class="portal-section has-spine">
   <div class="container">
+    <div class="ct-tabs" role="tablist" aria-label="Events and gallery">
+      <button type="button" role="tab" id="ct-tab-events" aria-selected="true">Events &amp; flyers</button>
+      <button type="button" role="tab" id="ct-tab-gallery" aria-selected="false">Gallery</button>
+    </div>
+    <div id="ct-events">
     <p class="rost-denied" id="ev-denied" hidden>This page is for chapter admins only.</p>
     <div id="ev-app" hidden>
       <form class="rost-card ev-form" id="ev-form" novalidate>
@@ -86,10 +92,32 @@
         </div>
         <label class="ev-check"><input type="checkbox" id="ev-notify"> <span>Also send a notification to sorors&rsquo; phones</span></label>
         <div class="ev-actions"><button type="submit" class="btn btn-ivy" id="ev-save">Add event</button><button type="button" class="mg-link" id="ev-cancel" hidden>Cancel editing</button><span class="rost-msg" id="ev-msg" role="status"></span></div>
+        <div class="ev-cal" id="ev-cal" hidden></div>
       </form>
       <h2 class="ev-h">Events on the site now</h2>
       <p class="ev-note">Each one is hidden the day after its date and permanently deleted 7 days later, flyer picture included.</p>
       <div class="ev-list" id="ev-list"></div>
+    </div>
+    </div>
+    <div id="ct-gallery" hidden>
+    <p class="rost-denied" id="gl-denied" hidden>This page is for chapter officers only.</p>
+    <div id="gl-app" hidden>
+      <form class="rost-card gl-add" id="gl-form" novalidate>
+        <h2>Add a photo</h2>
+        <div class="gl-add-row">
+          <div class="pf-field"><label for="gl-file">Photo</label><input type="file" id="gl-file" accept="image/jpeg,image/png,image/webp,image/heic,image/*" class="pf-input"></div>
+          <div class="pf-field"><label for="gl-caption">Caption</label><input type="text" id="gl-caption" class="pf-input" maxlength="80" placeholder="Founders&rsquo; Day Brunch" autocomplete="off"></div>
+          <div class="pf-field"><label for="gl-sub">Second line (optional)</label><input type="text" id="gl-sub" class="pf-input" maxlength="120" placeholder="2026" autocomplete="off"></div>
+        </div>
+        <p class="gl-note">Pictures are shrunk automatically so the home page stays fast. Only add photos the chapter is happy to share publicly.</p>
+        <div class="gl-actions"><button type="submit" class="btn btn-ivy btn-sm" id="gl-add">Add to gallery</button><span class="rost-msg" id="gl-msg" role="status"></span></div>
+        <div class="gl-confirm" id="gl-confirm" hidden></div>
+      </form>
+
+      <div class="rost-bar"><h2>On the home page</h2><span class="rost-count" id="gl-count"></span></div>
+      <p class="mg-notice">The first photo is the first one visitors see. Use the arrows to reorder. Deleting a photo removes it from the site for good.</p>
+      <div class="gl-grid" id="gl-grid"></div>
+    </div>
     </div>
   </div>
 </section>
@@ -101,8 +129,11 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=202611121508"></script>
-<script src="js/events-admin.js?v=202611121508"></script>
+<script src="js/main.js?v=202611121516"></script>
+<script src="js/calendar-links.js?v=202611121516"></script>
+<script src="js/gallery-admin.js?v=202611121516"></script>
+<script src="js/content-tabs.js?v=202611121516"></script>
+<script src="js/events-admin.js?v=202611121516"></script>
 
 </body>
 </html>
