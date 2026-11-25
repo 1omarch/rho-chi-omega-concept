@@ -3,7 +3,7 @@
 document.addEventListener('rco-auth-ready', async e => {
   const me = e.detail;
   const $ = s => document.querySelector(s);
-  const isOfficer = me.role === 'officer' || me.role === 'admin';
+  const isOfficer = me.can('suggestions');
   const isAdmin = me.role === 'admin';
   if (!isOfficer) { $('#fb-denied').hidden = false; $('#fb-app').hidden = true; return; }
   $('#fb-app').hidden = false;

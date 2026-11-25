@@ -2,7 +2,7 @@
 document.addEventListener('rco-auth-ready', async e => {
   const me = e.detail;
   const $ = s => document.querySelector(s);
-  const isOfficer = me.role === 'officer' || me.role === 'admin';
+  const isOfficer = me.can('gallery');
   if (!isOfficer) { $('#gl-denied').hidden = false; $('#gl-app').hidden = true; return; }
   $('#gl-app').hidden = false;
 

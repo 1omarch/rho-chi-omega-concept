@@ -7,16 +7,16 @@
 <meta name="description" content="Tools for chapter officers and admins.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="favicon-32.png">
-<link rel="stylesheet" href="css/styles.css?v=202611121535">
-<link rel="stylesheet" href="css/portal.css?v=202611121535">
-<link rel="stylesheet" href="css/auth.css?v=202611121535">
-<link rel="stylesheet" href="css/profile.css?v=202611121535">
-<link rel="stylesheet" href="css/officer-tools.css?v=202611121535">
-<script src="js/vendor/supabase.js?v=202611121535"></script>
-<script src="js/supabase-config.js?v=202611121535"></script>
-<script src="js/portal-auth.js?v=202611121535"></script>
-<link rel="stylesheet" href="css/portal-theme.css?v=202611121535">
-<script src="js/theme.js?v=202611121535"></script>
+<link rel="stylesheet" href="css/styles.css?v=202611242130">
+<link rel="stylesheet" href="css/portal.css?v=202611242130">
+<link rel="stylesheet" href="css/auth.css?v=202611242130">
+<link rel="stylesheet" href="css/profile.css?v=202611242130">
+<link rel="stylesheet" href="css/officer-tools.css?v=202611242130">
+<script src="js/vendor/supabase.js?v=202611242130"></script>
+<script src="js/supabase-config.js?v=202611242130"></script>
+<script src="js/portal-auth.js?v=202611242130"></script>
+<link rel="stylesheet" href="css/portal-theme.css?v=202611242130">
+<script src="js/theme.js?v=202611242130"></script>
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="RCO Portal">
@@ -24,7 +24,7 @@
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <meta name="theme-color" content="#123524">
-<script src="js/accessibility.js?v=202611121535"></script>
+<script src="js/accessibility.js?v=202611242130"></script>
 </head>
 <body class="portal-body">
 
@@ -63,24 +63,26 @@
     <p class="eyebrow">Officers</p>
     <h1>Officer tools.</h1>
     <p>Everything for running the chapter&rsquo;s website, in one place. Pick a tool below.</p>
+    <p class="of-job" id="of-job" hidden></p>
   </div>
 </section>
 
 <section class="portal-section has-spine">
   <div class="container">
     <p class="rost-denied" id="of-denied" hidden>This page is for chapter officers only.</p>
+    <p class="rost-denied" id="of-none" hidden>No tools have been turned on for you yet. Please ask a chapter admin to choose your tools.</p>
     <div class="of-grid" id="of-app" hidden>
-      <a class="of-card" href="portal-roster.html">
+      <a class="of-card" href="portal-roster.html" id="of-roster" hidden>
         <span class="of-icon" aria-hidden="true">&#128101;</span>
         <h2>Roster</h2>
         <p>Add or update sorors, set officers and committee chairs, and send a notification to phones.</p>
       </a>
-      <a class="of-card" href="portal-events-admin.html">
+      <a class="of-card" href="portal-events-admin.html" id="of-events" hidden>
         <span class="of-icon" aria-hidden="true">&#128247;</span>
-        <h2 id="of-ev-title">Gallery</h2>
+        <h2 id="of-ev-title">Events &amp; gallery</h2>
         <p id="of-ev-text">Add, caption and reorder the photos on the public home page.</p>
       </a>
-      <a class="of-card" href="portal-feedback.html">
+      <a class="of-card" href="portal-feedback.html" id="of-fb" hidden>
         <span class="of-icon" aria-hidden="true">&#128161;</span>
         <h2 id="of-fb-title">Suggestions</h2>
         <p id="of-fb-text">Ideas sorors sent from the Help page, typed or as a voice note.</p>
@@ -90,6 +92,11 @@
         <span class="of-icon" aria-hidden="true">&#9989;</span>
         <h2>Start a quick vote</h2>
         <p>A yes or no question for the meeting. It pops up on every soror&rsquo;s phone. <em>Admins only.</em></p>
+      </a>
+      <a class="of-card is-admin" href="portal-access.html" id="of-access" hidden>
+        <span class="of-icon" aria-hidden="true">&#128273;</span>
+        <h2>Officer access</h2>
+        <p>Choose which tools each officer can use, like a job role. <em>Admins only.</em></p>
       </a>
       <a class="of-card is-admin" href="portal-message-review.html" id="of-review" hidden>
         <span class="of-icon" aria-hidden="true">&#128274;</span>
@@ -107,8 +114,8 @@
   </div>
 </footer>
 
-<script src="js/main.js?v=202611121535"></script>
-<script src="js/officer-tools.js?v=202611121535"></script>
+<script src="js/main.js?v=202611242130"></script>
+<script src="js/officer-tools.js?v=202611242130"></script>
 
 </body>
 </html>

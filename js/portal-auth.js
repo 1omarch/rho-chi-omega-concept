@@ -18,6 +18,24 @@
 
   const state = { client: null, member: null, session: null, checking: false };
   window.rcoAuth = state;
+  // the tools an officer can be given (admins have all of them); the database enforces it, see supabase/access.sql
+  window.RCO_TOOLS = [
+    ['roster', 'Roster', 'Add and update sorors.'],
+    ['events', 'Events & flyers', 'Post events with flyers and RSVP info.'],
+    ['gallery', 'Gallery', 'Add and arrange the home page photos.'],
+    ['suggestions', 'Suggestions', 'Read ideas sorors send from the Help page.'],
+    ['meeting', 'Meeting tools', 'Open check-in and start quick votes.'],
+    ['finance', 'Finance', 'Dues and payments (nothing to open yet; ready for when payments are set up).']
+  ];
+  // job titles (same names as the Wix roles) with the tools each one starts with; admins can change the ticks
+  window.RCO_JOBS = {
+    'Financial Manager': ['finance', 'events'],
+    'Website Manager': ['roster', 'events', 'gallery', 'suggestions', 'meeting'],
+    'Limited Website Manager': ['events', 'gallery', 'suggestions'],
+    'Website Designer': ['events', 'gallery'],
+    'Website Assistant': ['gallery', 'suggestions'],
+    'Meeting Manager': ['meeting']
+  };
   state.buildAppBar = m => buildAppBar(m);
 
   const cfg = window.RCO_SUPABASE;
@@ -151,7 +169,16 @@
       if (error) throw error;
       const row = Array.isArray(data) ? data[0] : data;
       if (!row) { state.member = null; viewNotOnRoster(session.user.email); return; }
-      state.member = { name: row.full_name || session.user.email, role: row.role, email: session.user.email };
+      state.member = { name: row.full_name || session.user.email, role: row.role, email: session.user.email, areas: [], title: null };
+      // which tools she may use; before supabase/access.sql is installed, officers keep what they had (roster, gallery, suggestions)
+      let areas = row.role === 'officer' ? ['roster', 'gallery', 'suggestions'] : [];
+      try {
+        const acc = await state.client.rpc('my_access');
+        const a = !acc.error && Array.isArray(acc.data) ? acc.data[0] : null;
+        if (a) { areas = a.access_areas || []; state.member.title = a.access_title || null; }
+      } catch (e2) { /* keep the fallback */ }
+      state.member.areas = row.role === 'admin' ? window.RCO_TOOLS.map(t => t[0]) : areas;
+      state.member.can = area => state.member.role === 'admin' || (state.member.role === 'officer' && state.member.areas.includes(area));
       reveal();
     } catch (err) {
       viewError();
@@ -182,7 +209,7 @@
       tabBar.append(mine);
     }
     // officers and admins get ONE extra tab, "Officer Tools"; roster, gallery, suggestions and message review live behind it
-    const OFFICER_PAGES = ['portal-officer.html', 'portal-roster.html', 'portal-gallery.html', 'portal-feedback.html', 'portal-message-review.html', 'portal-events-admin.html'];
+    const OFFICER_PAGES = ['portal-officer.html', 'portal-roster.html', 'portal-gallery.html', 'portal-feedback.html', 'portal-message-review.html', 'portal-events-admin.html', 'portal-access.html'];
     if (m.role === 'officer' || m.role === 'admin') {
       if (tabBar && !tabBar.querySelector('[href="portal-officer.html"]')) {
         const t = el('a', { href: 'portal-officer.html', text: 'Officer Tools' });

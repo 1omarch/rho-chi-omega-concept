@@ -4,7 +4,7 @@ document.addEventListener('rco-auth-ready', e => {
   const $ = s => document.querySelector(s);
   const sb = window.rcoAuth.client;
   const isAdmin = me.role === 'admin';
-  const isOfficer = isAdmin || me.role === 'officer';
+  const isOfficer = me.can('roster');
 
   if (!isOfficer) { $('#roster-denied').hidden = false; $('#roster-app').hidden = true; return; }
   $('#roster-denied').hidden = true;

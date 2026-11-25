@@ -1,6 +1,6 @@
 // Events & gallery page: two tabs. Admins see both; officers see only the Gallery.
 document.addEventListener('rco-auth-ready', e => {
-  const me = e.detail, isAdmin = me.role === 'admin';
+  const me = e.detail, canEvents = me.can('events'), canGallery = me.can('gallery');
   const tabs = { events: document.getElementById('ct-tab-events'), gallery: document.getElementById('ct-tab-gallery') };
   const panels = { events: document.getElementById('ct-events'), gallery: document.getElementById('ct-gallery') };
   if (!tabs.events || !tabs.gallery) return;
@@ -10,6 +10,9 @@ document.addEventListener('rco-auth-ready', e => {
   }
   tabs.events.addEventListener('click', () => show('events'));
   tabs.gallery.addEventListener('click', () => show('gallery'));
-  if (!isAdmin) { tabs.events.hidden = true; panels.events.hidden = true; show('gallery'); return; }
-  show(location.hash === '#gallery' ? 'gallery' : 'events');
+  if (!canEvents) { tabs.events.hidden = true; panels.events.hidden = true; }
+  if (!canGallery) { tabs.gallery.hidden = true; panels.gallery.hidden = true; }
+  if (canEvents && canGallery) show(location.hash === '#gallery' ? 'gallery' : 'events');
+  else if (canEvents) show('events');
+  else show('gallery');
 });

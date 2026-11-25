@@ -3,7 +3,7 @@
 document.addEventListener('rco-auth-ready', async e => {
   const me = e.detail;
   const $ = s => document.querySelector(s);
-  if (me.role !== 'admin') { $('#ev-denied').hidden = false; $('#ev-app').hidden = true; return; }
+  if (!me.can('events')) { $('#ev-denied').hidden = false; $('#ev-app').hidden = true; return; }
   $('#ev-app').hidden = false;
 
   const sb = window.rcoAuth.client;

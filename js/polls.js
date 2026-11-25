@@ -3,7 +3,7 @@
 document.addEventListener('rco-auth-ready', async e => {
   const me = e.detail;
   const $ = s => document.querySelector(s);
-  const isAdmin = me.role === 'admin';
+  const isAdmin = me.can('meeting');   // may start votes and open check-in (name kept from when only admins could)
   $('#pl-app').hidden = false;
   const sb = window.rcoAuth.client;
   const el = (tag, attrs = {}, ...kids) => {

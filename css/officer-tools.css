@@ -8,3 +8,5 @@
 .of-card h2 { margin: 0 0 .35rem; font-family: var(--font-display); font-size: 1.4rem; color: var(--ivy-black, #123524); }
 .of-card p { margin: 0; line-height: 1.5; color: var(--ink-soft, #3f5548); }
 .of-badge { position: absolute; top: 1rem; right: 1rem; min-width: 1.7rem; height: 1.7rem; padding: 0 .5rem; border-radius: 999px; background: #d93025; color: #fff; font-weight: 800; font-size: .85rem; display: inline-grid; place-items: center; }
+.of-job { margin: .6rem 0 0; font-weight: 700; color: var(--ivy, #1f5a3d); }
+.of-job[hidden] { display: none; }
